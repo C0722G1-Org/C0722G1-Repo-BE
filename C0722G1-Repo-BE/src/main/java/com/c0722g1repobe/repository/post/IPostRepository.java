@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IPostRepository extends JpaRepository<Long, Post> {
+public interface IPostRepository extends JpaRepository<Post, Long> {
     @Query(value = "select name_post, " +
             "area, " +
             "note_post, " +
