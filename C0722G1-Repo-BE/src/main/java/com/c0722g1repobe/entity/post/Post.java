@@ -24,7 +24,8 @@ public class Post {
     private String descriptionPost;
     private Double price;
     private boolean flagDeleted = false;
-    private int approval;
+    @ManyToOne
+    private Approval approval;
     private LocalDate dateCreation = LocalDate.now();
     @ManyToOne
     private Direction direction;
