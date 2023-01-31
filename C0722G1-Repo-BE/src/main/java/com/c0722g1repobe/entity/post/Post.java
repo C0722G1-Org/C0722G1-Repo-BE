@@ -1,5 +1,6 @@
 package com.c0722g1repobe.entity.post;
 
+import com.c0722g1repobe.entity.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,8 @@ public class Post {
     private String descriptionPost;
     private Double price;
     private boolean flagDeleted = false;
-    private int approval;
+    @ManyToOne
+    private Approval approval;
     private LocalDate dateCreation = LocalDate.now();
     @ManyToOne
     private Direction direction;
@@ -38,5 +40,7 @@ public class Post {
     private LandType landType;
     @OneToOne
     private ImageList imageList;
+    @ManyToOne
+    private Customer customer;
 
 }
