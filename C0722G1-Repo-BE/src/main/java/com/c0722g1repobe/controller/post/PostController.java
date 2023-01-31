@@ -11,12 +11,23 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RequestMapping("api/post")
 public class PostController {
-
     @Autowired
     private IPostService postService;
 
+    /**
+     * Method uses:
+     * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
+     * if Post is found, return Post and OK http status
+     * Created by: HuyDN
+     * Created date: 31/01/2023
+     * Catching NullPointerException
+     * @param id:  a Post' id
+     * @return a Post object that can be showed on Post detail screen
+     */
+
     @GetMapping("/{id}")
     public ResponseEntity<Post> findPostById(@PathVariable("id") Long id) {
+
         Post post = postService.findPostById(id);
         try {
             if (post == null || post.isFlagDeleted()) {
@@ -28,12 +39,3 @@ public class PostController {
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
 }
-/**
- * Method uses:
- * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
- * if Post is found, return Post and OK http status
- * Author: HuyDN
- * Parameter: Post's id
- * Return content: return a Post object that can be showed on Post detail screen
- * Catching NullPointerException
- */
