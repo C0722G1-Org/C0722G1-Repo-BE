@@ -19,6 +19,8 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCustomer;
     private String nameCustomer;
+    @OneToMany(mappedBy = "customer")
+    private Set<PhoneCustomer> phoneCustomerSet;
     private String emailCustomer;
     private String addressCustomer;
     private String idCardCustomer;
@@ -26,8 +28,6 @@ public class Customer {
     private Integer genderCustomer;
     private boolean flagDelete = false;
     private int approvalCustomer;
-    private String phoneCustomer1;
-    private String phoneCustomer2;
     @OneToOne
     private Account account;
 }
