@@ -16,9 +16,30 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Page<Post> findAll(Double area, Double price, String demandType, String direction, String city, Pageable pageable) {
-        if (area == -1 && price == -1){
-            return postRepository.findAll(demandType, direction, city, pageable);
+    public Page<Post> findAll(String area, String price, String demandType, String direction, String city, Pageable pageable) {
+        if (area.equals("") && price.equals("")){
+            return postRepository.findAllWithDemandTypeDirectionCity(demandType, direction, city, pageable);
+        }
+        if (!area.equals("") && price.equals("")){
+            String[] arr = area.split("-");
+            Double areaMin = Double.parseDouble(arr[0]);
+            Double areaMax = Double.parseDouble(arr[1]);
+            return postRepository.findAllWithDemandTypeDirectionCityArea(demandType, direction, city, areaMin, areaMax, pageable);
+        }
+        if (area.equals("") && !price.equals("")){
+            String[] arr = price.split("-");
+            Double priceMin = Double.parseDouble(arr[0]);
+            Double priceMax = Double.parseDouble(arr[1]);
+            return postRepository.findAllWithDemandTypeDirectionCityPrice(demandType, direction, city, priceMin, priceMax, pageable);
+        }
+        if (!area.equals("") && !price.equals("")){
+            String[] arrOfArea = area.split("-");
+            Double areaMin = Double.parseDouble(arrOfArea[0]);
+            Double areaMax = Double.parseDouble(arrOfArea[1]);
+            String[] arrOfPrice = price.split("-");
+            Double priceMin = Double.parseDouble(arrOfPrice[0]);
+            Double priceMax = Double.parseDouble(arrOfPrice[1]);
+            return postRepository.findAllWithDemandTypeDirectionCityAreaPrice(demandType, direction, city, areaMin, areaMax, priceMin, priceMax, pageable);
         }
         return null;
     }

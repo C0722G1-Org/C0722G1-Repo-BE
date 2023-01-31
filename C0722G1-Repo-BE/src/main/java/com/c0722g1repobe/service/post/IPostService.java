@@ -5,5 +5,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IPostService {
-    Page<Post> findAll(Double area, Double price, String demandType, String direction, String city, Pageable pageable);
+    Page<Post> findAll(String area, String price, String demandType, String direction, String city, Pageable pageable);
 }
