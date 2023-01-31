@@ -1,6 +1,7 @@
 package com.c0722g1repobe.entity.employee;
 
 import com.c0722g1repobe.entity.account.Account;
+import com.c0722g1repobe.entity.account.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,15 @@ public class Employee {
     private String codeEmployee;
     private String nameEmployee;
     private String dateOfBirth;
-    private boolean gender;
+    private boolean genderEmployee;
     private String phoneEmployee;
     private String emailEmployee;
-    private String address;
-    private boolean flagDelete = false;
+    private String addressEmployee;
+    private boolean flagDeleted = false;
     @ManyToOne
     private Division division;
+    @ManyToOne
+    private Role role;
     @OneToOne
     private Account account;
 }
