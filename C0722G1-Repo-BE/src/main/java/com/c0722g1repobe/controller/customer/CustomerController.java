@@ -24,7 +24,6 @@ public class CustomerController {
      * Function: update info Customer
      *
      * @param idCustomer
-     * @return HttpStatus.OK if have id in database, delete success or HttpStatus.NOT_FOUND if id not found in database
      */
 
 
