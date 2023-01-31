@@ -1,6 +1,7 @@
 package com.c0722g1repobe.validation.customer;
 
 import com.c0722g1repobe.dto.customer.CustomerDto;
+import com.c0722g1repobe.service.customer.impl.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Component
 public class CustomerDtoValidator implements Validator {
     @Autowired
-//    private CustomerService customerService;
+    private CustomerService customerService;
 
     @Override
     public boolean supports(Class<?> clazz) {

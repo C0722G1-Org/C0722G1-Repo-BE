@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
-    @Query(value = "select * from customer where id_customer = :id ", nativeQuery = true)
-    Customer findCustomer(@Param("id_customer") Long IdCustomer);
+    @Query(value = "select * from customer where id_customer = :id_customer ", nativeQuery = true)
+    Customer findCustomer(@Param("id_customer") Long idCustomer);
 
     @Transactional
     @Modifying

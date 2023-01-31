@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/public/")
+@RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class CustomerController {
     @Autowired
