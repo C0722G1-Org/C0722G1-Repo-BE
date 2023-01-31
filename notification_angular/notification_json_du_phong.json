@@ -1,0 +1,67 @@
+{
+  "notifications": [
+    {
+      "id": 1,
+      "posting_date": "2023-07-23",
+      "tittle": "Thông báo thứ nhất",
+      "content": "Nội dung thông báo thứ nhất",
+      "flag_deleted": 0
+    },
+    {
+      "id": 2,
+      "posting_date": "2023-07-23",
+      "tittle": "Thông báo bổ sung thông tin cá nhân",
+      "content": "Hiện tại trong thông tin cá nhân của một số nhân viên đang thiếu thông tin.",
+      "flag_deleted": 0
+    },
+    {
+      "id": 3,
+      "posting_date": "2023-07-23",
+      "tittle": "Thông báo về lịch nghỉ Tết",
+      "content": "Thông báo đến toàn bộ nhân viên công ty: Lịch nghỉ Tết Cổ Truyền sẽ bắt đầu",
+      "flag_deleted": 0
+    },
+    {
+      "id": 4,
+      "posting_date": "2023-07-23",
+      "tittle": "Thông báo về việc nghỉ lễ 30/04 và 01/05 năm 2023",
+      "content": "Công ty thông báo đến toàn thể nhân viên",
+      "flag_deleted": 0
+    },
+    {
+      "id": 5,
+      "posting_date": "2023-07-23",
+      "tittle": "Thông báo về việc nghỉ lễ Quốc Khánh 02/09/2023",
+      "content": "Thông báo về việc nghỉ lễ Quốc Khánh 02/09/2023",
+      "flag_deleted": 0
+    },
+    {
+      "id": 6,
+      "posting_date": "2023-07-23",
+      "tittle": "Về việc thay đổi địa chỉ văn phòng",
+      "content": "Công ty thông báo đến toàn thể nhân viên về việc thay đổi địa chỉ văn phòng",
+      "flag_deleted": 0
+    },
+    {
+      "id": 7,
+      "posting_date": "2023-07-23",
+      "tittle": "Về việc bảo trì thang máy",
+      "content": "Hiện tại thang máy đang tạm dừng hoạt động để bảo trì.",
+      "flag_deleted": 0
+    },
+    {
+      "id": 8,
+      "posting_date": "2023-07-23",
+      "tittle": "Thông báo thứ tám",
+      "content": "Nội dung thông báo thứ tám",
+      "flag_deleted": 0
+    },
+    {
+      "id": 9,
+      "posting_date": "2023-07-23",
+      "tittle": "Thông báo thứ chín",
+      "content": "Nội dung thông báo thứ chín",
+      "flag_deleted": 0
+    }
+  ]
+}
