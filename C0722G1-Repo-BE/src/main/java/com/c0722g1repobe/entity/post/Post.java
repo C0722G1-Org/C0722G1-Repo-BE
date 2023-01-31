@@ -1,5 +1,6 @@
 package com.c0722g1repobe.entity.post;
 
+import com.c0722g1repobe.entity.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Setter
@@ -38,5 +38,7 @@ public class Post {
     private LandType landType;
     @OneToOne
     private ImageList imageList;
+    @ManyToOne
+    private Customer customer;
 
 }
