@@ -21,12 +21,13 @@ public class PostController {
      * Created by: HuyDN
      * Created date: 31/01/2023
      * Catching NullPointerException
-     * @param id:  a Post' id
+     *
+     * @param id: a Post' id
      * @return a Post object that can be showed on Post detail screen
      */
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Post> findPostById(@PathVariable("id") Long id) {
+    @GetMapping("")
+    public ResponseEntity<Post> findPostById(@RequestParam Long id) {
 
         Post post = postService.findPostById(id);
         try {
