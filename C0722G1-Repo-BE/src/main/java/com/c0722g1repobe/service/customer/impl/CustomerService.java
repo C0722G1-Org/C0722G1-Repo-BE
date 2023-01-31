@@ -13,11 +13,11 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer findCustomer(Long idCustomer) {
-        return null;
+        return iCustomerRepository.findCustomer(idCustomer);
     }
 
     @Override
     public void updateCustomer(Customer customer) {
-
+        this.iCustomerRepository.updateCustomer(customer.getNameCustomer(), customer.getEmailCustomer(), customer.getAddressCustomer(), customer.getDateOfBirth(), customer.getIdCardCustomer(), customer.getGenderCustomer(), customer.getApprovalCustomer(), customer.getPhoneCustomer1(), customer.getPhoneCustomer2(), customer.getIdCustomer());
     }
 }

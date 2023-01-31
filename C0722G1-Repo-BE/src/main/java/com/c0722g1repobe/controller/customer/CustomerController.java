@@ -2,6 +2,7 @@ package com.c0722g1repobe.controller.customer;
 
 import com.c0722g1repobe.dto.customer.CustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
+import com.c0722g1repobe.service.customer.ICustomerService;
 import com.c0722g1repobe.service.customer.impl.CustomerService;
 import com.c0722g1repobe.validation.customer.CustomerDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,21 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*")
 public class CustomerController {
     @Autowired
-    private CustomerService customerService;
+    private ICustomerService customerService;
 
     @Autowired
     private CustomerDtoValidator customerDtoValidator;
+
+    /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function: update info Customer
+     *
+     * @param idCustomer
+     *
+     * @return HttpStatus.OK if have id in database, delete success or HttpStatus.NOT_FOUND if id not found in database
+     */
+
 
     @GetMapping("/customer/{idCustomer}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long idCustomer){
@@ -34,7 +46,7 @@ public class CustomerController {
         customerDtoValidator.validate(customerDto, bindingResult);
 
         if (bindingResult.hasErrors()){
-            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_FOUND);
         }
 
         if (customerObj == null){
