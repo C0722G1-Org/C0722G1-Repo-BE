@@ -23,7 +23,7 @@ public class Post {
     private String note;
     private String descriptionPost;
     private Double price;
-    private boolean flagDelete = false;
+    private boolean flagDeleted = false;
     private Integer approval;
     private LocalDate dateCreation;
     @ManyToOne
