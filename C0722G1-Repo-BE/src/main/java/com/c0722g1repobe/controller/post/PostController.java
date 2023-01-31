@@ -37,7 +37,3 @@ public class PostController {
  * Return content: return a Post object that can be showed on Post detail screen
  * Catching NullPointerException
  */
-
-/**
- *
- */

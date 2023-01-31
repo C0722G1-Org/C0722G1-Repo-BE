@@ -28,6 +28,8 @@ public class Post {
     private Integer approval;
     private LocalDate dateCreation;
     @ManyToOne
+    private Direction direction;
+    @ManyToOne
     private StatusPost statusPost;
     @OneToOne
     private Address address;
@@ -39,4 +41,6 @@ public class Post {
     private Set<ImageList> imageListSet;
     @ManyToOne
     private Customer customer;
+    @OneToOne
+    private ImageList imageList;
 }
