@@ -19,8 +19,6 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCustomer;
     private String nameCustomer;
-    @OneToMany(mappedBy = "customer")
-    private Set<PhoneCustomer> phoneCustomerSet;
     private String emailCustomer;
     private String addressCustomer;
     private String idCardCustomer;

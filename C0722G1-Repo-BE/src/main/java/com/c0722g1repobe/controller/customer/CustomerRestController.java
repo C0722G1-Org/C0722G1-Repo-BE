@@ -31,7 +31,7 @@ public class CustomerRestController {
         return new ResponseEntity<>(customerList, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete-customer/{id}")
+    @DeleteMapping("/confirm-customer/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Integer id) {
         Optional<Customer> customer = iCustomerService.findById(id);
         if (!customer.isPresent()) {
