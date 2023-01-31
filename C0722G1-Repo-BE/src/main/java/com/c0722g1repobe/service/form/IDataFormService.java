@@ -9,4 +9,5 @@ public interface IDataFormService {
     List<DataForm> findAllDataForm();
     void deleteByIdDataForm(@Param("id") long id);
     DataForm findByIdDataForm(@Param("id") long id);
+    void updateDataForm(@Param("id") long id, @Param("codeDataForm") String codeDataForm, @Param("contentDataForm")String contentDataForm, @Param("urlDetailForm")String urlDetailForm);
 }

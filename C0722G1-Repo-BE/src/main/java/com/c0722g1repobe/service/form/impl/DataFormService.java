@@ -28,4 +28,9 @@ public class DataFormService implements IDataFormService {
     public DataForm findByIdDataForm(long id) {
         return iDataFormRepository.findByIdDataForm(id);
     }
+
+    @Override
+    public void updateDataForm(long id, String codeDataForm, String contentDataForm, String urlDetailForm) {
+        iDataFormRepository.updateDataForm(id,codeDataForm,contentDataForm,urlDetailForm);
+    }
 }
