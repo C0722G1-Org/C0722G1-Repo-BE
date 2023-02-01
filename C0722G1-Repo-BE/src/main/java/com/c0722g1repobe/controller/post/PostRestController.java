@@ -1,14 +1,15 @@
 package com.c0722g1repobe.controller.post;
 
-import com.c0722g1repobe.entity.post.Post;
-import com.c0722g1repobe.dto.post.PostDto;
-import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
-import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
+//import com.c0722g1repobe.entity.post.Post;
+//import com.c0722g1repobe.dto.post.PostDto;
+//import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
+//import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.dto.post.PostDto;
 import com.c0722g1repobe.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+//import org.springframework.data.domain.Page;
+//import org.springframework.data.domain.Pageable;
+//import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
