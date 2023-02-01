@@ -1,6 +1,5 @@
 package com.c0722g1repobe.service.post.impl;
 
-
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.entity.customer.Customer;
@@ -11,7 +10,7 @@ import com.c0722g1repobe.service.post.IPostService;
 import com.c0722g1repobe.validation.post.IValidateCreatePost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import java.time.LocalDate;
 
 @Service
@@ -23,6 +22,30 @@ public class PostService implements IPostService {
     @Autowired
     private IPostRepository IPostRepository;
 
+ /*DI IPostRepository to use IPostRepository's methods
+     * Author: DatTQ*/
+
+    /*Call method getAll() of IPostRepository
+     * Author: DatTQ*/
+    @Override
+    public List<PostDtoViewList> getAll() {
+        return postRepository.getAll();
+    }
+
+    /*Call method searchYear(String year) of IPostRepository
+      Parameter: String year
+      Author: DatTQ */
+    @Override
+    public List<PostDtoViewList> searchYear(String year) {
+        return postRepository.searchYear(year);
+    }
+
+    /*Call method searchYear(String year, String month) of IPostRepository
+     Parameter: String year, String month
+     Author: DatTQ */
+    @Override
+    public List<PostDtoViewList> searchYearAndMonth(String year, String month) {
+        return postRepository.searchYearAndMonth(year, month);
 
     /**
      * Create by: BaoDP

@@ -29,7 +29,54 @@ import java.util.List;
 public class PostRestController {
     @Autowired
     private IPostService postService;
+    /*DI IPostService to use IPostService's methods;
+     Author: DatTQ
+     */
 
+    /*Method use: displayList(), call getAll() of IPostService to get list data from database
+    * Use ResponseEntity to handling response, datatype: List<PostDto>
+    * Parameter: NO
+    * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
+    * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
+    * Author: DatTQ*/
+    @GetMapping("")
+    public ResponseEntity<List<PostDtoViewList>> displayList() {
+        List<PostDtoViewList> postDtoViewListList = postService.getAll();
+        if (postDtoViewListList.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
+    }
+
+    /*Method use: search(), call searchYear() and searchYearAndMonth of IPostService to get list data from database
+     * Use ResponseEntity to handling response, datatype: List<PostDto>
+     * Parameter: Integer year (defaultValue = "-1"), Integer month (defaultValue = "-1")
+     * If parameter month is == -1, List<PostDto> = method searchYear of IPostService
+     * If parameter year is != -1 and month != -1 => List<PostDto> = method searchYearAndMonth of IPostService
+     * If parameter year is == -1 and month != -1 => assign 2 parameters year and month = current year and current month
+                => List<PostDto> = method searchYearAndMonth of IPostService
+     * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
+     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
+     * Author: DatTQ*/
+    @GetMapping("/search")
+    public ResponseEntity<List<PostDtoViewList>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
+        List<PostDtoViewList> postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));;
+        if (month == -1) {
+            postDtoViewListList = postService.searchYear(String.valueOf(year));
+        }
+        if (month != -1 && year == -1) {
+            month = new Date().getMonth() + 1;
+            year = LocalDate.now().getYear();
+            postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
+        }
+        if (month != -1 && year != -1) {
+            postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
+        }
+        if (postDtoViewListList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     /**
      * Method uses:
      * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
