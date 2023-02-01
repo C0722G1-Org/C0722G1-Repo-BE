@@ -2,6 +2,11 @@ package com.c0722g1repobe.entity.post;
 
 import com.c0722g1repobe.entity.customer.Customer;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,6 +28,7 @@ public class Post {
     private String imageListURL;
     private boolean flagDeleted = false;
     private boolean approval;
+
     private LocalDate dateCreation = LocalDate.now();
     @ManyToOne
     private Direction direction;
@@ -35,5 +41,7 @@ public class Post {
     @ManyToOne
     private LandType landType;
     @ManyToOne
+    @JsonBackReference
     private Customer customer;
+
 }
