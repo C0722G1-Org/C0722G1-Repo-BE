@@ -75,7 +75,7 @@ public class NotificationRestController {
      */
     @PostMapping("/remove")
     public ResponseEntity<HttpStatus> remove(@RequestBody List<Integer> idList) {
-        if (idList.isEmpty()) {
+        if (idList == null || idList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<NotificationDeleteDto> notificationDeleteDtoList = notificationService.findByListId(idList);

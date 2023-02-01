@@ -23,12 +23,13 @@ public class NotificationRestController_getListNotification {
      * Created by: DatLA
      * Date created: 01/02/2023
      * Function: get notification listing with pagination and dto object to search is null
+     *
      * @param: null
      */
     @Test
-    public void getListNotification_5() throws Exception {
+    public void getListNotification_32() throws Exception {
         ResponseEntity<Page<NotificationAllPropertyDto>> responseEntity
-                = this.notificationRestController.searchNotifications(null,PageRequest.of(0, 5));
+                = this.notificationRestController.searchNotifications(null, PageRequest.of(0, 5));
         Assertions.assertEquals(400, responseEntity.getStatusCodeValue());
     }
 
@@ -36,13 +37,14 @@ public class NotificationRestController_getListNotification {
      * Created by: DatLA
      * Date created: 01/02/2023
      * Function: get notification listing with pagination and dto object to search is empty
+     *
      * @param: notificationSearchDto with empty attribute values
      */
     @Test
-    public void getListNotification_6() throws Exception {
-        NotificationSearchDto notificationSearchDto = new NotificationSearchDto("","","");
+    public void getListNotification_33() throws Exception {
+        NotificationSearchDto notificationSearchDto = new NotificationSearchDto("", "", "");
         ResponseEntity<Page<NotificationAllPropertyDto>> responseEntity
-                = this.notificationRestController.searchNotifications(notificationSearchDto,PageRequest.of(0, 5));
+                = this.notificationRestController.searchNotifications(notificationSearchDto, PageRequest.of(0, 5));
 
         Assertions.assertEquals(200, responseEntity.getStatusCodeValue());
         Assertions.assertEquals(4, Objects.requireNonNull(responseEntity.getBody()).getTotalPages());
@@ -55,18 +57,42 @@ public class NotificationRestController_getListNotification {
                         "Công ty chuyển sang địa chỉ mới: Đường Trần Hưng Đạo, Sơn Trà, Đà Nẵng. Trân trọng.",
                 responseEntity.getBody().getContent().get(0).getContent());
     }
+
     /**
      * Created by: DatLA
      * Date created: 01/02/2023
      * Function: get pagination notification list with dto object to search is does not exist in database
+     *
      * @param: new NotificationSearchDto("2025-01-01","","")
      */
     @Test
-    public void getListNotification_7() throws Exception {
-        NotificationSearchDto notificationSearchDto = new NotificationSearchDto("2025-01-01","","");
+    public void getListNotification_34() throws Exception {
+        NotificationSearchDto notificationSearchDto = new NotificationSearchDto("2025-01-01", "", "");
         ResponseEntity<Page<NotificationAllPropertyDto>> responseEntity
-                = this.notificationRestController.searchNotifications(notificationSearchDto,PageRequest.of(0, 5));
-
+                = this.notificationRestController.searchNotifications(notificationSearchDto, PageRequest.of(0, 5));
         Assertions.assertEquals(204, responseEntity.getStatusCodeValue());
+    }
+
+    /**
+     * Created by: DatLA
+     * Date created: 01/02/2023
+     * Function: get pagination notification list with dto object to search is exist in database
+     *
+     * @param: new NotificationSearchDto("2025-01-01","Thông báo đầu tiên","Nội dung thông báo: Trân trọng thông báo website "Quản lý môi giới bất động sản" chính thức đi vào hoạt động.")
+     */
+    @Test
+    public void getListNotification_35() throws Exception {
+        NotificationSearchDto notificationSearchDto = new NotificationSearchDto("2022-06-01", "Thông báo đầu tiên", "Nội dung thông báo: Trân trọng thông báo website \"Quản lý môi giới bất động sản\" chính thức đi vào hoạt động.");
+        ResponseEntity<Page<NotificationAllPropertyDto>> responseEntity
+                = this.notificationRestController.searchNotifications(notificationSearchDto, PageRequest.of(0, 5));
+        Assertions.assertEquals(200, responseEntity.getStatusCodeValue());
+        Assertions.assertEquals(1, Objects.requireNonNull(responseEntity.getBody()).getTotalPages());
+        Assertions.assertEquals(1, responseEntity.getBody().getTotalElements());
+        Assertions.assertEquals("2022-06-01",
+                responseEntity.getBody().getContent().get(0).getPostingDate());
+        Assertions.assertEquals("Thông báo đầu tiên",
+                responseEntity.getBody().getContent().get(0).getTitle());
+        Assertions.assertEquals("Nội dung thông báo: Trân trọng thông báo website \"Quản lý môi giới bất động sản\" chính thức đi vào hoạt động.",
+                responseEntity.getBody().getContent().get(0).getContent());
     }
 }
