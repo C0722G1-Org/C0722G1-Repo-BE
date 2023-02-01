@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("api/post")
-public class PostController {
+public class PostRestController {
     @Autowired
     private IPostService postService;
 
@@ -26,7 +26,7 @@ public class PostController {
      * @return a Post object that can be showed on Post detail screen
      */
 
-    @GetMapping("")
+    @GetMapping("/detail")
     public ResponseEntity<Post> findPostById(@RequestParam Long id) {
 
         Post post = postService.findPostById(id);
