@@ -14,6 +14,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Account", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "usernameAccount"
