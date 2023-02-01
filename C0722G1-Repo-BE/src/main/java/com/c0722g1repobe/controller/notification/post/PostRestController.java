@@ -1,4 +1,4 @@
-package com.c0722g1repobe.controller.post;
+package com.c0722g1repobe.controller.notification.post;
 
 import com.c0722g1repobe.dto.post.PostDto;
 import com.c0722g1repobe.service.post.IPostService;
@@ -15,23 +15,25 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("api/post")
 public class PostRestController {
+
+    @Autowired
+    private IPostService postService;
     /*DI IPostService to use IPostService's methods;
      Author: DatTQ
      */
-    @Autowired
-    private IPostService postService;
 
     /*Method use: displayList(), call getAll() of IPostService to get list data from database
     * Use ResponseEntity to handling response, datatype: List<PostDto>
-     * Parameter: NO
-     * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
+    * Parameter: NO
+    * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
     * Author: DatTQ*/
     @GetMapping("")
     public ResponseEntity<List<PostDto>> displayList() {
         List<PostDto> postDtoList = postService.getAll();
         if (postDtoList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(postDtoList, HttpStatus.OK);
     }

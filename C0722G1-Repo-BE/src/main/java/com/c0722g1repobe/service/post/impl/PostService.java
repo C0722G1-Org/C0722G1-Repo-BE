@@ -10,10 +10,11 @@ import java.util.List;
 
 @Service
 public class PostService implements IPostService {
-    /*DI IPostRepository to use IPostRepository's methods
-     * Author: DatTQ*/
+
     @Autowired
     private IPostRepository postRepository;
+    /*DI IPostRepository to use IPostRepository's methods
+     * Author: DatTQ*/
 
     /*Call method getAll() of IPostRepository
      * Author: DatTQ*/
