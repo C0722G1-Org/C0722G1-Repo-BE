@@ -85,21 +85,4 @@ public class NotificationRestController {
         notificationService.removeByListId(idList);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    /**
-     * Create by: DatLA
-     * Date created: 31/01/2023
-     * Function: to get List of notifications with pagination
-     *
-     * @param pageable
-     * @return HttpStatus.NO_CONTENT if not found any notification /  HttpStatus.OK and Notifications with pagination if found
-     */
-    public ResponseEntity<Page<NotificationAllPropertyDto>> getListNotification(Pageable pageable) {
-        NotificationSearchDto notificationSearchDto = new NotificationSearchDto("", "", "");
-        Page<NotificationAllPropertyDto> notificationPage = notificationService.searchNotifications(notificationSearchDto, pageable);
-        if (notificationPage.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(notificationPage, HttpStatus.OK);
-    }
 }
