@@ -15,28 +15,28 @@ public class PostRestController_getPostDetailView {
     private MockMvc mockMvc;
 
     @Test
-    public void getPostDetail_1() throws Exception {
+    public void getPostDetail_id_1() throws Exception {
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/post/detail?id=null")
         ).andDo(print()).andExpect(status().is4xxClientError());
     }
 
     @Test
-    public void getPostDetail_2() throws Exception {
+    public void getPostDetail_id_2() throws Exception {
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/post/detail?id=")
         ).andDo(print()).andExpect(status().is4xxClientError());
     }
 
     @Test
-    public void getPostDetail_3() throws Exception {
+    public void getPostDetail_id_3() throws Exception {
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/post/detail?id=25")
         ).andDo(print()).andExpect(status().is4xxClientError());
     }
 
     @Test
-    public void getPostDetail_4() throws Exception {
+    public void getPostDetail_id_4() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders.get("/api/post/detail?id=1")
                 ).andDo(print())
