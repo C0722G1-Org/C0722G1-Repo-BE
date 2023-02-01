@@ -16,7 +16,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PostRestController_searchListPost {
     @Autowired
     private MockMvc mockMvc;
-
+    /**
+     * Function used to test the search list of Posts with parameter = null
+     * Time: 01/02/2023
+     * Author:DatTQ
+     */
     @Test
     public void getSearchListPost_year_and_month_7() throws Exception {
 
@@ -25,7 +29,11 @@ public class PostRestController_searchListPost {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-
+    /**
+     * Function used to test the search list of Posts with parameter = ""
+     * Time: 01/02/2023
+     * Author:DatTQ
+     */
     @Test
     public void getSearchListPost_year_and_month_8() throws Exception {
 
@@ -35,6 +43,11 @@ public class PostRestController_searchListPost {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Function used to test the search list of Posts with parameter does not exist in DB
+     * Time: 01/02/2023
+     * Author:DatTQ
+     */
     @Test
     public void getSearchListPost_year_and_month_9() throws Exception {
 
@@ -43,7 +56,11 @@ public class PostRestController_searchListPost {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-
+    /**
+     * Function used to test the search list of Posts with parameter does exist in DB, list has size = 0
+     * Time: 01/02/2023
+     * Author:DatTQ
+     */
     @Test
     public void getSearchListPost_year_and_month_10() throws Exception {
 
@@ -53,6 +70,11 @@ public class PostRestController_searchListPost {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Function used to test the search list of Posts with parameter does exist in DB, list has size > 0.Success
+     * Time: 01/02/2023
+     * Author:DatTQ
+     */
     @Test
     public void getSearchListPost_year_and_month_11() throws Exception {
 
