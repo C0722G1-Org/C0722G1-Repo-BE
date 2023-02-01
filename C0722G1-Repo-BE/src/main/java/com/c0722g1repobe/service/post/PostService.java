@@ -38,7 +38,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Pageable pageable) {
-        return iPostRepository.searchAllPost( demandTypeSearch,lendTypeSearch, pageable);
+    public Page<PostDto> searchAllPost(String demandTypeSearch,String lendTypeSearch,Double minPriceSearch,Double maxPriceSearch,String positionSearch ,Pageable pageable) {
+        return iPostRepository.searchAllPost( demandTypeSearch,lendTypeSearch,minPriceSearch, maxPriceSearch, positionSearch,  pageable);
     }
 }

@@ -54,14 +54,14 @@ public interface IPostRepository  extends JpaRepository<Post, Long> {
      * @return json list Posts searched
      */
 
-@Query(value = "select p.id_post as idPost, c.code_customer as codeCustomer, d.name_demand_type as demandType, l.name_land_type as landType, a.number_address as position, p.area as area, p.note as note, p.approval_id_approval as approval \n" +
+@Query(value = "select p.id_post as idPost, c.code_customer as codeCustomer, d.name_demand_type as demandType, l.name_land_type as landType, a.number_address as position, p.area as area, p.note as note, p.approval_id_approval as approval, p.price as price \n" +
         "from post p left join customer as c on p.customer_id_customer = c.id_customer left join demand_type as d on p.demand_type_id_demand_type = d.id_demand_type \n" +
         "left join land_type as l on l.id_land_type = p.land_type_id_land_type left join address as a on a.id_address = p.address_id_address where p.flag_deleted = false and (d.name_demand_type like concat('%', :demandTypeSearch, '%')  and  l.name_land_type like concat('%', :lendTypeSearch, '%'))",
         countQuery = "select p.id_post as idPost, c.code_customer as codeCustomer, d.name_demand_type as demandType, l.name_land_type as landType, a.number_address as position, p.area as area, p.note as note, p.approval_id_approval as approval \n" +
                 "from post p left join customer as c on p.customer_id_customer = c.id_customer left join demand_type as d on p.demand_type_id_demand_type = d.id_demand_type \n" +
                 "left join land_type as l on l.id_land_type = p.land_type_id_land_type left join address as a on a.id_address = p.address_id_address where p.flag_deleted = false and (d.name_demand_type like concat('%', :demandTypeSearch, '%')  and  l.name_land_type like concat('%', :lendTypeSearch, '%'))",
         nativeQuery = true)
-Page<PostDto> searchAllPost(@Param("demandTypeSearch") String demandTypeSearch,@Param("lendTypeSearch") String lendTypeSearch , Pageable pageable);
+Page<PostDto> searchAllPost(@Param("demandTypeSearch") String demandTypeSearch,@Param("lendTypeSearch") String lendTypeSearch, @Param("minPriceSearch") Double minPriceSearch, @Param("maxPriceSearch") Double maxPriceSearch, @Param("positionSearch") String positionSearch , Pageable pageable);
     /**
      * Create by: NgocLV
      * Date created: 31/01/2023

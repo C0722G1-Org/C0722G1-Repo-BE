@@ -38,10 +38,13 @@ public interface IPostService {
      * @param demandTypeSearch
      * @param lendTypeSearch
      * @param pageable
+     * @param minPriceSearch
+     * @param maxPriceSearch
+     * @param positionSearch
      *
      * @return json list posts
      */
-    Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Pageable pageable);
+    Page<PostDto> searchAllPost(String demandTypeSearch,String lendTypeSearch,Double minPriceSearch,Double maxPriceSearch,String positionSearch ,Pageable pageable);
     /**
      * Create by: NgocLV
      * Date created: 31/01/2023
