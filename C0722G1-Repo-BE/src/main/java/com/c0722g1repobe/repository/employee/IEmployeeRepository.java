@@ -4,15 +4,16 @@ import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
 import com.c0722g1repobe.entity.employee.Division;
 import com.c0722g1repobe.entity.employee.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.expression.spel.ast.OpAnd;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-public interface IEmployeeRepository {
+public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     /**
      * Create by: LongPT
      * Crated date: 31/01/2023
@@ -24,13 +25,12 @@ public interface IEmployeeRepository {
      * @param phoneEmployee
      * @param addressEmployee
      * @param division
-     * @param role
      * @param account
      */
     @Transactional
     @Modifying
-    @Query(value = "insert into employee (code_employee,name_employee,email_employee, date_of_birth,  gender_employee, phone_employee,address_employee, account_id_account, division_id_division,  role_id_role) values" +
-            " (:codeEmployee, :nameEmployee, :emailEmployee,:dateOfBirth, :genderEmployee, :addressEmployee,:idAccount,:idDivision,:idRole)", nativeQuery = true)
+    @Query(value = "insert into employee (code_employee,name_employee,email_employee, date_of_birth,  gender_employee, phone_employee,address_employee, account_id_account, division_id_division) values" +
+            " (:codeEmployee, :nameEmployee, :emailEmployee,:dateOfBirth, :genderEmployee,:phoneEmployee, :addressEmployee,:idAccount,:idDivision)", nativeQuery = true)
     void saveEmployee(
             @Param("codeEmployee") String codeEmployee,
             @Param("nameEmployee") String nameEmployee,
@@ -40,8 +40,7 @@ public interface IEmployeeRepository {
             @Param("phoneEmployee") String phoneEmployee,
             @Param("addressEmployee") String addressEmployee,
             @Param("idAccount") Account account,
-            @Param("idDivision")Division division,
-            @Param("idRole") Role role
+            @Param("idDivision")Division division
     );
 
     /**
@@ -55,12 +54,11 @@ public interface IEmployeeRepository {
      * @param phoneEmployee
      * @param addressEmployee
      * @param division
-     * @param role
      */
     @Transactional
     @Modifying
-    @Query(value = "update employee set name_employee = :nameEmployee,email_employee = :emailEmployee, gender_employee = :genderEmployee,phone_employee = :phoneEmployee, address_employee= : addressEmployee " +
-            " date_of_birth = :dateOfBirth,   division_id_division = :divisiom, role_id_role =: role where id_employee= :id", nativeQuery = true)
+    @Query(value = "update employee set name_employee = :nameEmployee,email_employee = :emailEmployee, gender_employee = :genderEmployee,phone_employee = :phoneEmployee, address_employee= :addressEmployee " +
+            " date_of_birth = :dateOfBirth, division_id_division = :idDivision where id_employee= :id", nativeQuery = true)
     void updateEmployee(
             @Param("id") Long id,
             @Param("nameEmployee") String nameEmployee,
@@ -69,8 +67,7 @@ public interface IEmployeeRepository {
             @Param("phoneEmployee") String phoneEmployee,
             @Param("addressEmployee") String addressEmployee,
             @Param("dateOfBirth") String dateOfBirth,
-            @Param("idDivision")Division division,
-            @Param("idRole") Role role
+            @Param("idDivision")Division division
     );
 
     /**
@@ -89,5 +86,5 @@ public interface IEmployeeRepository {
      * @param username
      */
     @Query(value = "select * from account where username_account = :username", nativeQuery = true)
-    Employee getIdAccount(@Param("username") String username);
+    Account getIdAccount(@Param("username") String username);
 }

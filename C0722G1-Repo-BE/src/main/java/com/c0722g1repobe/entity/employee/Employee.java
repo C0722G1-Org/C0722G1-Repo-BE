@@ -28,8 +28,6 @@ public class Employee {
     private boolean flagDeleted = false;
     @ManyToOne
     private Division division;
-    @ManyToOne
-    private Role role;
     @OneToOne
     private Account account;
 }

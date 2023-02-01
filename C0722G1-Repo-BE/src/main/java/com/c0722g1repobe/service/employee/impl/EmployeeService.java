@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.employee.impl;
 
+
 import com.c0722g1repobe.entity.employee.Employee;
 import com.c0722g1repobe.repository.employee.IEmployeeRepository;
 import com.c0722g1repobe.service.employee.IEmployeeService;
@@ -19,11 +20,11 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public void saveEmployee(Employee employee) {
         employeeRepository.saveEmployee(employee.getCodeEmployee(),employee.getNameEmployee(), employee.getEmailEmployee(), employee.getDateOfBirth(),
-                employee.isGenderEmployee(),  employee.getPhoneEmployee(),employee.getAddressEmployee() ,employee.getAccount(), employee.getDivision(), employee.getRole());
+                employee.isGenderEmployee(),  employee.getPhoneEmployee(),employee.getAddressEmployee() ,employeeRepository.getIdAccount(employee.getAccount().getUsernameAccount()), employee.getDivision());
     }
 
     @Override
     public void updateEmployee(Employee employee, Long id) {
-        employeeRepository.updateEmployee(id, employee.getNameEmployee() , employee.getEmailEmployee(), employee.isGenderEmployee(), employee.getPhoneEmployee(), employee.getAddressEmployee(), employee.getDateOfBirth(), employee.getDivision(), employee.getRole());
+        employeeRepository.updateEmployee(id, employee.getNameEmployee() , employee.getEmailEmployee(), employee.isGenderEmployee(), employee.getPhoneEmployee(), employee.getAddressEmployee(), employee.getDateOfBirth(), employee.getDivision());
     }
 }
