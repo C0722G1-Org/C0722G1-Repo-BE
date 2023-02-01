@@ -199,7 +199,7 @@ public class SecurityController_login {
                                 .content(this.objectMapper.writeValueAsString(signInForm))
                                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().is4xxClientError());
 
     }
 }
