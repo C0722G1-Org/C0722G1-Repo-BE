@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest
@@ -29,6 +30,20 @@ public class NotificationRestController_deleteNotificationByListId {
     public void findListNotificationByListId_25() throws Exception {
         ResponseEntity<HttpStatus> responseEntity
                 = this.notificationRestController.remove(null);
+        Assertions.assertEquals(400, responseEntity.getStatusCodeValue());
+    }
+
+    /**
+     * Created by: DatLA,
+     * Date created: 01/02/2023
+     * Function: delete notification by list id with list id are empty
+     *
+     * @param: empty
+     */
+    @Test
+    public void findListNotificationByListId_26() throws Exception {
+        ResponseEntity<HttpStatus> responseEntity
+                = this.notificationRestController.remove(Collections.emptyList());
         Assertions.assertEquals(400, responseEntity.getStatusCodeValue());
     }
 

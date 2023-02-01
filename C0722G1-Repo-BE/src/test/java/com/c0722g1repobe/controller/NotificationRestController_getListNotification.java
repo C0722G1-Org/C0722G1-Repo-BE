@@ -27,7 +27,7 @@ public class NotificationRestController_getListNotification {
      * @param: null
      */
     @Test
-    public void getListNotification_32() throws Exception {
+    public void getListNotification_33() throws Exception {
         ResponseEntity<Page<NotificationAllPropertyDto>> responseEntity
                 = this.notificationRestController.searchNotifications(null, PageRequest.of(0, 5));
         Assertions.assertEquals(400, responseEntity.getStatusCodeValue());
@@ -41,7 +41,7 @@ public class NotificationRestController_getListNotification {
      * @param: notificationSearchDto with empty attribute values
      */
     @Test
-    public void getListNotification_33() throws Exception {
+    public void getListNotification_34() throws Exception {
         NotificationSearchDto notificationSearchDto = new NotificationSearchDto("", "", "");
         ResponseEntity<Page<NotificationAllPropertyDto>> responseEntity
                 = this.notificationRestController.searchNotifications(notificationSearchDto, PageRequest.of(0, 5));
@@ -66,7 +66,7 @@ public class NotificationRestController_getListNotification {
      * @param: new NotificationSearchDto("2025-01-01","","")
      */
     @Test
-    public void getListNotification_34() throws Exception {
+    public void getListNotification_35() throws Exception {
         NotificationSearchDto notificationSearchDto = new NotificationSearchDto("2025-01-01", "", "");
         ResponseEntity<Page<NotificationAllPropertyDto>> responseEntity
                 = this.notificationRestController.searchNotifications(notificationSearchDto, PageRequest.of(0, 5));
@@ -81,7 +81,7 @@ public class NotificationRestController_getListNotification {
      * @param: new NotificationSearchDto("2025-01-01","Thông báo đầu tiên","Nội dung thông báo: Trân trọng thông báo website "Quản lý môi giới bất động sản" chính thức đi vào hoạt động.")
      */
     @Test
-    public void getListNotification_35() throws Exception {
+    public void getListNotification_36() throws Exception {
         NotificationSearchDto notificationSearchDto = new NotificationSearchDto("2022-06-01", "Thông báo đầu tiên", "Nội dung thông báo: Trân trọng thông báo website \"Quản lý môi giới bất động sản\" chính thức đi vào hoạt động.");
         ResponseEntity<Page<NotificationAllPropertyDto>> responseEntity
                 = this.notificationRestController.searchNotifications(notificationSearchDto, PageRequest.of(0, 5));

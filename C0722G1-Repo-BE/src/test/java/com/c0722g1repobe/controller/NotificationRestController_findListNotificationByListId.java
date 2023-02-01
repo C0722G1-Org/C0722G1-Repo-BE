@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,6 +33,20 @@ public class NotificationRestController_findListNotificationByListId {
                 = this.notificationRestController.findByListId(null);
         Assertions.assertEquals(400, responseEntity.getStatusCodeValue());
     }
+    /**
+     * Created by: DatLA,
+     * Date created: 01/02/2023
+     * Function: notification list search by list id with list id are empty
+     *
+     * @param: empty
+     */
+
+    @Test
+    public void findListNotificationByListId_30() throws Exception {
+        ResponseEntity<List<NotificationDeleteDto>> responseEntity
+                = this.notificationRestController.findByListId(Collections.emptyList());
+        Assertions.assertEquals(400, responseEntity.getStatusCodeValue());
+    }
 
     /**
      * Created by: DatLA,
@@ -41,7 +56,7 @@ public class NotificationRestController_findListNotificationByListId {
      * @param: (20, 21)
      */
     @Test
-    public void findListNotificationByListId_30() throws Exception {
+    public void findListNotificationByListId_31() throws Exception {
         List<Integer> listIds = Arrays.asList(20, 21);
         ResponseEntity<List<NotificationDeleteDto>> responseEntity
                 = this.notificationRestController.findByListId(listIds);
@@ -56,7 +71,7 @@ public class NotificationRestController_findListNotificationByListId {
      * @param: (1, 2)
      */
     @Test
-    public void findListNotificationByListId_31() throws Exception {
+    public void findListNotificationByListId_32() throws Exception {
         List<Integer> listIds = Arrays.asList(1, 2);
         ResponseEntity<List<NotificationDeleteDto>> responseEntity
                 = this.notificationRestController.findByListId(listIds);
