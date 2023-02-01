@@ -28,7 +28,7 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
      * @return Notifications with pagination
      */
     @Query(value = "SELECT nt.`id_notification` AS idNotification, nt.posting_date AS postingDate, nt.`title` AS `title`, nt.`content` AS `content` " +
-            " FROM `notification` as nt " +
+            " FROM `notification` AS nt " +
             " WHERE nt.flag_delete = 0 " +
             " AND nt.posting_date BETWEEN :#{#notificationSearchDto.startDate} AND NOW()" +
             " AND nt.`title` LIKE %:#{#notificationSearchDto.title}% " +
@@ -46,7 +46,7 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
      * @param idList
      * @return notifications list
      */
-    @Query(value = "select `id_notification` AS idNotification, `title` FROM `notification` WHERE id_notification IN :idList AND flag_delete = 0", nativeQuery = true)
+    @Query(value = "SELECT `id_notification` AS idNotification, `title` FROM `notification` WHERE id_notification IN :idList AND flag_delete = 0", nativeQuery = true)
     List<NotificationDeleteDto> findByListId(@Param("idList") List<Integer> idList);
 
     /**
@@ -57,7 +57,7 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
      * @param idList
      */
     @Modifying
-    @Query(value = "update `notification` set flag_delete = 1 where id_notification in :idList", nativeQuery = true)
+    @Query(value = "UPDATE `notification` SET flag_delete = 1 WHERE id_notification IN :idList", nativeQuery = true)
     void removeByListId(@Param("idList") List<Integer> idList);
 
 }
