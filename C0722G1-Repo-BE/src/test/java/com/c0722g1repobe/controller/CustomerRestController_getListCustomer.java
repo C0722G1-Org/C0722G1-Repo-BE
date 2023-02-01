@@ -49,16 +49,15 @@ public class CustomerRestController_getListCustomer {
                 .andExpect(jsonPath("content[4].approvalCustomer").value(0));
     }
 
-/*
     @Test
     public void getListCustomer_allSearch_9() throws Exception {
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/customer?allSearch"))
+                                .get("/api/customer?allSearch=Hao"))
                 .andDo(print())
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().is2xxSuccessful());
+
     }
-*/
 
 }
