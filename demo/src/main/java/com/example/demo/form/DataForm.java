@@ -1,4 +1,4 @@
-package com.c0722g1repobe.entity.customer;
+package form;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,11 +12,12 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhoneCustomer {
+public class DataForm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPhoneCustomer;
-    private String phoneNumberCustomer;
+    private Long idDataForm;
+    private String contentDataForm;
+    private boolean flagDelete = false;
     @ManyToOne
-    private Customer customer;
+    private DetailForm detailForm;
 }
