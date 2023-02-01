@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/customers")
 @CrossOrigin(origins = "*")
-public class CustomerController {
+public class CustomerRestController {
     @Autowired
     private ICustomerService customerService;
+
 
     /**
      * Create by: VanNTC
@@ -29,16 +30,17 @@ public class CustomerController {
 
     @GetMapping("/{idCustomer}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long idCustomer) {
-        return new ResponseEntity<>(this.customerService.findCustomer(idCustomer), HttpStatus.OK);
+        Customer customer = this.customerService.findCustomer(idCustomer);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
 
-    @PatchMapping("/updateCustomer/{idCustomer}")
-    public ResponseEntity<CustomerDto> findCustomer(@Validated @RequestBody CustomerDto customerDto, BindingResult bindingResult){
-        if (customerService.findCustomer(customerDto.getIdCustomer()) == null){
+    @PatchMapping("/update-customer/{idCustomer}")
+    public ResponseEntity<CustomerDto> updateCustomer(@Validated @RequestBody CustomerDto customerDto, BindingResult bindingResult) {
+        if (customerService.findCustomer(customerDto.getIdCustomer()) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         Customer customer = new Customer();
@@ -46,4 +48,5 @@ public class CustomerController {
         customerService.updateCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
