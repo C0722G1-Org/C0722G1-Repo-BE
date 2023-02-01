@@ -1,8 +1,8 @@
-package com.c0722g1repobe.service.form.impl;
+package form.impl;
 
-import com.c0722g1repobe.entity.form.DataForm;
-import com.c0722g1repobe.repository.form.IDataFormRepository;
-import com.c0722g1repobe.service.form.IDataFormService;
+import form.DataForm;
+import form.IDataFormRepository;
+import form.IDataFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +18,5 @@ public class DataFormService implements IDataFormService {
     @Override
     public Page<DataForm> searchByContent(String contentDataForm, Pageable pageable) {
         return iDataFormRepository.searchByContent(contentDataForm,pageable);
-    }
-    @Override
-    public void saveDataForm(String contentDataForm, String urlDataForm) {
-        iDataFormRepository.saveDataForm(contentDataForm,urlDataForm);
     }
 }
