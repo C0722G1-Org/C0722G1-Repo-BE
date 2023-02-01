@@ -53,6 +53,9 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Transactional
     void confirmCustomer(@Param("id") Long id);
 
+    @Query(value = "select * from customer where id_customer = :id", nativeQuery = true)
+    Optional<Customer> findByIdCustomer(Long id);
+
 
 //    Optional<Customer> findById(Long id);
 }
