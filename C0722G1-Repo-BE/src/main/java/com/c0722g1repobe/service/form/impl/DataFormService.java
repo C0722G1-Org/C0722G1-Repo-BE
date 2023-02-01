@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 @Service
 public class DataFormService implements IDataFormService {
     @Autowired
@@ -35,4 +38,15 @@ public class DataFormService implements IDataFormService {
     }
 
 
+    /*Call method Page<DataForm>searchByContent(); of IDataFormRepository
+  Parameter: contentDataForm,pageable
+  Author: KhanhLB */
+    @Override
+    public Page<DataForm> searchByContent(String contentDataForm, Pageable pageable) {
+        return iDataFormRepository.searchByContent(contentDataForm,pageable);
+    }
+    @Override
+    public void saveDataForm(String contentDataForm, String urlDataForm) {
+        iDataFormRepository.saveDataForm(contentDataForm,urlDataForm);
+    }
 }

@@ -1,4 +1,4 @@
-package com.c0722g1repobe.entity.form;
+package form;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,5 +18,6 @@ public class DataForm {
     private Long idDataForm;
     private String contentDataForm;
     private boolean flagDelete = false;
-    private String urlDataForm;
+    @ManyToOne
+    private DetailForm detailForm;
 }

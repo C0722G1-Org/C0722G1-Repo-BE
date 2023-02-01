@@ -9,4 +9,5 @@ import org.springframework.stereotype.Service;
 public class DetailFormService implements IDetailFormService {
     @Autowired
     private IDetailFormRepository iDetailFormRepository;
+public class DetailFormService {
 }

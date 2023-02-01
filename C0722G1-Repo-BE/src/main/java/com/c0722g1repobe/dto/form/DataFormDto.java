@@ -1,4 +1,5 @@
 package com.c0722g1repobe.dto.form;
+
 import com.c0722g1repobe.entity.form.DetailForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -7,6 +8,17 @@ public class DataFormDto implements Validator {
     private String codeDataForm;
     private String contentDataForm;
     private DetailForm detailForm;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+import javax.validation.constraints.NotBlank;
+
+public class DataFormDto implements Validator {
+    @NotBlank
+    private String contentDataForm;
+    @NotBlank
+    private String urlDataForm;
 
     public DataFormDto() {
     }
@@ -48,6 +60,12 @@ public class DataFormDto implements Validator {
 
     public void setDetailForm(DetailForm detailForm) {
         this.detailForm = detailForm;
+    public String getUrlDataForm() {
+        return urlDataForm;
+    }
+
+    public void setUrlDataForm(String urlDataForm) {
+        this.urlDataForm = urlDataForm;
     }
 
     @Override
@@ -64,5 +82,6 @@ public class DataFormDto implements Validator {
         if (!dataFormDto.getCodeDataForm().matches("^HS-[0-9]{3}$")){
             errors.rejectValue("codeDataForm", "codeDataForm", "Mã phải bắt đầu là HS- và có 3 chữ số");
         }
+
     }
 }
