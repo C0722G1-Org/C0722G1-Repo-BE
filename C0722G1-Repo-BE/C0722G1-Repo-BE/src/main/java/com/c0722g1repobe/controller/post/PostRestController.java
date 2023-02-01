@@ -7,10 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,9 +24,9 @@ public class PostRestController {
      * @param pageable
      * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
      */
-    @GetMapping
-    public ResponseEntity<List<Post>> getPostList(Pageable pageable) {
-        Page<Post> postList = iPostService.findAllPost(pageable);
+    @GetMapping("/{userNameAccount}")
+    public ResponseEntity<List<Post>> getPostList(Pageable pageable, @PathVariable String userNameAccount) {
+        Page<Post> postList = iPostService.findAllPost(pageable, userNameAccount);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

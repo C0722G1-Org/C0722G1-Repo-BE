@@ -21,6 +21,9 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             " join address on post.id_post = address.id_address" +
             " join demand_type on post.id_post = demand_type.id_demand_type" +
             " join land_type on post.id_post = land_type.id_land_type" +
-            " join image_list on post.id_post = image_list.id_image_list", nativeQuery = true)
-    Page<Post> findAllPost(Pageable pageable);
+            " join image_list on post.id_post = image_list.id_image_list" +
+            " join customer on post.id_customer = customer.id_customer" +
+            " join account on customer.account_id_account = account.id_account" +
+            " where account.username_account = 'khachhang123'", nativeQuery = true)
+    Page<Post> findAllPost(Pageable pageable, String userNameAccount);
 }
