@@ -1,11 +1,12 @@
 package com.c0722g1repobe.controller.post;
 
+
 import com.c0722g1repobe.dto.post.PostDto;
 import com.c0722g1repobe.dto.post.PostListViewDto;
 import com.c0722g1repobe.entity.post.Post;
-//import com.c0722g1repobe.dto.post.PostDto;
-//import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
-//import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
+import com.c0722g1repobe.dto.post.PostDto;
+import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
+import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +32,20 @@ public class PostRestController {
     private IPostService postService;
 
     /**
+
+     * Create by: BaoDP
+     * Date create: 01/02/2023
+     * Description: send BaseResponseCreatePost object to Frontend project for handle response form server
+     *
+     * @param createPostDto: an object of class CreatePostDto
+     * @return ResponseEntity with BaseResponseCreatePost and HttpStatus is code of BaseResponseCreatePost
+     */
+    @PostMapping("create")
+    @ResponseBody
+    public ResponseEntity<BaseResponseCreatePost> create(@RequestBody CreatePostDto createPostDto) {
+        BaseResponseCreatePost baseResponseCreatePost = postService.getResponseCreatePost(createPostDto);
+        return new ResponseEntity<>(baseResponseCreatePost, HttpStatus.valueOf(baseResponseCreatePost.getCode()));
+        
      * Create by: SangNP
      * Date created: 31/01/2023
      * Function: show list post
