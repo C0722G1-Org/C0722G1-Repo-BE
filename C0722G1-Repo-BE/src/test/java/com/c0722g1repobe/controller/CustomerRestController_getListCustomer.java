@@ -18,7 +18,7 @@ public class CustomerRestController_getListCustomer {
     private MockMvc mockMvc;
 
     @Test
-    public void getListCustomer_7() throws Exception{
+    public void getListCustomer_5() throws Exception{
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/customer/"))
@@ -27,7 +27,7 @@ public class CustomerRestController_getListCustomer {
     }
 
     @Test
-    public void getListCustomer_8() throws Exception {
+    public void getListCustomer_6() throws Exception {
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders
