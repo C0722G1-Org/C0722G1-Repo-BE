@@ -1,4 +1,4 @@
-package com.c0722g1repobe.entity.form;
+package com.c0722g1repobe.entity.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +15,9 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DetailForm {
+public class Approval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDetailForm;
-    private String urlDetailForm;
+    private Long idApproval;
+    private String nameApproval;
 }
