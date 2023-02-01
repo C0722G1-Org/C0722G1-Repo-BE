@@ -45,7 +45,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
         baseResponseCreatePost.setCreatePostDto(createPostDto);
 
         if (checkCreatePostDtoIsNull(createPostDto)) return baseResponseCreatePost;
-        if (validateCodeCustomer().getCode() != VALID_CODE) return baseResponseCreatePost;
+        if (validateIdCustomer().getCode() != VALID_CODE) return baseResponseCreatePost;
         if (validateIdDemand().getCode() != VALID_CODE) return baseResponseCreatePost;
         if (validateIdLandType().getCode() != VALID_CODE) return baseResponseCreatePost;
         if (validateIdWards().getCode() != VALID_CODE) return baseResponseCreatePost;
@@ -95,15 +95,15 @@ public class ValidateCreatePost implements IValidateCreatePost {
     /**
      * Create by: BaoDP
      * Date Create: 01/02/2023
-     * Description: validate codeCustomer, if it is invalid use method setBaseResponseCreatePostWhenInvalidWithCustomMessage before return
+     * Description: validate idCustomer, if it is invalid use method setBaseResponseCreatePostWhenInvalidWithCustomMessage before return
      *
-     * @return baseResponseCreatePost after validate Code of Customer
+     * @return baseResponseCreatePost after validate id of Customer
      */
-    private BaseResponseCreatePost validateCodeCustomer() {
-        String codeCustomer = baseResponseCreatePost.getCreatePostDto().getCodeCustomer();
+    private BaseResponseCreatePost validateIdCustomer() {
+        Long idCustomer = baseResponseCreatePost.getCreatePostDto().getIdCustomer();
 
-        boolean codeCustomerNotExist = customerRepository.findIdByCode(codeCustomer) == null;
-        if (codeCustomerNotExist) {
+        boolean idCustomerNotExist = customerRepository.findIdByIdNativeQuery(idCustomer) == null;
+        if (idCustomerNotExist) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mã khách hàng không tồn tại !");
             return baseResponseCreatePost;
         }
@@ -142,7 +142,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
 
         boolean landTypeNotExist = landTypeRepository.findByIdNativeQuery(idLandType) == null;
         if (landTypeNotExist) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại bất động sản không tồn tại");
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại bất động sản không tồn tại !");
             return baseResponseCreatePost;
         }
 
@@ -161,7 +161,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
 
         boolean wardsNotExist = wardsRepository.findNameByIdNativeQuery(idWards) == null;
         if (wardsNotExist) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Phường/Xã không tồn tại !");
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Địa chỉ không phù hợp !");
             return baseResponseCreatePost;
         }
 
@@ -282,9 +282,9 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private BaseResponseCreatePost validateNote() {
         String note = baseResponseCreatePost.getCreatePostDto().getNote();
 
-        boolean invalidNoteMaxLength = note.length() > 255;
+        boolean invalidNoteMaxLength = note.length() > 500;
         if (invalidNoteMaxLength) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Ghi chú thêm không được vượt quá 255 kí tự");
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mô tả chi tiết không được vượt quá 255 kí tự");
             return baseResponseCreatePost;
         }
 

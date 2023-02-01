@@ -1,10 +1,14 @@
 package com.c0722g1repobe.dto.post.create_post;
 
-import lombok.Getter;
+import lombok.*;
 
+@Builder
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class CreatePostDto {
-    private String codeCustomer;
+    private Long idCustomer;
     private String namePost;
     private Long idDemand;
     private Long idLandType;

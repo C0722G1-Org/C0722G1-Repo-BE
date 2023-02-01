@@ -3,19 +3,17 @@ package com.c0722g1repobe.controller.post;
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.service.post.IPostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("*")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("api/post")
 public class PostRestController {
-    private final IPostService postService;
-
-    public PostRestController(IPostService postService) {
-        this.postService = postService;
-    }
+    @Autowired
+    private IPostService postService;
 
     /**
      * Create by: BaoDP

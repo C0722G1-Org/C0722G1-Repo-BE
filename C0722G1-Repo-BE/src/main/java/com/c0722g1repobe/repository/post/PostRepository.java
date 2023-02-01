@@ -10,6 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+    /**
+     * Create by : BaoDP
+     * Date create: 01/02/2023
+     * Description: insert post object into mysql database
+     *
+     * @param post
+     */
     @Modifying
     @Query(value = "insert into post " +
             "(approval, " +
@@ -24,6 +32,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "direction_id_direction," +
             "image_listurl," +
             "land_type_id_land_type," +
+            "customer_id_customer," +
             "status_post_id_status_post) " +
             "VALUES (" +
             ":#{#post.approval}," +
@@ -38,6 +47,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             ":#{#post.direction.idDirection}," +
             ":#{#post.imageListURL}," +
             ":#{#post.landType.idLandType}," +
+            ":#{#post.customer.idCustomer}," +
             ":#{#post.statusPost.idStatusPost})",
             nativeQuery = true)
     @Transactional

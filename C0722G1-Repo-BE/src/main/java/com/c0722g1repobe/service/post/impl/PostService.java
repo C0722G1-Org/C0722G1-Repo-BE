@@ -2,26 +2,26 @@ package com.c0722g1repobe.service.post.impl;
 
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
+import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.entity.post.*;
 import com.c0722g1repobe.repository.post.AddressRepository;
 import com.c0722g1repobe.repository.post.PostRepository;
 import com.c0722g1repobe.service.post.IPostService;
 import com.c0722g1repobe.validation.post.IValidateCreatePost;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
 @Service
 public class PostService implements IPostService {
-    private final IValidateCreatePost validateCreatePost;
-    private final AddressRepository addressRepository;
-    private final PostRepository postRepository;
+    @Autowired
+    private IValidateCreatePost validateCreatePost;
+    @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
+    private PostRepository postRepository;
 
-    public PostService(IValidateCreatePost validateCreatePost, AddressRepository addressRepository, PostRepository postRepository) {
-        this.validateCreatePost = validateCreatePost;
-        this.addressRepository = addressRepository;
-        this.postRepository = postRepository;
-    }
 
     /**
      * Create by: BaoDP
@@ -64,6 +64,7 @@ public class PostService implements IPostService {
                 .imageListURL(createPostDto.getImageListURL())
                 .landType(LandType.builder().idLandType(createPostDto.getIdLandType()).build())
                 .statusPost(StatusPost.builder().idStatusPost(defaultIdStatus).build())
+                .customer(Customer.builder().idCustomer(createPostDto.getIdCustomer()).build())
                 .build();
     }
 

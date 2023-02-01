@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    @Query(value = "select c.id_customer from sprint_1.customer as c where c.code_customer = :code_customer and c.flag_delete=false", nativeQuery = true)
-    Long findIdByCode(@Param("code_customer") String codeCustomer);
+    @Query(value = "select c.id_customer from sprint_1.customer as c where c.id_customer = :idCustomer and c.flag_delete=false", nativeQuery = true)
+    Long findIdByIdNativeQuery(@Param("idCustomer") Long idCustomer);
 }
