@@ -30,7 +30,9 @@ public class DataFormService implements IDataFormService {
     }
 
     @Override
-    public void updateDataForm(long id, String codeDataForm, String contentDataForm, String urlDetailForm) {
-        iDataFormRepository.updateDataForm(id,codeDataForm,contentDataForm,urlDetailForm);
+    public void updateDataForm(DataForm dataForm) {
+        iDataFormRepository.updateDataForm(dataForm.getCodeDataForm(), dataForm.getContentDataForm(), dataForm.getDetailForm().getUrlDetailForm(), dataForm.getIdDataForm());
     }
+
+
 }

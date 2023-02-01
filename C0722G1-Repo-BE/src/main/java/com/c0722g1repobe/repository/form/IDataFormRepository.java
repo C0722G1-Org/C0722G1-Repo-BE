@@ -22,6 +22,6 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
     @Transactional
     @Modifying
     @Query(value = "update data_form d join detail_form de on d.detail_form_id_detail_form= de.id_detail_form set code_data_form = :codeDataForm,content_data_form= :contentDataForm,de.url_detail_form= :urlDetailForm where id_data_form= :id",countQuery = "update data_form d join detail_form de on d.detail_form_id_detail_form= de.id_detail_form set code_data_form = :codeDataForm,content_data_form= :contentDataForm,de.url_detail_form= :urlDetailForm where id_data_form= :id",nativeQuery = true)
-    void updateDataForm(@Param("id") long id, @Param("codeDataForm") String codeDataForm, @Param("contentDataForm")String contentDataForm, @Param("urlDetailForm")String urlDetailForm);
+    void updateDataForm( @Param("codeDataForm") String codeDataForm,@Param("contentDataForm")String contentDataForm, @Param("urlDetailForm")String urlDetailForm, @Param("id") long id);
 
 }
