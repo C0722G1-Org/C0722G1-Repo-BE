@@ -9,13 +9,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post,Long> {
-    @Modifying(clearAutomatically = true)
-    @Transactional
-    @Query(value = "insert into sprint_1.post " +
+public interface PostRepository extends JpaRepository<Post, Long> {
+    @Modifying
+    @Query(value = "insert into post " +
             "(approval, " +
             "area, " +
-            "description_post, " +
+            "date_creation, " +
             "flag_deleted," +
             "name_post," +
             "note," +
@@ -23,22 +22,24 @@ public interface PostRepository extends JpaRepository<Post,Long> {
             "address_id_address," +
             "demand_type_id_demand_type," +
             "direction_id_direction," +
-            "image_list_id_image_list," +
+            "image_listurl," +
             "land_type_id_land_type," +
             "status_post_id_status_post) " +
-            "VALUES (:#{post.approval}," +
-            ":#{post.area}," +
-            ":#{post.descriptionPost}," +
-            "b'1'," +
-            "b'1'," +
-            "b'1'," +
-            "b'1'," +
-            "b'1'," +
-            "b'1'," +
-            "b'1'," +
-            "b'1'," +
-            "b'1'," +
-            "b'1')",
-    nativeQuery = true)
-    boolean savePost(@Param("post") Post post);
+            "VALUES (" +
+            ":#{#post.approval}," +
+            ":#{#post.area}," +
+            ":#{#post.dateCreation}," +
+            ":#{#post.flagDeleted}," +
+            ":#{#post.namePost}," +
+            ":#{#post.note}," +
+            ":#{#post.price}," +
+            ":#{#post.address.idAddress}," +
+            ":#{#post.demandType.idDemandType}," +
+            ":#{#post.direction.idDirection}," +
+            ":#{#post.imageListURL}," +
+            ":#{#post.landType.idLandType}," +
+            ":#{#post.statusPost.idStatusPost})",
+            nativeQuery = true)
+    @Transactional
+    void savePost(@Param("post") Post post);
 }
