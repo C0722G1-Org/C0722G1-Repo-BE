@@ -18,8 +18,8 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
      * @return HttpStatus.OK if have usernameAccount and email in database or HttpStatus.NOT_FOUND if id not found in database
      */
 
-    @Query(value = "select id_account, email, encrypt_password, name, username_account from account where username_account = :username_account",
-            countQuery = "select id_account, email, encrypt_password, name, username_account from account where username_account = :username_account",
+    @Query(value = "select id_account, email, encrypt_password, name, username_account,flag_delete from account where flag_delete = false and username_account = :username_account",
+            countQuery = "select id_account, email, encrypt_password, name, username_account,flag_delete from account where flag_delete = false and username_account = :username_account",
             nativeQuery = true)
     Optional<Account> findByUsername(@Param("username_account") String usernameAccount);
 
