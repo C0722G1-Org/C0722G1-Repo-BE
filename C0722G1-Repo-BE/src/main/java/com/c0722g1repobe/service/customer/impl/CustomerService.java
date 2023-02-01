@@ -48,7 +48,7 @@ public class CustomerService implements ICustomerService {
      * @return
      */
     @Override
-    public Optional<Customer> findById(Integer id) {
+    public Optional<Customer> findById(Long id) {
         return iCustomerRepository.findById(id);
     }
 
@@ -60,7 +60,7 @@ public class CustomerService implements ICustomerService {
      * @param id
      */
     @Override
-    public void confirmCustomer(Integer id) {
+    public void confirmCustomer(Long id) {
         iCustomerRepository.confirmCustomer(id);
     }
 }

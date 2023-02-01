@@ -23,21 +23,6 @@ public class CustomerRestController {
     private ICustomerService iCustomerService;
 
     /**
-     *
-     * @return List
-     */
-/*
-    @GetMapping("")
-    public ResponseEntity<List<Customer>> findAll() {
-        List<Customer> customerList = iCustomerService.findCustomerAll();
-        if (customerList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(customerList, HttpStatus.OK);
-    }
-*/
-
-    /**
      * Create by: HocHH
      * Date created: 31/01/2023
      * Function: Display Customer list.
@@ -65,7 +50,7 @@ public class CustomerRestController {
      * @return HttpStatus.OK if have id in database and confirm success, or HttpStatus.NO_CONTENT if id not found in database.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Customer> deleteCustomer(@PathVariable Integer id) {
+    public ResponseEntity<Customer> confirmCustomer(@PathVariable("id") Long id) {
         Optional<Customer> customer = iCustomerService.findById(id);
         if (!customer.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

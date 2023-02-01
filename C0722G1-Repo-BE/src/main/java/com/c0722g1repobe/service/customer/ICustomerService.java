@@ -8,11 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICustomerService {
-
-/*
-    List<Customer> findCustomerAll();
-*/
-
     /**
      * Create by: HocHH
      * Date created: 31/01/2023
@@ -32,7 +27,7 @@ public interface ICustomerService {
      * @param id
      * @return
      */
-    Optional<Customer> findById(Integer id);
+    Optional<Customer> findById(Long id);
 
     /**
      * Create by: HocHH
@@ -41,6 +36,6 @@ public interface ICustomerService {
      *
      * @param id
      */
-    void confirmCustomer(Integer id);
+    void confirmCustomer(Long id);
 
 }

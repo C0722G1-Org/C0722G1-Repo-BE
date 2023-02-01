@@ -18,20 +18,20 @@ public class CustomerRestController_getListCustomer {
     private MockMvc mockMvc;
 
     @Test
-    public void getListCustomer_5() throws Exception{
+    public void getListCustomer_7() throws Exception{
 
         this.mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/customer/list ","null"))
+                MockMvcRequestBuilders.get("/api/customer/"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
 
     @Test
-    public void getListCustomer_6() throws Exception {
+    public void getListCustomer_8() throws Exception {
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/customer/list?page=1"))
+                                .get("/api/customer?page=1"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("totalPages").value(1))
@@ -48,5 +48,17 @@ public class CustomerRestController_getListCustomer {
                 .andExpect(jsonPath("content[4].phoneCustomer2").value("0845454321"))
                 .andExpect(jsonPath("content[4].approvalCustomer").value(0));
     }
+
+/*
+    @Test
+    public void getListCustomer_allSearch_9() throws Exception {
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .get("/api/customer?allSearch"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+*/
 
 }

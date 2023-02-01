@@ -11,23 +11,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
-
-    /**
-     *
-     * @return List customer.
-     */
-/*
-    @Query(value = " select * " +
-            " from customer " +
-            " where starus_delete_customer = false ",
-            nativeQuery = true)
-    List<Customer> findCustomerAll();
-*/
-
     /**
      * Create by: HocHH
      * Date created: 31/01/2023
@@ -37,20 +25,21 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * @param pageable
      * @return List customer have paging and search.
      */
-/*    @Query(value = " select customer.code_customer, customer.name_customer, customer.address_customer, customer.phone_customer1, customer.phone_customer2, customer.approval_customer " +
-            " from customer " +
-            " where flag_delete = true ",
-            nativeQuery = true)
-    Page<Customer> searchCustomer(@Param("allSearch") String allSearch,
-                                  Pageable pageable);*/
+
     /*
     * id_customer, code_customer, name_customer, address_customer, phone_customer1, phone_customer2, approval_customer*/
+
+/*
+    @Query(value = "select * from customer where  name_customer like concat('%', :allSearch ,'%')  or address_customer like concat('%', :allSearch ,'%')  or code_customer  like concat('%', :allSearch ,'%')  and flag_delete = true ",
+            nativeQuery = true)
+    Page<Customer> searchCustomer(@Param("allSearch") String allSearch,
+                                  Pageable pageable);
+*/
 
     @Query(value = "select * from customer where  name_customer like concat('%', :allSearch ,'%')  or address_customer like concat('%', :allSearch ,'%')  or code_customer  like concat('%', :allSearch ,'%')  and flag_delete = true ",
             nativeQuery = true)
     Page<Customer> searchCustomer(@Param("allSearch") String allSearch,
                                   Pageable pageable);
-
 
     /**
      * Create by: HocHH
@@ -60,9 +49,10 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * @param id: id matches id_customer, used to confirm customer.
      */
     @Modifying
-    @Query(value = "update customer set approval_customer = true where id_customer = :idConfirm", nativeQuery = true)
-    void confirmCustomer(@Param("idConfirm") Integer id);
+    @Query(value = "update customer set approval_customer = 1 where id_customer = :id", nativeQuery = true)
+    @Transactional
+    void confirmCustomer(@Param("id") Long id);
 
 
-
+//    Optional<Customer> findById(Long id);
 }
