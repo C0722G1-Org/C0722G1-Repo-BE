@@ -1,10 +1,10 @@
 package com.c0722g1repobe.entity.post;
 
+import com.c0722g1repobe.entity.customer.Customer;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Builder
@@ -20,9 +20,10 @@ public class Post {
     private Double area;
     private String note;
     private Double price;
+    private String imageListURL;
     private boolean flagDeleted = false;
     private boolean approval;
-    private LocalDate dateCreation;
+    private LocalDate dateCreation = LocalDate.now();
     @ManyToOne
     private Direction direction;
     @ManyToOne
@@ -33,5 +34,6 @@ public class Post {
     private DemandType demandType;
     @ManyToOne
     private LandType landType;
-    private String imageListURL;
+    @ManyToOne
+    private Customer customer;
 }
