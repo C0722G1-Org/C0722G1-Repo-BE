@@ -33,6 +33,14 @@ public class SecurityController_login {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Create by: PhuongLTH
+     * Date created: 01/02/2023
+     * Function: test login (login_13,login_13_1,login_13_2,login_14,login_14_1,login_14_2,login_15and16and17,login_18,login_99)
+     * Return: 4xx if inValid with message(Đăng nhập không thành công, vui lòng thử lại),200 if valid with message (Đăng nhập thành công)
+     * @throws Exception
+     */
+
     @Test
     public void login_13() throws Exception {
         SignInForm signInForm = new SignInForm();
