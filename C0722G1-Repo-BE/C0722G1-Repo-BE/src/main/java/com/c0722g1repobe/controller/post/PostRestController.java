@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
+
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/post")
 public class PostRestController {
     @Autowired
-    IPostService iPostService;
+    private IPostService PostService;
 
     /**
      * Created by: UyDD
@@ -26,7 +27,7 @@ public class PostRestController {
      */
     @GetMapping("/{userNameAccount}")
     public ResponseEntity<List<Post>> getPostList(Pageable pageable, @PathVariable String userNameAccount) {
-        Page<Post> postList = iPostService.findAllPost(pageable, userNameAccount);
+        Page<Post> postList = PostService.findAllPost(pageable, userNameAccount);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
