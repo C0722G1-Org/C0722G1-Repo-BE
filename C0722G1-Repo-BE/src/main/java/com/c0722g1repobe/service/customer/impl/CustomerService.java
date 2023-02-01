@@ -22,4 +22,17 @@ public class CustomerService implements ICustomerService {
     public void createCustomer(Customer customer) {
             customerRepository.save(customer);
     }
+
+    /**
+     * Create by: HuyNV
+     * Date created : 01/02/2023
+     * Function : to create customer
+     *
+     * @param idCustomer
+     * @return
+     */
+    @Override
+    public Customer findById(Long idCustomer) {
+        return customerRepository.findById(idCustomer).orElse(null);
+    }
 }

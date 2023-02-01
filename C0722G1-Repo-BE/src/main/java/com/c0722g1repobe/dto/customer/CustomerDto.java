@@ -10,7 +10,11 @@ public class CustomerDto implements Validator {
 
     private String nameCustomer;
 
-    private String phoneCustomer;
+    private String phoneCustomer1;
+
+    private String dateOfBirthCustomer;
+
+    private String phoneCustomer2;
 
     private String emailCustomer;
 
@@ -26,7 +30,15 @@ public class CustomerDto implements Validator {
 
     private int approvalCustomer;
 
-    private String password;
+    private String encryptPassword;
+
+    public String getDateOfBirthCustomer() {
+        return dateOfBirthCustomer;
+    }
+
+    public void setDateOfBirthCustomer(String dateOfBirthCustomer) {
+        this.dateOfBirthCustomer = dateOfBirthCustomer;
+    }
 
     public Long getIdCustomer() {
         return idCustomer;
@@ -44,12 +56,20 @@ public class CustomerDto implements Validator {
         this.nameCustomer = nameCustomer;
     }
 
-    public String getPhoneCustomer() {
-        return phoneCustomer;
+    public String getPhoneCustomer1() {
+        return phoneCustomer1;
     }
 
-    public void setPhoneCustomer(String phoneCustomer) {
-        this.phoneCustomer = phoneCustomer;
+    public void setPhoneCustomer1(String phoneCustomer1) {
+        this.phoneCustomer1 = phoneCustomer1;
+    }
+
+    public String getPhoneCustomer2() {
+        return phoneCustomer2;
+    }
+
+    public void setPhoneCustomer2(String phoneCustomer2) {
+        this.phoneCustomer2 = phoneCustomer2;
     }
 
     public String getEmailCustomer() {
@@ -108,12 +128,12 @@ public class CustomerDto implements Validator {
         this.approvalCustomer = approvalCustomer;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEncryptPassword() {
+        return encryptPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncryptPassword(String encryptPassword) {
+        this.encryptPassword = encryptPassword;
     }
 
     @Override

@@ -11,6 +11,15 @@ public class AccountService implements ICustomerService {
     @Autowired
     private IAccountRepository accountRepository;
 
+
+    /**
+     * Create by: HuyNV
+     * Date created : 01/02/2023
+     * Function : to create account
+     *
+     * @param account
+     * @return
+     */
     @Override
     public Account createAccount(Account account) {
         return accountRepository.save(account);
