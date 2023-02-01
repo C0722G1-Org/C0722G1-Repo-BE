@@ -26,8 +26,8 @@ public class PostRestController {
      * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
      */
     @GetMapping("/{userNameAccount}")
-    public ResponseEntity<List<Post>> getPostList(Pageable pageable, @PathVariable String userNameAccount) {
-        Page<Post> postList = PostService.findAllPost(pageable, userNameAccount);
+    public ResponseEntity<List<Post>> getPostListByUserNameAccount(Pageable pageable, @PathVariable String userNameAccount) {
+        Page<Post> postList = PostService.findAllPostByUserNameAccount(pageable, userNameAccount);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

@@ -26,5 +26,5 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             " join customer on post.customer_id_customer = customer.id_customer" +
             " join account on customer.account_id_account = account.id_account" +
             " where account.username_account like :userNameAccount", nativeQuery = true)
-    Page<Post> findAllPost(Pageable pageable,@Param("userNameAccount") String userNameAccount);
+    Page<Post> findAllPostByUserNameAccount(Pageable pageable,@Param("userNameAccount") String userNameAccount);
 }

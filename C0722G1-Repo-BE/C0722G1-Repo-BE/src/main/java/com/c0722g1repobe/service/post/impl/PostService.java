@@ -20,7 +20,7 @@ public class PostService implements IPostService {
      * @return page post from post repository
      */
     @Override
-    public Page<Post> findAllPost(Pageable pageable, String userNameAccount) {
-        return iPostRepository.findAllPost(pageable, userNameAccount);
+    public Page<Post> findAllPostByUserNameAccount(Pageable pageable, String userNameAccount) {
+        return iPostRepository.findAllPostByUserNameAccount(pageable, userNameAccount);
     }
 }
