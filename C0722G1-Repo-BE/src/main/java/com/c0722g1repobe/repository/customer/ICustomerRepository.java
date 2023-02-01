@@ -37,7 +37,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * @param pageable
      * @return List customer have paging and search.
      */
-    @Query(value = " select * " +
+    @Query(value = " select customer.code_customer, customer.name_customer, customer.address_customer, customer.phone_customer1, customer.phone_customer2, customer.approval_customer " +
             " from customer " +
             " where flag_delete = false ",
             nativeQuery = true)

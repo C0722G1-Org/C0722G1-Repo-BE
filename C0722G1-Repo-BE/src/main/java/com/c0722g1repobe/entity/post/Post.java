@@ -1,15 +1,14 @@
 package com.c0722g1repobe.entity.post;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.c0722g1repobe.entity.customer.Customer;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
+@Builder
 @Setter
 @Getter
 @NoArgsConstructor
@@ -21,11 +20,13 @@ public class Post {
     private String namePost;
     private Double area;
     private String note;
-    private String descriptionPost;
     private Double price;
-    private boolean flagDelete = false;
-    private Integer approval;
-    private LocalDate dateCreation;
+    private String imageListURL;
+    private boolean flagDeleted = false;
+    private boolean approval;
+    private LocalDate dateCreation = LocalDate.now();
+    @ManyToOne
+    private Direction direction;
     @ManyToOne
     private StatusPost statusPost;
     @OneToOne
@@ -34,7 +35,7 @@ public class Post {
     private DemandType demandType;
     @ManyToOne
     private LandType landType;
-    @OneToMany
-    private Set<ImageList> imageListSet;
+    @ManyToOne
+    private Customer customer;
 
 }
