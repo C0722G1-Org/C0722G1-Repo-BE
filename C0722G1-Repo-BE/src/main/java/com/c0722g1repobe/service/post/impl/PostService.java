@@ -1,6 +1,6 @@
 package com.c0722g1repobe.service.post.impl;
 
-import com.c0722g1repobe.dto.post.PostDto;
+import com.c0722g1repobe.dto.post.PostDtoViewList;
 import com.c0722g1repobe.repository.post.IPostRepository;
 import com.c0722g1repobe.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class PostService implements IPostService {
     /*Call method getAll() of IPostRepository
      * Author: DatTQ*/
     @Override
-    public List<PostDto> getAll() {
+    public List<PostDtoViewList> getAll() {
         return postRepository.getAll();
     }
 
@@ -27,7 +27,7 @@ public class PostService implements IPostService {
       Parameter: String year
       Author: DatTQ */
     @Override
-    public List<PostDto> searchYear(String year) {
+    public List<PostDtoViewList> searchYear(String year) {
         return postRepository.searchYear(year);
     }
 
@@ -35,7 +35,7 @@ public class PostService implements IPostService {
      Parameter: String year, String month
      Author: DatTQ */
     @Override
-    public List<PostDto> searchYearAndMonth(String year, String month) {
+    public List<PostDtoViewList> searchYearAndMonth(String year, String month) {
         return postRepository.searchYearAndMonth(year, month);
     }
 }

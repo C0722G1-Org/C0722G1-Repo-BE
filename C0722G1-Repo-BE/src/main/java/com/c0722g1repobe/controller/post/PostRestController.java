@@ -4,7 +4,7 @@ package com.c0722g1repobe.controller.post;
 //import com.c0722g1repobe.dto.post.PostDto;
 //import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 //import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
-import com.c0722g1repobe.dto.post.PostDto;
+import com.c0722g1repobe.dto.post.PostDtoViewList;
 import com.c0722g1repobe.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.domain.Page;
@@ -39,13 +39,13 @@ public class PostRestController {
     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
     * Author: DatTQ*/
     @GetMapping("")
-    public ResponseEntity<List<PostDto>> displayList() {
-        List<PostDto> postDtoList = postService.getAll();
-        if (postDtoList.isEmpty()) {
+    public ResponseEntity<List<PostDtoViewList>> displayList() {
+        List<PostDtoViewList> postDtoViewListList = postService.getAll();
+        if (postDtoViewListList.isEmpty()) {
 //            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(postDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     }
 
     /*Method use: search(), call searchYear() and searchYearAndMonth of IPostService to get list data from database
@@ -59,22 +59,22 @@ public class PostRestController {
      * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
      * Author: DatTQ*/
     @GetMapping("/search")
-    public ResponseEntity<List<PostDto>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
-        List<PostDto> postDtoList = null;
+    public ResponseEntity<List<PostDtoViewList>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
+        List<PostDtoViewList> postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));;
         if (month == -1) {
-            postDtoList = postService.searchYear(String.valueOf(year));
+            postDtoViewListList = postService.searchYear(String.valueOf(year));
         }
         if (month != -1 && year == -1) {
             month = new Date().getMonth() + 1;
             year = LocalDate.now().getYear();
-            postDtoList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
+            postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
         }
         if (month != -1 && year != -1) {
-            postDtoList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
+            postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
         }
-        if (postDtoList.isEmpty()) {
+        if (postDtoViewListList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(postDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     }
 }

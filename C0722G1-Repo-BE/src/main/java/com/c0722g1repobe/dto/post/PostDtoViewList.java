@@ -1,6 +1,6 @@
 package com.c0722g1repobe.dto.post;
 
-public interface PostDto {
+public interface PostDtoViewList {
     Long getIdPost();
 
     Double getPrice();
