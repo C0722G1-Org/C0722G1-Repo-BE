@@ -32,25 +32,31 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAccount;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+
     private String name;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+
     private String usernameAccount;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
+
     private String email;
 
-    @JsonIgnore
-    @NotBlank
-    @Size(min = 6, max = 100)
+
     private String encryptPassword;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    public Account(String nameCustomer, String usernameAccount, String emailCustomer, String encode) {
+    }
+
+    public Account( String name, String usernameAccount, String email, String encryptPassword, Set<Role> roles) {
+        this.idAccount = idAccount;
+        this.name = name;
+        this.usernameAccount = usernameAccount;
+        this.email = email;
+        this.encryptPassword = encryptPassword;
+        this.roles = roles;
+    }
 }

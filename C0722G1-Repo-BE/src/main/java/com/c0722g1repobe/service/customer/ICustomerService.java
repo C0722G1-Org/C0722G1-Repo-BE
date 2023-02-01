@@ -3,7 +3,6 @@ package com.c0722g1repobe.service.customer;
 
 import com.c0722g1repobe.entity.customer.Customer;
 
-
 import java.util.List;
 
 public interface ICustomerService {
@@ -14,9 +13,10 @@ public interface ICustomerService {
      * method of using save customer
      */
 
-    void saveCustomerByUser(Customer customer);
+    void saveCustomerByAccount(Customer customer);
 
     void saveCustomer(Customer customer);
 
+    List<Customer> findListAll();
 
 }

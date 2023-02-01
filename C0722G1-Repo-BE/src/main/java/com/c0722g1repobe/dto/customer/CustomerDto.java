@@ -5,75 +5,69 @@ import com.c0722g1repobe.entity.account.Account;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
 import javax.validation.constraints.*;
 
 public class CustomerDto implements Validator {
-    private Integer id;
+
 
     @NotBlank(message = "vui lòng nhập tên!")
     @Size(max = 28)
-    private String name;
+    private String nameCustomer;
 
     private boolean isDelete;
 
     @NotNull
-    private String dayOfBirth;
+    private String dateOfBirth;
 
     @NotNull(message = "Vui lòng chọn giới tính.")
-    private Integer gender;
+    private Integer genderCustomer;
 
     @NotBlank(message = "Số CMND/CCCD không được để trống.")
     @Pattern(regexp = "^(\\d{9}|\\d{12})| *$",
             message = "Số CMND/CCCD phải đúng định dạng XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9).")
-    private String idCard;
+    private String idCardCustomer;
 
     @NotBlank(message = "Email không được để trống.")
     @Email(message = "Địa chỉ email phải đúng định dạng.")
-    private String email;
+    private String emailCustomer;
 
     @NotBlank(message = "Địa chỉ không được để trống.")
-    private String address;
+    private String addressCustomer;
 
     @NotNull
     @Size(max = 14)
     @NotBlank(message = "Số điện thoại không được để trống.")
-    private String phoneNumber1;
+    private String phoneCustomer1;
 
+    private String phoneCustomer2;
 
     private Account account;
 
     public CustomerDto() {
     }
 
+    public CustomerDto( String nameCustomer, boolean isDelete, String dateOfBirth, Integer genderCustomer, String idCardCustomer, String emailCustomer, String addressCustomer, String phoneCustomer1, String phoneCustomer2, Account account) {
 
-    public CustomerDto(Integer id, String name, boolean isDelete, String dayOfBirth, Integer gender, String idCard, String email, String address, String phoneNumber1, Account account) {
-        this.id = id;
-        this.name = name;
+        this.nameCustomer = nameCustomer;
         this.isDelete = isDelete;
-        this.dayOfBirth = dayOfBirth;
-        this.gender = gender;
-        this.idCard = idCard;
-        this.email = email;
-        this.address = address;
-        this.phoneNumber1 = phoneNumber1;
+        this.dateOfBirth = dateOfBirth;
+        this.genderCustomer = genderCustomer;
+        this.idCardCustomer = idCardCustomer;
+        this.emailCustomer = emailCustomer;
+        this.addressCustomer = addressCustomer;
+        this.phoneCustomer1 = phoneCustomer1;
+        this.phoneCustomer2 = phoneCustomer2;
         this.account = account;
     }
 
-    public Integer getId() {
-        return id;
+
+
+    public String getNameCustomer() {
+        return nameCustomer;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setNameCustomer(String nameCustomer) {
+        this.nameCustomer = nameCustomer;
     }
 
     public boolean isDelete() {
@@ -84,52 +78,60 @@ public class CustomerDto implements Validator {
         isDelete = delete;
     }
 
-    public String getDayOfBirth() {
-        return dayOfBirth;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDayOfBirth(String dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public Integer getGender() {
-        return gender;
+    public Integer getGenderCustomer() {
+        return genderCustomer;
     }
 
-    public void setGender(Integer gender) {
-        this.gender = gender;
+    public void setGenderCustomer(Integer genderCustomer) {
+        this.genderCustomer = genderCustomer;
     }
 
-    public String getIdCard() {
-        return idCard;
+    public String getIdCardCustomer() {
+        return idCardCustomer;
     }
 
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
+    public void setIdCardCustomer(String idCardCustomer) {
+        this.idCardCustomer = idCardCustomer;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailCustomer() {
+        return emailCustomer;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailCustomer(String emailCustomer) {
+        this.emailCustomer = emailCustomer;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressCustomer() {
+        return addressCustomer;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressCustomer(String addressCustomer) {
+        this.addressCustomer = addressCustomer;
     }
 
-    public String getPhoneNumber1() {
-        return phoneNumber1;
+    public String getPhoneCustomer1() {
+        return phoneCustomer1;
     }
 
-    public void setPhoneNumber1(String phoneNumber1) {
-        this.phoneNumber1 = phoneNumber1;
+    public void setPhoneCustomer1(String phoneCustomer1) {
+        this.phoneCustomer1 = phoneCustomer1;
+    }
+
+    public String getPhoneCustomer2() {
+        return phoneCustomer2;
+    }
+
+    public void setPhoneCustomer2(String phoneCustomer2) {
+        this.phoneCustomer2 = phoneCustomer2;
     }
 
     public Account getAccount() {
@@ -149,7 +151,7 @@ public class CustomerDto implements Validator {
     public void validate(Object target, Errors errors) {
         CustomerDto customerDto = (CustomerDto) target;
 
-        if (!customerDto.name.matches("[A-Za-z ]+")){
+        if (!customerDto.nameCustomer.matches("[A-Za-z ]+")){
             errors.rejectValue("name", "name.invalidFormat");
 
         }

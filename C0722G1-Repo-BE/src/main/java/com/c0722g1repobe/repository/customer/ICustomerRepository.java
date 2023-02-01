@@ -21,8 +21,8 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      * method of using save customer
      */
     @Modifying
-    @Query(value = "update account set encrypt_password = :password where username_account = :accountname and flag_deleted =0", nativeQuery = true)
-    void setPassword(@Param("accountname") String accountname, @Param("password") String password);
+    @Query(value = "update account set encrypt_password = :password,email = :email,name = :name where username_account = :accountname and flag_deleted =0", nativeQuery = true)
+    void setPassword(@Param("accountname") String accountname, @Param("password") String password, @Param("name") String name, @Param("email") String email);
 
 
     @Modifying
