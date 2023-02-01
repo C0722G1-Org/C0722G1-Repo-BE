@@ -15,7 +15,7 @@ public class CustomerRestController_confirmCustomer {
 
     @Test
     /**
-     * Note: Sử dụng MockMvcRequestBuilders.delete cho phương thức cập nhật 1 record column:
+     * Note: Sử dụng MockMvcRequestBuilders.delete cho phương thức cập nhật 1 record(column, attributes) vì:
      *       Tính chất của phương thức confirmCustomer tương tự với phương thức dùng để xóa mềm, có tác dụng
      *          cập nhật dữ liệu của column(attributes: thuộc tính) của confirmCustomer.
      *
