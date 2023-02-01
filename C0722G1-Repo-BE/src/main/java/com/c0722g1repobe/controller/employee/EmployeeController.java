@@ -47,7 +47,7 @@ public class EmployeeController {
             employeeInfoPage = employeeService.getAllEmployee(pageable);
         }
         if (employeeInfoPage.isEmpty()) {
-            return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(employeeInfoPage, HttpStatus.OK);
     }
