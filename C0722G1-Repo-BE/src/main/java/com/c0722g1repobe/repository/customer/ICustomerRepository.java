@@ -16,20 +16,44 @@ import java.util.List;
 @Transactional
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
-    @Modifying
-    @Query(value = " select * from customer " +
+    /**
+     *
+     * @return List customer.
+     */
+/*
+    @Query(value = " select * " +
+            " from customer " +
             " where starus_delete_customer = false ",
             nativeQuery = true)
     List<Customer> findCustomerAll();
+*/
 
-    @Query(value = " select * from customer " +
-            " where starus_delete_customer = false ",
+    /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: .
+     *
+     * @param allSearch : search all record
+     * @param pageable
+     * @return List customer have paging and search.
+     */
+    @Query(value = " select * " +
+            " from customer " +
+            " where flag_delete = false ",
             nativeQuery = true)
-    Page<Customer> findCustomerAll(@Param("allSearch") String allSearch,
+    Page<Customer> searchCustomer(@Param("allSearch") String allSearch,
                                   Pageable pageable);
 
+
+    /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: .
+     *
+     * @param id: id matches id_customer, used to confirm customer.
+     */
     @Modifying
-    @Query(value = "update customer set confirm_flag = true where id_customer = :idConfirm", nativeQuery = true)
+    @Query(value = "update customer set approval_customer = true where id_customer = :idConfirm", nativeQuery = true)
     void confirmCustomer(@Param("idConfirm") Integer id);
 
 

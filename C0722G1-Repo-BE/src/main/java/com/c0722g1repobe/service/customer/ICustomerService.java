@@ -9,12 +9,38 @@ import java.util.Optional;
 
 public interface ICustomerService {
 
+/*
     List<Customer> findCustomerAll();
+*/
 
-    Page<Customer> findAllCustomer(String allSearch,Pageable pageable);
+    /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: .
+     *
+     * @param allSearch
+     * @param pageable
+     * @return
+     */
+    Page<Customer> searchCustomer(String allSearch,Pageable pageable);
 
+    /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: .
+     *
+     * @param id
+     * @return
+     */
     Optional<Customer> findById(Integer id);
 
+    /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: .
+     *
+     * @param id
+     */
     void confirmCustomer(Integer id);
 
 }

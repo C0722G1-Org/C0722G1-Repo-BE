@@ -18,21 +18,47 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private ICustomerRepository iCustomerRepository;
 
+/*
     @Override
     public List<Customer> findCustomerAll() {
         return iCustomerRepository.findCustomerAll();
     }
+*/
 
+    /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: .
+     *
+     * @param allSearch
+     * @param pageable
+     * @return
+     */
     @Override
-    public Page<Customer> findAllCustomer(String allSearch, Pageable pageable) {
-        return iCustomerRepository.findCustomerAll(allSearch,pageable);
+    public Page<Customer> searchCustomer(String allSearch, Pageable pageable) {
+        return iCustomerRepository.searchCustomer(allSearch,pageable);
     }
 
+    /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: .
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Optional<Customer> findById(Integer id) {
         return iCustomerRepository.findById(id);
     }
 
+    /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: .
+     * 
+     * @param id
+     */
     @Override
     public void confirmCustomer(Integer id) {
         iCustomerRepository.confirmCustomer(id);

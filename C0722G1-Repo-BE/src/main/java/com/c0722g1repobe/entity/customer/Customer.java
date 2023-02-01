@@ -24,8 +24,11 @@ public class Customer {
     private String idCardCustomer;
     private String codeCustomer;
     private Integer genderCustomer;
+    private String dateOfBirthCustomer;
     private boolean flagDelete = false;
     private int approvalCustomer;
+    private String phoneCustomer1;
+    private String phoneCustomer2;
     @OneToOne
     private Account account;
 }
