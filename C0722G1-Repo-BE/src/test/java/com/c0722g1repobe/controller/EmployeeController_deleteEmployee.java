@@ -13,14 +13,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class
-
-
-EmployeeController_deleteEmployee {
+public class EmployeeController_deleteEmployee {
 
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * This function use to test delete employee of id employee is null
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void deleteEmployee_id_25() throws Exception {
 
@@ -30,6 +33,12 @@ EmployeeController_deleteEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test delete employee of id employee is ""
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void deleteEmployee_id_26() throws Exception {
 
@@ -39,6 +48,12 @@ EmployeeController_deleteEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test delete employee of id employee is 27
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void deleteEmployee_id_27() throws Exception {
 
@@ -48,6 +63,12 @@ EmployeeController_deleteEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test delete employee of id employee is 4
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void deleteEmployee_id_28() throws Exception {
 

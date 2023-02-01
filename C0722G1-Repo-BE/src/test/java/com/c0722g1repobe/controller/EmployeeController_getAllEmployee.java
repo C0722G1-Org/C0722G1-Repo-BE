@@ -18,6 +18,12 @@ public class EmployeeController_getAllEmployee {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * This function use to test list employee of all field search is null
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_7() throws Exception {
 
@@ -28,6 +34,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test list employee of all field search is "", page = 0
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_8() throws Exception {
 
@@ -56,6 +68,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(jsonPath("content[4].nameDivision").value("Kế toán"));
     }
 
+    /**
+     * This function use to test list employee of code search is NV-111
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_codeSearch_9() throws Exception {
 
@@ -66,6 +84,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test list employee of name search is Nhan
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_nameSearch_9() throws Exception {
 
@@ -76,6 +100,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test list employee of email search is nhanuq@gmail.com
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_emailSearch_9() throws Exception {
 
@@ -86,6 +116,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test list employee of name division search is Giam Doc
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_nameDivisionSearch_9() throws Exception {
 
@@ -96,6 +132,28 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test list employee of all field search is character special
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
+    @Test
+    public void getAllEmployee_search_9() throws Exception {
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .get("/api/employees/employee-list?codeSearch=@&nameSearch=*&emailSearch=$&nameDivisionSearch=.&page=0"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    /**
+     * This function use to test list employee of name search is Trần Thị Hào but flag_deleted = true
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_nameEmployee_10() throws Exception {
 
@@ -106,6 +164,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function use to test list employee of code search is NV-003, page = 0
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_codeEmployee_11() throws Exception {
 
@@ -126,6 +190,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(jsonPath("content[0].nameDivision").value("Quản lý"));
     }
 
+    /**
+     * This function use to test list employee of name search is T, page = 0
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_nameEmployee_11() throws Exception {
 
@@ -154,6 +224,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(jsonPath("content[4].nameDivision").value("Nhân viên"));
     }
 
+    /**
+     * This function use to test list employee of email search is oanhphan@gmail.com, page = 0
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_emailEmployee_11() throws Exception {
 
@@ -174,6 +250,12 @@ public class EmployeeController_getAllEmployee {
                 .andExpect(jsonPath("content[0].nameDivision").value("Nhân viên"));
     }
 
+    /**
+     * This function use to test list employee of name division search is Trưởng phòng, page = 0
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_nameDivisionSearch_11() throws Exception {
 
@@ -203,6 +285,12 @@ public class EmployeeController_getAllEmployee {
 
     }
 
+    /**
+     * This function use to test list employee of all field search is codeSearch=10, nameSearch=Tuấn, emailSearch=tuananh, nameDivisionSearch=Trưởng phòng, page = 0
+     *
+     * @author NhanUQ
+     * @Date 02/01/2023
+     */
     @Test
     public void getAllEmployee_allSearch_11() throws Exception {
 
