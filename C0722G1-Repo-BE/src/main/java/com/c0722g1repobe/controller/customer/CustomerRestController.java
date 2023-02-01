@@ -25,6 +25,8 @@ public class CustomerRestController {
      * Function: update info Customer
      *
      * @param idCustomer
+     * @return "Cập nhật thông tin thành công" + HttpStatus.OK
+     *
      */
 
 
@@ -33,7 +35,6 @@ public class CustomerRestController {
         Customer customer = this.customerService.findCustomer(idCustomer);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-
 
     @PatchMapping("/update-customer/{idCustomer}")
     public ResponseEntity<CustomerDto> updateCustomer(@Validated @RequestBody CustomerDto customerDto, BindingResult bindingResult) {

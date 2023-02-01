@@ -26,15 +26,15 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
                         @Param(value = "encryptPassword") String encryptPassword);
 
 
-//    /**
-//     * Created by VanNTC
-//     * Date created 31/12/2023
-//     * Function find account by idAccount
-//     *
-//     * @param idAccount
-//     * @@return account
-//     */
-//
-//    @Query(value = "select * from account where idAccount =:idAccount and flag_delete = 0", nativeQuery = true)
-//    Account findByIdAccount(@Param(value = "idAccount") Long idAccount);
+    /**
+     * Created by VanNTC
+     * Date created 31/12/2023
+     * Function find account by idAccount
+     *
+     * @param idAccount
+     * @@return account
+     */
+
+    @Query(value = "select * from account where idAccount =:idAccount and flag_delete = 0", nativeQuery = true)
+    Account findByIdAccount(@Param(value = "idAccount") Long idAccount);
 }

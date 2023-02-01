@@ -21,13 +21,25 @@ public class AccountRestController {
 
     /***Created by VanNTC
      * Date created: 31/01/2023
+     * Function:find account by idAccount
+     * @param idAccount
+     * @return "Cập nhật mật khẩu thành công" + HttpStatus.OK
+     */
+
+    @GetMapping("/idAccount")
+    public ResponseEntity<Account> getAccountById(@PathVariable Long idAccount){
+        Account account = this.iAccountService.findByIdAccount((idAccount));
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+    /***Created by VanNTC
+     * Date created: 31/01/2023
      * Function: Update new password
      * @param idAccount
      * @param encryptPassword
      * @return "Cập nhật mật khẩu thành công" + HttpStatus.OK
      */
 
-    @GetMapping("update-password")
+    @PatchMapping("/update-password/{IdAccount}")
     public ResponseEntity<?> updatePassword(@RequestParam(value = "id_account", required = false) Long idAccount,
                                             @RequestParam(value = "encrypt_password", required = false) String encryptPassword){
         Account account = new Account();

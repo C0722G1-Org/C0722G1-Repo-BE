@@ -51,7 +51,7 @@ public class CustomerRestController_updateCustomer {
 //
 //        this.mockMvc
 //                .perform(MockMvcRequestBuilders
-//                        .patch("/api/customers/update-customer/{idCustomer}")
+//                        .patch("/api/customers/update-customer/{idCustomer}", "Nguyễn Thúy")
 //                        .content(this.objectMapper.writeValueAsString(customerDto))
 //                        .contentType(MediaType.APPLICATION_JSON_VALUE))
 //                .andDo(print())

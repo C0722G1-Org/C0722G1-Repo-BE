@@ -11,10 +11,10 @@ public class AccountService implements IAccountService {
     @Autowired
     private IAccountRepository iAccountRepository;
 
-//    @Override
-//    public Account findByIdAccount(Long idAccount) {
-//        return iAccountRepository.findByIdAccount(idAccount);
-//    }
+    @Override
+    public Account findByIdAccount(Long idAccount) {
+        return iAccountRepository.findByIdAccount(idAccount);
+    }
 
     @Override
     public void updatePassword(Account account) {
