@@ -71,7 +71,7 @@ public class PostRestController_searchListPost {
     }
 
     /**
-     * Function used to test the search list of Posts with parameter does exist in DB, list has size > 0.Success
+     * Function used to test the search list of Posts with parameter does exist in DB, list has size > 0.Http.OK
      * Time: 01/02/2023
      * Author:DatTQ
      */
