@@ -1,6 +1,9 @@
 package com.c0722g1repobe.controller.post;
 
 import com.c0722g1repobe.entity.post.Post;
+//import com.c0722g1repobe.dto.post.PostDto;
+//import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
+//import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,16 +12,21 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
-
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/post")
+@RequestMapping("api/post")
 public class PostRestController {
     @Autowired
-    private IPostService PostService;
+    private IPostService postService;
 
     /**
      * Created by: UyDD
@@ -28,7 +36,7 @@ public class PostRestController {
      */
     @GetMapping("/{userNameAccount}")
     public ResponseEntity<List<Post>> getPostListByUserNameAccount(@PageableDefault(size = 5) Pageable pageable, @PathVariable String userNameAccount) {
-        Page<Post> postList = PostService.findAllPostByUserNameAccount(pageable, userNameAccount);
+        Page<Post> postList = postService.findAllPostByUserNameAccount(pageable, userNameAccount);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
