@@ -19,6 +19,6 @@ public class Account {
     private Long idAccount;
     private String usernameAccount;
     private String encryptPassword;
-    @ManyToMany(mappedBy = "accountSet")
-    private Set<Role> roleSet;
+    @OneToMany(mappedBy = "account")
+    private Set<AccountRole> roleSet;
 }

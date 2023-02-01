@@ -23,9 +23,11 @@ public class Post {
     private String note;
     private String descriptionPost;
     private Double price;
-    private boolean flagDelete = false;
-    private Integer approval;
-    private LocalDate dateCreation;
+    private boolean flagDeleted = false;
+    private int approval;
+    private LocalDate dateCreation = LocalDate.now();
+    @ManyToOne
+    private Direction direction;
     @ManyToOne
     private StatusPost statusPost;
     @OneToOne
@@ -34,7 +36,7 @@ public class Post {
     private DemandType demandType;
     @ManyToOne
     private LandType landType;
-    @OneToMany
-    private Set<ImageList> imageListSet;
+    @OneToOne
+    private ImageList imageList;
 
 }
