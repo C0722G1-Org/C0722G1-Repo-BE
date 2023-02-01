@@ -6,8 +6,10 @@ import com.c0722g1repobe.entity.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface IPostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT p.name_post,\n" +
@@ -218,14 +220,6 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                                                            @Param("maxArea") Double maxArea,
                                                            @Param("priceMin") Double priceMin,
                                                            @Param("priceMax") Double priceMax, Pageable pageable);
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-
-public interface IPostRepository  extends JpaRepository<Post, Long> {
     /**
      * Create by: NgocLV
      * Date created: 31/01/2023
@@ -267,14 +261,14 @@ public interface IPostRepository  extends JpaRepository<Post, Long> {
      * @return json list Posts searched
      */
 
-@Query(value = "select p.id_post as idPost, c.code_customer as codeCustomer, d.name_demand_type as demandType, l.name_land_type as landType, a.number_address as position, p.area as area, p.note as note, p.approval_id_approval as approval \n" +
-        "from post p left join customer as c on p.customer_id_customer = c.id_customer left join demand_type as d on p.demand_type_id_demand_type = d.id_demand_type \n" +
-        "left join land_type as l on l.id_land_type = p.land_type_id_land_type left join address as a on a.id_address = p.address_id_address where p.flag_deleted = false and (d.name_demand_type like concat('%', :demandTypeSearch, '%')  and  l.name_land_type like concat('%', :lendTypeSearch, '%'))",
-        countQuery = "select p.id_post as idPost, c.code_customer as codeCustomer, d.name_demand_type as demandType, l.name_land_type as landType, a.number_address as position, p.area as area, p.note as note, p.approval_id_approval as approval \n" +
-                "from post p left join customer as c on p.customer_id_customer = c.id_customer left join demand_type as d on p.demand_type_id_demand_type = d.id_demand_type \n" +
-                "left join land_type as l on l.id_land_type = p.land_type_id_land_type left join address as a on a.id_address = p.address_id_address where p.flag_deleted = false and (d.name_demand_type like concat('%', :demandTypeSearch, '%')  and  l.name_land_type like concat('%', :lendTypeSearch, '%'))",
-        nativeQuery = true)
-Page<PostDto> searchAllPost(@Param("demandTypeSearch") String demandTypeSearch,@Param("lendTypeSearch") String lendTypeSearch , Pageable pageable);
+    @Query(value = "select p.id_post as idPost, c.code_customer as codeCustomer, d.name_demand_type as demandType, l.name_land_type as landType, a.number_address as position, p.area as area, p.note as note, p.approval_id_approval as approval \n" +
+            "from post p left join customer as c on p.customer_id_customer = c.id_customer left join demand_type as d on p.demand_type_id_demand_type = d.id_demand_type \n" +
+            "left join land_type as l on l.id_land_type = p.land_type_id_land_type left join address as a on a.id_address = p.address_id_address where p.flag_deleted = false and (d.name_demand_type like concat('%', :demandTypeSearch, '%')  and  l.name_land_type like concat('%', :lendTypeSearch, '%'))",
+            countQuery = "select p.id_post as idPost, c.code_customer as codeCustomer, d.name_demand_type as demandType, l.name_land_type as landType, a.number_address as position, p.area as area, p.note as note, p.approval_id_approval as approval \n" +
+                    "from post p left join customer as c on p.customer_id_customer = c.id_customer left join demand_type as d on p.demand_type_id_demand_type = d.id_demand_type \n" +
+                    "left join land_type as l on l.id_land_type = p.land_type_id_land_type left join address as a on a.id_address = p.address_id_address where p.flag_deleted = false and (d.name_demand_type like concat('%', :demandTypeSearch, '%')  and  l.name_land_type like concat('%', :lendTypeSearch, '%'))",
+            nativeQuery = true)
+    Page<PostDto> searchAllPost(@Param("demandTypeSearch") String demandTypeSearch,@Param("lendTypeSearch") String lendTypeSearch , Pageable pageable);
     /**
      * Create by: NgocLV
      * Date created: 31/01/2023
