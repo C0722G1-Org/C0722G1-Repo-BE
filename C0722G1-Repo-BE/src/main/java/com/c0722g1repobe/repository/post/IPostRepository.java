@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface IPostRepository extends JpaRepository<Post, Long> {
 
     /**
      * Create by : BaoDP

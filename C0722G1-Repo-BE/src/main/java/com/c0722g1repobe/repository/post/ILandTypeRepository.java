@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LandTypeRepository extends JpaRepository<LandType, Long> {
+public interface ILandTypeRepository extends JpaRepository<LandType, Long> {
     @Query(value = "select * from sprint_1.land_type as lt where lt.id_land_type = :idLandType", nativeQuery = true)
     LandType findByIdNativeQuery(@Param("idLandType") Long idLandType);
 }

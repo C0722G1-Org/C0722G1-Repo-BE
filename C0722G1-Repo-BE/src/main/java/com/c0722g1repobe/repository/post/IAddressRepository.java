@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface AddressRepository extends JpaRepository<Address, Long> {
+public interface IAddressRepository extends JpaRepository<Address, Long> {
     @Query(value = "select a.id_address from sprint_1.address as a where a.number_address = :numberAddress AND a.wards_id_wards= :idWards", nativeQuery = true)
     Long findIdByNumberAddressAndIdWardsNativeQuery(@Param("numberAddress") String numberAddress, @Param("idWards") Long idWards);
 

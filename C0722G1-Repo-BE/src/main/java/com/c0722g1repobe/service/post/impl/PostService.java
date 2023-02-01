@@ -4,8 +4,8 @@ import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.entity.post.*;
-import com.c0722g1repobe.repository.post.AddressRepository;
-import com.c0722g1repobe.repository.post.PostRepository;
+import com.c0722g1repobe.repository.post.IAddressRepository;
+import com.c0722g1repobe.repository.post.IPostRepository;
 import com.c0722g1repobe.service.post.IPostService;
 import com.c0722g1repobe.validation.post.IValidateCreatePost;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,9 @@ public class PostService implements IPostService {
     @Autowired
     private IValidateCreatePost validateCreatePost;
     @Autowired
-    private AddressRepository addressRepository;
+    private IAddressRepository IAddressRepository;
     @Autowired
-    private PostRepository postRepository;
+    private IPostRepository IPostRepository;
 
 
     /**
@@ -47,8 +47,8 @@ public class PostService implements IPostService {
 
         Long defaultIdStatus = 1L;
 
-        addressRepository.saveAddress(createPostDto.getNumberAddress(), createPostDto.getIdWards());
-        Long idAddress = addressRepository.findIdByNumberAddressAndIdWardsNativeQuery(createPostDto.getNumberAddress(), createPostDto.getIdWards());
+        IAddressRepository.saveAddress(createPostDto.getNumberAddress(), createPostDto.getIdWards());
+        Long idAddress = IAddressRepository.findIdByNumberAddressAndIdWardsNativeQuery(createPostDto.getNumberAddress(), createPostDto.getIdWards());
 
         return Post.builder()
                 .approval(false)
@@ -76,7 +76,7 @@ public class PostService implements IPostService {
      * @param post : an object of class PostDto
      */
     private void savePost(Post post) {
-        postRepository.savePost(post);
+        IPostRepository.savePost(post);
     }
 
     /**

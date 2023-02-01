@@ -12,20 +12,20 @@ import org.springframework.stereotype.Component;
 public class ValidateCreatePost implements IValidateCreatePost {
     private final BaseResponseCreatePost baseResponseCreatePost;
     private final CustomerRepository customerRepository;
-    private final DemandTypeRepository demandTypeRepository;
-    private final LandTypeRepository landTypeRepository;
-    private final WardsRepository wardsRepository;
-    private final DirectionRepository directionRepository;
-    private final AddressRepository addressRepository;
+    private final IDemandTypeRepository IDemandTypeRepository;
+    private final ILandTypeRepository ILandTypeRepository;
+    private final IWardsRepository IWardsRepository;
+    private final IDirectionRepository IDirectionRepository;
+    private final IAddressRepository IAddressRepository;
 
-    public ValidateCreatePost(BaseResponseCreatePost baseResponseCreatePost, CustomerRepository customerRepository, DemandTypeRepository demandTypeRepository, LandTypeRepository landTypeRepository, WardsRepository wardsRepository, DirectionRepository directionRepository, AddressRepository addressRepository) {
+    public ValidateCreatePost(BaseResponseCreatePost baseResponseCreatePost, CustomerRepository customerRepository, IDemandTypeRepository IDemandTypeRepository, ILandTypeRepository ILandTypeRepository, IWardsRepository IWardsRepository, IDirectionRepository IDirectionRepository, IAddressRepository IAddressRepository) {
         this.baseResponseCreatePost = baseResponseCreatePost;
         this.customerRepository = customerRepository;
-        this.demandTypeRepository = demandTypeRepository;
-        this.landTypeRepository = landTypeRepository;
-        this.wardsRepository = wardsRepository;
-        this.directionRepository = directionRepository;
-        this.addressRepository = addressRepository;
+        this.IDemandTypeRepository = IDemandTypeRepository;
+        this.ILandTypeRepository = ILandTypeRepository;
+        this.IWardsRepository = IWardsRepository;
+        this.IDirectionRepository = IDirectionRepository;
+        this.IAddressRepository = IAddressRepository;
     }
 
     /**
@@ -121,7 +121,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private BaseResponseCreatePost validateIdDemand() {
         Long idDemand = baseResponseCreatePost.getCreatePostDto().getIdDemand();
 
-        boolean demandTypeNotExist = demandTypeRepository.findByIdNativeQuery(idDemand) == null;
+        boolean demandTypeNotExist = IDemandTypeRepository.findByIdNativeQuery(idDemand) == null;
         if (demandTypeNotExist) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Nhu cầu không tồn tại !");
             return baseResponseCreatePost;
@@ -140,7 +140,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private BaseResponseCreatePost validateIdLandType() {
         Long idLandType = baseResponseCreatePost.getCreatePostDto().getIdLandType();
 
-        boolean landTypeNotExist = landTypeRepository.findByIdNativeQuery(idLandType) == null;
+        boolean landTypeNotExist = ILandTypeRepository.findByIdNativeQuery(idLandType) == null;
         if (landTypeNotExist) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại bất động sản không tồn tại !");
             return baseResponseCreatePost;
@@ -159,7 +159,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private BaseResponseCreatePost validateIdWards() {
         Long idWards = baseResponseCreatePost.getCreatePostDto().getIdWards();
 
-        boolean wardsNotExist = wardsRepository.findNameByIdNativeQuery(idWards) == null;
+        boolean wardsNotExist = IWardsRepository.findNameByIdNativeQuery(idWards) == null;
         if (wardsNotExist) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Địa chỉ không phù hợp !");
             return baseResponseCreatePost;
@@ -178,7 +178,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private BaseResponseCreatePost validateIdDirection() {
         Long idDirection = baseResponseCreatePost.getCreatePostDto().getIdDirection();
 
-        boolean directionNotExist = directionRepository.findByIdNativeQuery(idDirection) == null;
+        boolean directionNotExist = IDirectionRepository.findByIdNativeQuery(idDirection) == null;
         if (directionNotExist) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Hướng nhà không tồn tại !");
             return baseResponseCreatePost;
@@ -299,7 +299,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
      * @return baseResponseCreatePost after validate Address
      */
     private BaseResponseCreatePost validateAddress() {
-        Long idAddress = addressRepository.findIdByNumberAddressAndIdWardsNativeQuery(baseResponseCreatePost.getCreatePostDto().getNumberAddress(), baseResponseCreatePost.getCreatePostDto().getIdWards());
+        Long idAddress = IAddressRepository.findIdByNumberAddressAndIdWardsNativeQuery(baseResponseCreatePost.getCreatePostDto().getNumberAddress(), baseResponseCreatePost.getCreatePostDto().getIdWards());
 
         boolean addressExist = idAddress != null;
         if (addressExist) {

@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DirectionRepository extends JpaRepository<Direction, Long> {
+public interface IDirectionRepository extends JpaRepository<Direction, Long> {
     @Query(value = "select * from sprint_1.direction as d where d.id_direction = :idDirection", nativeQuery = true)
     Direction findByIdNativeQuery(@Param("idDirection") Long idDirection);
 }
