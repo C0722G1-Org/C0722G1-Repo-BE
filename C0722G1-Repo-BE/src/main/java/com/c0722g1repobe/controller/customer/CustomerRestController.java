@@ -46,9 +46,9 @@ public class CustomerRestController {
      * @param allSearch
      * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if database is empty.
      */
-    @GetMapping("/list/{allSearch}")
+    @GetMapping("")
     public ResponseEntity<Page<Customer>> getAllCustomerPaging(@PageableDefault(value = 5) Pageable pageable,
-                                                      @PathVariable("allSearch") String allSearch) {
+                                                      @RequestParam(value = "allSearch",defaultValue = "") String allSearch) {
         Page<Customer> customerPage = iCustomerService.searchCustomer(allSearch, pageable);
         if (customerPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

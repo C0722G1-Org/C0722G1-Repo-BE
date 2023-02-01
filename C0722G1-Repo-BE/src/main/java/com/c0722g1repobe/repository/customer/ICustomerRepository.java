@@ -37,9 +37,16 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * @param pageable
      * @return List customer have paging and search.
      */
-    @Query(value = " select customer.code_customer, customer.name_customer, customer.address_customer, customer.phone_customer1, customer.phone_customer2, customer.approval_customer " +
+/*    @Query(value = " select customer.code_customer, customer.name_customer, customer.address_customer, customer.phone_customer1, customer.phone_customer2, customer.approval_customer " +
             " from customer " +
-            " where flag_delete = false ",
+            " where flag_delete = true ",
+            nativeQuery = true)
+    Page<Customer> searchCustomer(@Param("allSearch") String allSearch,
+                                  Pageable pageable);*/
+    /*
+    * id_customer, code_customer, name_customer, address_customer, phone_customer1, phone_customer2, approval_customer*/
+
+    @Query(value = "select * from customer where  name_customer like concat('%', :allSearch ,'%')  or address_customer like concat('%', :allSearch ,'%')  or code_customer  like concat('%', :allSearch ,'%')  and flag_delete = true ",
             nativeQuery = true)
     Page<Customer> searchCustomer(@Param("allSearch") String allSearch,
                                   Pageable pageable);
