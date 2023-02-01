@@ -2,15 +2,15 @@ package com.c0722g1repobe.dto;
 
 public class NotificationSearchDto {
     private String startDate;
-    private String tittle;
+    private String title;
     private String content;
 
     public NotificationSearchDto() {
     }
 
-    public NotificationSearchDto(String startDate, String tittle, String content) {
+    public NotificationSearchDto(String startDate, String title, String content) {
         this.startDate = startDate;
-        this.tittle = tittle;
+        this.title = title;
         this.content = content;
     }
 
@@ -22,12 +22,12 @@ public class NotificationSearchDto {
         this.startDate = startDate;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {

@@ -3,7 +3,7 @@ package com.c0722g1repobe.repository;
 import com.c0722g1repobe.dto.NotificationAllPropertyDto;
 import com.c0722g1repobe.dto.NotificationDeleteDto;
 import com.c0722g1repobe.dto.NotificationSearchDto;
-import com.c0722g1repobe.model.Notification;
+import com.c0722g1repobe.entity.notification.Notification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,17 +21,17 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
     /**
      * Create by: DatLA
      * Date created: 31/01/2023
-     * Function: to search notifications by posting date and tittle and content
+     * Function: to search notifications by posting date and title and content
      *
      * @param notificationSearchDto
      * @param pageable
      * @return Notifications with pagination
      */
-    @Query(value = "SELECT nt.`id_notification` AS idNotification, nt.posting_date AS postingDate, nt.`tittle` AS `tittle`, nt.`content` AS `content` " +
+    @Query(value = "SELECT nt.`id_notification` AS idNotification, nt.posting_date AS postingDate, nt.`title` AS `title`, nt.`content` AS `content` " +
             " FROM `notification` as nt " +
             " WHERE nt.flag_delete = 0 " +
             " AND nt.posting_date BETWEEN :#{#notificationSearchDto.startDate} AND NOW()" +
-            " AND nt.`tittle` LIKE %:#{#notificationSearchDto.tittle}% " +
+            " AND nt.`title` LIKE %:#{#notificationSearchDto.title}% " +
             " AND nt.`content` LIKE %:#{#notificationSearchDto.content}% " +
             " ORDER BY nt.posting_date DESC "
             , nativeQuery = true)
@@ -46,7 +46,7 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
      * @param idList
      * @return notifications list
      */
-    @Query(value = "select `id_notification` AS idNotification, tittle FROM `notification` WHERE id_notification IN :idList AND flag_delete = 0", nativeQuery = true)
+    @Query(value = "select `id_notification` AS idNotification, `title` FROM `notification` WHERE id_notification IN :idList AND flag_delete = 0", nativeQuery = true)
     List<NotificationDeleteDto> findByListId(@Param("idList") List<Integer> idList);
 
     /**

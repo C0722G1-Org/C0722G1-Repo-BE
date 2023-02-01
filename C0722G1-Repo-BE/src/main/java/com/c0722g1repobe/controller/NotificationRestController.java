@@ -3,7 +3,6 @@ package com.c0722g1repobe.controller;
 import com.c0722g1repobe.dto.NotificationDeleteDto;
 import com.c0722g1repobe.dto.NotificationAllPropertyDto;
 import com.c0722g1repobe.dto.NotificationSearchDto;
-import com.c0722g1repobe.model.Notification;
 import com.c0722g1repobe.service.INotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +25,7 @@ public class NotificationRestController {
     /**
      * Create by: DatLA
      * Date created: 31/01/2023
-     * Function: to search notifications by posting date and tittle and content
+     * Function: to search notifications by posting date and title and content
      *
      * @param notificationSearchDto
      * @param pageable

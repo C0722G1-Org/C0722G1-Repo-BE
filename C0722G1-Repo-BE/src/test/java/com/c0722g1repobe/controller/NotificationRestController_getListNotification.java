@@ -50,7 +50,7 @@ public class NotificationRestController_getListNotification {
         Assertions.assertEquals("2023-01-24",
                 responseEntity.getBody().getContent().get(0).getPostingDate());
         Assertions.assertEquals("Về việc thay đổi địa chỉ",
-                responseEntity.getBody().getContent().get(0).getTittle());
+                responseEntity.getBody().getContent().get(0).getTitle());
         Assertions.assertEquals("Công ty thông báo đến toàn thể nhân viên về việc thay đổi địa chỉ văn phòng từ ngày 15/02/2023." +
                         "Công ty chuyển sang địa chỉ mới: Đường Trần Hưng Đạo, Sơn Trà, Đà Nẵng. Trân trọng.",
                 responseEntity.getBody().getContent().get(0).getContent());
