@@ -1,4 +1,4 @@
-package c0722g1repobe.dto;
+package com.c0722g1repobe.dto;
 
 public interface NotificationAllPropertyDto {
     Integer getIdNotification();

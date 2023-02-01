@@ -1,4 +1,4 @@
-package c0722g1repobe.model;
+package com.c0722g1repobe.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;

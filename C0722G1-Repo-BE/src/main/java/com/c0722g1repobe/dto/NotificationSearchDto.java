@@ -1,4 +1,4 @@
-package c0722g1repobe.dto;
+package com.c0722g1repobe.dto;
 
 public class NotificationSearchDto {
     private String startDate;

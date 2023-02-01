@@ -1,4 +1,4 @@
-package c0722g1repobe;
+package com.c0722g1repobe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

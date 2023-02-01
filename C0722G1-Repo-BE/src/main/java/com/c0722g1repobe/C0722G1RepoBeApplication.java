@@ -1,4 +1,4 @@
-package c0722g1repobe;
+package com.c0722g1repobe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,8 +1,8 @@
-package c0722g1repobe.service;
+package com.c0722g1repobe.service;
 
-import c0722g1repobe.dto.NotificationAllPropertyDto;
-import c0722g1repobe.dto.NotificationDeleteDto;
-import c0722g1repobe.dto.NotificationSearchDto;
+import com.c0722g1repobe.dto.NotificationAllPropertyDto;
+import com.c0722g1repobe.dto.NotificationDeleteDto;
+import com.c0722g1repobe.dto.NotificationSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
