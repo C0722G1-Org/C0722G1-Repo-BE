@@ -7,9 +7,8 @@ import com.c0722g1repobe.service.employee.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService implements IEmployeeService {
@@ -61,16 +60,37 @@ public class EmployeeService implements IEmployeeService {
     }
 
     /**
-     * Create by: NhanUQ
-     * Date created: 31/01/2023
-     * Function: find employee by id
-     *
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: find by id to employee
      * @param id
-     *
-     * @return object employee
      */
     @Override
-    public Optional<Employee> findIdEmployee(Long id) {
-        return employeeRepository.findIdEmployee(id);
+    public Optional<Employee> findById(Long id) {
+        return employeeRepository.getByIdEmployee(id);
+    }
+
+    /**
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: create to employee
+     * @param employee
+     */
+    @Override
+    public void saveEmployee(Employee employee) {
+        employeeRepository.saveEmployee(employee.getCodeEmployee(), employee.getNameEmployee(), employee.getEmailEmployee(), employee.getDateOfBirth(),
+                employee.isGenderEmployee(), employee.getPhoneEmployee(), employee.getAddressEmployee() , employeeRepository.getIdAccount(employee.getAccount().getUsernameAccount()), employee.getDivision());
+    }
+
+    /**
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: update to employee
+     * @param id
+     * @param employee
+     */
+    @Override
+    public void updateEmployee(Employee employee, Long id) {
+        employeeRepository.updateEmployee(id, employee.getNameEmployee(), employee.getEmailEmployee(), employee.isGenderEmployee(), employee.getPhoneEmployee(), employee.getAddressEmployee(), employee.getDateOfBirth(), employee.getDivision());
     }
 }
