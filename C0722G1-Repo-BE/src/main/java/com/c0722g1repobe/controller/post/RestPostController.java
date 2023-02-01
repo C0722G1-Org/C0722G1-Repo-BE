@@ -31,7 +31,7 @@ public class RestPostController {
      */
     @GetMapping("")
     public ResponseEntity<Page<PostDto>> listAllPosts(@RequestParam(defaultValue = "") String demandTypeSearch,
-                                                      @RequestParam(defaultValue = "") String lendTypeSearch,  @PageableDefault(page = 0,size = 1) Pageable pageable) {
+                                                      @RequestParam(defaultValue = "") String lendTypeSearch,  @PageableDefault(page = 0,size = 3) Pageable pageable) {
         Page<PostDto> listPostDtos;
         if (demandTypeSearch != null || lendTypeSearch != null) {
             listPostDtos = iPostService.searchAllPost(demandTypeSearch, lendTypeSearch, pageable);
@@ -79,7 +79,6 @@ public class RestPostController {
         if (currentPost==null) {
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
         }
-
         iPostService.approvalPost(id);
         return new ResponseEntity<Post>(currentPost, HttpStatus.OK);
     }

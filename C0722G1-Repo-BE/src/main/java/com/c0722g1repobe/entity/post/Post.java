@@ -1,6 +1,7 @@
 package com.c0722g1repobe.entity.post;
 
 import com.c0722g1repobe.entity.customer.Customer;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,7 @@ public class Post {
     @OneToOne
     private ImageList imageList;
     @ManyToOne
+    @JsonBackReference
     private Customer customer;
 
 }

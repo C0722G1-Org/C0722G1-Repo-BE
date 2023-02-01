@@ -39,7 +39,7 @@ public interface IPostRepository  extends JpaRepository<Post, Long> {
      */
     @Query(value = "SELECT * " +
             "FROM post " +
-            "WHERE id_post = :id",
+            "WHERE flag_deleted = false and id_post = :id",
             nativeQuery = true)
     Post findPost(@Param("id") Long id);
     /**
