@@ -1,7 +1,8 @@
-package com.c0722g1repobe.controller;
+package com.c0722g1repobe.controller.notification;
 
-import com.c0722g1repobe.dto.NotificationAllPropertyDto;
-import com.c0722g1repobe.dto.NotificationSearchDto;
+import com.c0722g1repobe.controller.notification.NotificationRestController;
+import com.c0722g1repobe.dto.notification.NotificationAllPropertyDto;
+import com.c0722g1repobe.dto.notification.NotificationSearchDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

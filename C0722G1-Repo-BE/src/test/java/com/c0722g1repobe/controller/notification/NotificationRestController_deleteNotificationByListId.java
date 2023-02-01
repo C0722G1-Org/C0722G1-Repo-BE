@@ -1,5 +1,6 @@
-package com.c0722g1repobe.controller;
+package com.c0722g1repobe.controller.notification;
 
+import com.c0722g1repobe.controller.notification.NotificationRestController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
