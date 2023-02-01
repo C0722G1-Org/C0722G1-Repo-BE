@@ -5,6 +5,7 @@ import com.c0722g1repobe.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class PostRestController {
      * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
      */
     @GetMapping("/{userNameAccount}")
-    public ResponseEntity<List<Post>> getPostListByUserNameAccount(Pageable pageable, @PathVariable String userNameAccount) {
+    public ResponseEntity<List<Post>> getPostListByUserNameAccount(@PageableDefault(size = 5) Pageable pageable, @PathVariable String userNameAccount) {
         Page<Post> postList = PostService.findAllPostByUserNameAccount(pageable, userNameAccount);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
