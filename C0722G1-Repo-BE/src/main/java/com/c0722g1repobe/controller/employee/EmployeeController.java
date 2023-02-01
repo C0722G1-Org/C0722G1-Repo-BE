@@ -32,7 +32,7 @@ public class EmployeeController {
      * @param nameDivisionSearch
      * @param pageable
      *
-     * @return HttpStatus.OK if json list employee
+     * @return HttpStatus.OK if connect to database return json list employee or HttpStatus.NO_CONTENT if list employee is empty
      */
     @GetMapping("employee-list")
     public ResponseEntity<Page<EmployeeInfo>> getAllEmployee(@RequestParam(defaultValue = "") String codeSearch,
@@ -41,7 +41,7 @@ public class EmployeeController {
                                                              @RequestParam(defaultValue = "") String nameDivisionSearch,
                                                              @PageableDefault(size = 5) Pageable pageable) {
         Page<EmployeeInfo> employeeInfoPage;
-        if (codeSearch != null || nameSearch != null || emailSearch != null || nameDivisionSearch != null) {
+        if (codeSearch != null && nameSearch != null && emailSearch != null && nameDivisionSearch != null) {
             employeeInfoPage = employeeService.searchEmployee(codeSearch, nameSearch, emailSearch, nameDivisionSearch, pageable);
         }else {
             employeeInfoPage = employeeService.getAllEmployee(pageable);
