@@ -95,10 +95,10 @@ public interface IPostService {
      * @return json  post
      */
     Post findPost(Long id);
+
     /**
-     * Create by: NgocLV
-     * Date created: 31/01/2023
-     * Function: search list posts
+     *Created by: NgocLV
+     * Date Created: 31/01/2023
      *
      * @param demandTypeSearch
      * @param lendTypeSearch
@@ -109,7 +109,7 @@ public interface IPostService {
      * @return json list posts
      */
     Page<PostDto> searchAllPost(String demandTypeSearch,String lendTypeSearch,Double minPriceSearch,Double maxPriceSearch, String positionSearch ,Pageable pageable);
-    /**
+       /**
      * Create by: NgocLV
      * Date created: 31/01/2023
      * Function: show list posts
@@ -119,7 +119,7 @@ public interface IPostService {
      * @return json list posts
      */
     Page<PostDto> findAllPost( Pageable pageable);
-    /**
+      /**
      * Create by: NgocLV
      * Date created: 31/01/2023
      * Function: approval post

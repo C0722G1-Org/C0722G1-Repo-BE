@@ -431,6 +431,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                                                                       @Param("maxArea") Double maxArea,
                                                                       @Param("priceMin") Double priceMin,
                                                                       @Param("priceMax") Double priceMax, Pageable pageable);
+
     /**
      * Create by: NgocLV
      * Date created: 31/01/2023
@@ -514,5 +515,4 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             nativeQuery = true)
     @Transactional
     void approvalPost(@Param("id") Long id);
-
 }
