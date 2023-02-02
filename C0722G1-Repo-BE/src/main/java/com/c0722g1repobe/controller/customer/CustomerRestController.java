@@ -26,7 +26,6 @@ public class CustomerRestController {
      *
      * @param idCustomer
      * @return "Cập nhật thông tin thành công" + HttpStatus.OK
-     *
      */
 
 
@@ -49,5 +48,4 @@ public class CustomerRestController {
         customerService.updateCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

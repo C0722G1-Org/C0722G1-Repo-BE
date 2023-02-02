@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,7 +27,7 @@ public class AccountRestController {
      * @return "Cập nhật mật khẩu thành công" + HttpStatus.OK
      */
 
-    @GetMapping("/idAccount")
+    @GetMapping("/{idAccount}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long idAccount){
         Account account = this.iAccountService.findByIdAccount((idAccount));
         return new ResponseEntity<>(account, HttpStatus.OK);

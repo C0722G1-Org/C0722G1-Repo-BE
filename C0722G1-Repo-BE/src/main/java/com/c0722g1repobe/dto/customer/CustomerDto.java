@@ -7,58 +7,26 @@ import org.springframework.validation.Validator;
 import javax.validation.constraints.*;
 
 public class CustomerDto implements Validator {
-
     private Long idCustomer;
-
-    @NotBlank(message = "Vui lòng nhập tên!")
-    @Size(max = 50)
     private String nameCustomer;
-
-    private boolean flagDelete;
-
-    @NotNull
-    private String dateOfBirth;
-
-    @NotNull(message = "Vui lòng thêm giới tính")
-    private Integer genderCustomer;
-
-    @NotBlank(message = "Số CMND/CCCD không được để trống.")
-    @Pattern(regexp = "^(\\d{9}|\\d{12})| *$",
-            message = "Số CMND/CCCD phải đúng định dạng XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9).")
-    private String idCardCustomer;
-
-    @NotBlank(message = "Email không được để trống.")
-    @Email(message = "Địa chỉ email phải đúng định dạng.")
-    private String emailCustomer;
-
-    @NotBlank(message = "Địa chỉ không được để trống.")
-    private String addressCustomer;
-
-    @NotNull
-    @Size(max = 11)
-    @NotBlank(message = "Số điện thoại không được để trống.")
     private String phoneCustomer1;
+    private String dateOfBirthCustomer;
     private String phoneCustomer2;
-    private Account account;
+    private String emailCustomer;
+    private String addressCustomer;
+    private String idCardCustomer;
+    private String codeCustomer;
+    private Integer genderCustomer;
+    private boolean flagDelete = false;
+    private int approvalCustomer;
+    private String encryptPassword;
 
-    public CustomerDto() {
+    public String getDateOfBirthCustomer() {
+        return dateOfBirthCustomer;
     }
 
-    public CustomerDto(Long idCustomer, String nameCustomer, boolean flagDelete,
-                       String dateOfBirth, Integer genderCustomer, String idCardCustomer,
-                       String emailCustomer, String addressCustomer, String phoneCustomer1,
-                       String phoneCustomer2, Account account) {
-        this.idCustomer = idCustomer;
-        this.nameCustomer = nameCustomer;
-        this.flagDelete = flagDelete;
-        this.dateOfBirth = dateOfBirth;
-        this.genderCustomer = genderCustomer;
-        this.idCardCustomer = idCardCustomer;
-        this.emailCustomer = emailCustomer;
-        this.addressCustomer = addressCustomer;
-        this.phoneCustomer1 = phoneCustomer1;
-        this.phoneCustomer2 = phoneCustomer2;
-        this.account = account;
+    public void setDateOfBirthCustomer(String dateOfBirthCustomer) {
+        this.dateOfBirthCustomer = dateOfBirthCustomer;
     }
 
     public Long getIdCustomer() {
@@ -77,36 +45,20 @@ public class CustomerDto implements Validator {
         this.nameCustomer = nameCustomer;
     }
 
-    public boolean isFlagDelete() {
-        return flagDelete;
+    public String getPhoneCustomer1() {
+        return phoneCustomer1;
     }
 
-    public void setFlagDelete(boolean flagDelete) {
-        this.flagDelete = flagDelete;
+    public void setPhoneCustomer1(String phoneCustomer1) {
+        this.phoneCustomer1 = phoneCustomer1;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public String getPhoneCustomer2() {
+        return phoneCustomer2;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Integer getGenderCustomer() {
-        return genderCustomer;
-    }
-
-    public void setGenderCustomer(Integer genderCustomer) {
-        this.genderCustomer = genderCustomer;
-    }
-
-    public String getIdCardCustomer() {
-        return idCardCustomer;
-    }
-
-    public void setIdCardCustomer(String idCardCustomer) {
-        this.idCardCustomer = idCardCustomer;
+    public void setPhoneCustomer2(String phoneCustomer2) {
+        this.phoneCustomer2 = phoneCustomer2;
     }
 
     public String getEmailCustomer() {
@@ -125,28 +77,52 @@ public class CustomerDto implements Validator {
         this.addressCustomer = addressCustomer;
     }
 
-    public String getPhoneCustomer1() {
-        return phoneCustomer1;
+    public String getIdCardCustomer() {
+        return idCardCustomer;
     }
 
-    public void setPhoneCustomer1(String phoneCustomer1) {
-        this.phoneCustomer1 = phoneCustomer1;
+    public void setIdCardCustomer(String idCardCustomer) {
+        this.idCardCustomer = idCardCustomer;
     }
 
-    public String getPhoneCustomer2() {
-        return phoneCustomer2;
+    public String getCodeCustomer() {
+        return codeCustomer;
     }
 
-    public void setPhoneCustomer2(String phoneCustomer2) {
-        this.phoneCustomer2 = phoneCustomer2;
+    public void setCodeCustomer(String codeCustomer) {
+        this.codeCustomer = codeCustomer;
     }
 
-    public Account getAccount() {
-        return account;
+    public Integer getGenderCustomer() {
+        return genderCustomer;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setGenderCustomer(Integer genderCustomer) {
+        this.genderCustomer = genderCustomer;
+    }
+
+    public boolean isFlagDelete() {
+        return flagDelete;
+    }
+
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
+    }
+
+    public int getApprovalCustomer() {
+        return approvalCustomer;
+    }
+
+    public void setApprovalCustomer(int approvalCustomer) {
+        this.approvalCustomer = approvalCustomer;
+    }
+
+    public String getEncryptPassword() {
+        return encryptPassword;
+    }
+
+    public void setEncryptPassword(String encryptPassword) {
+        this.encryptPassword = encryptPassword;
     }
 
     @Override
@@ -156,25 +132,5 @@ public class CustomerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        CustomerDto customerDto = (CustomerDto) target;
-
-        String nameCustomer = customerDto.getNameCustomer();
-        String emailCustomer = customerDto.getEmailCustomer();
-        Integer genderCustomer = customerDto.getGenderCustomer();
-
-
-        if (!nameCustomer.equals("")) {
-            if (!nameCustomer.matches("^[A-Z][a-z]*(?: [A-Z][a-z]*)*$")) {
-                errors.rejectValue("nameCustomer", "nameCustomer.matches", "error!");
-            }
-        }
-        if (!emailCustomer.equals("")) {
-            if (!emailCustomer.matches("^[a-zA-Z0-9]+[@]{1}[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]+$")) {
-                errors.rejectValue("emailCustomer", "emailCustomer.matches", "error!");
-            }
-        }
-        if (genderCustomer.equals("-1")) {
-            errors.rejectValue("gender", "genderCustomer.matches", "error!");
-        }
     }
 }
