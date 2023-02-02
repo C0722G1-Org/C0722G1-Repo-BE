@@ -14,6 +14,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Account", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "usernameAccount"
@@ -27,7 +31,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAccount;
-
+  
     private String name;
 
     private String usernameAccount;
