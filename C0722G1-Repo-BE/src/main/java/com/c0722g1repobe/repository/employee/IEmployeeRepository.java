@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
+
     /**
      * Create by: NhanUQ
      * Date created: 31/01/2023
      * Function: show list employee
      *
      * @param pageable
-     *
      * @return json list employee
      */
     @Query(value = "SELECT " +
@@ -66,7 +66,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * @param emailSearch
      * @param nameDivisionSearch
      * @param pageable
-     *
      * @return json list employee searched
      */
     @Query(value = "SELECT " +
@@ -106,7 +105,12 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
                     " AND d.name_division LIKE CONCAT('%', :nameDivisionSearch, '%'))) " +
                     " as count_employee",
             nativeQuery = true)
-    Page<EmployeeInfo> searchEmployee(@Param("codeSearch") String codeSearch, @Param("nameSearch") String nameSearch, @Param("emailSearch") String emailSearch, @Param("nameDivisionSearch") String nameDivisionSearch, Pageable pageable);
+    Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(
+            @Param("codeSearch") String codeSearch,
+            @Param("nameSearch") String nameSearch,
+            @Param("emailSearch") String emailSearch,
+            @Param("nameDivisionSearch") String nameDivisionSearch,
+            Pageable pageable);
 
     /**
      * Create by: NhanUQ
@@ -122,11 +126,12 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             nativeQuery = true)
     @Transactional
     void deleteEmployee(@Param("id") Long id);
-    
+
     /**
      * Create by: LongPT
      * Crated date: 31/01/2023
      * Function: create to employee
+     *
      * @param codeEmployee
      * @param nameEmployee
      * @param emailEmployee
@@ -138,8 +143,27 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      */
     @Transactional
     @Modifying
-    @Query(value = "insert into employee (code_employee, name_employee, email_employee, date_of_birth, gender_employee, phone_employee, address_employee, account_id_account, division_id_division) values" +
-            " (:codeEmployee, :nameEmployee, :emailEmployee, :dateOfBirth, :genderEmployee, :phoneEmployee, :addressEmployee, :idAccount, :idDivision)", nativeQuery = true)
+    @Query(value = "INSERT INTO employee (" +
+            "code_employee," +
+            " name_employee," +
+            " email_employee," +
+            " date_of_birth," +
+            " gender_employee," +
+            " phone_employee," +
+            " address_employee," +
+            " account_id_account," +
+            " division_id_division) " +
+            "VALUES" +
+            " (:codeEmployee," +
+            " :nameEmployee," +
+            " :emailEmployee," +
+            " :dateOfBirth" +
+            " :genderEmployee," +
+            " :phoneEmployee," +
+            " :addressEmployee," +
+            " :idAccount," +
+            " :idDivision)",
+            nativeQuery = true)
     void saveEmployee(
             @Param("codeEmployee") String codeEmployee,
             @Param("nameEmployee") String nameEmployee,
@@ -156,6 +180,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * Create by: LongPT
      * Crated date: 31/01/2023
      * Function: update to employee
+     *
      * @param id
      * @param nameEmployee
      * @param emailEmployee
@@ -166,8 +191,17 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      */
     @Transactional
     @Modifying
-    @Query(value = "update employee set name_employee = :nameEmployee, email_employee = :emailEmployee, gender_employee = :genderEmployee, phone_employee = :phoneEmployee, address_employee= :addressEmployee " +
-            " date_of_birth = :dateOfBirth, division_id_division = :idDivision where id_employee= :id", nativeQuery = true)
+    @Query(value = "UPDATE employee" +
+            " SET " +
+            " name_employee = :nameEmployee," +
+            " email_employee = :emailEmployee," +
+            " gender_employee = :genderEmployee," +
+            " phone_employee = :phoneEmployee," +
+            " address_employee = :addressEmployee, " +
+            " date_of_birth = :dateOfBirth," +
+            " division_id_division = :idDivision" +
+            " WHERE id_employee= :id",
+            nativeQuery = true)
     void updateEmployee(
             @Param("id") Long id,
             @Param("nameEmployee") String nameEmployee,
@@ -183,18 +217,26 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * Create by: LongPT
      * Crated date: 31/01/2023
      * Function: find by id to employee
+     *
      * @param id
      */
-    @Query(value = "select * from employee where id_employee = :id", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            " FROM employee" +
+            " WHERE id_employee = :id",
+            nativeQuery = true)
     Optional<Employee> getByIdEmployee(@Param("id") Long id);
 
     /**
      * Create by: LongPT
      * Crated date: 31/01/2023
      * Function: get id account
+     *
      * @param username
      */
-    @Query(value = "select * from account where username_account = :username", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            " FROM account" +
+            " WHERE username_account = :username",
+            nativeQuery = true)
     Account getIdAccount(@Param("username") String username);
 
 }
