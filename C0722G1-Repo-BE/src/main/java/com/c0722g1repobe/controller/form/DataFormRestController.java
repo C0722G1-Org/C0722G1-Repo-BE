@@ -56,7 +56,6 @@ public class DataFormRestController {
         }
         DataForm dataForm = new DataForm();
         BeanUtils.copyProperties(dataFormDto, dataForm);
-        dataForm.setFlagDelete(false);
         iDataFormService.saveDataForm(dataFormDto.getContentDataForm(), dataFormDto.getUrlDataForm());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
