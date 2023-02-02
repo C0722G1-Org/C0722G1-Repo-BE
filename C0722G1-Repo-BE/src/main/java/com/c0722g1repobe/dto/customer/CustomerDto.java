@@ -1,13 +1,16 @@
 package com.c0722g1repobe.dto.customer;
 
+
+import com.c0722g1repobe.entity.account.Account;
+
+import javax.validation.constraints.*;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
 
 public class CustomerDto implements Validator {
 
     private Long idCustomer;
-
+    
     private String nameCustomer;
 
     private String phoneCustomer1;
@@ -143,6 +146,5 @@ public class CustomerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
     }
 }

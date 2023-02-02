@@ -1,27 +1,20 @@
-package com.c0722g1repobe.service.customer;
+package com.c0722g1repobe.service.account;
 
-import com.c0722g1repobe.entity.customer.Customer;
-import org.springframework.stereotype.Service;
+import com.c0722g1repobe.entity.account.Account;
 
-@Service
-public interface ICustomerService {
 
-    /**
-     * Create by: HuyNV
-     * Date created : 31/01/2023
-     * Function : to create customer
-     *
-     * @param customer
-     */
-    void createCustomer(Customer customer);
+public interface IAccountService {
+    Account findCustomer(Long idAccount);
+
+    void updateCustomer(Account account);
 
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
-     * Function : to create customer
+     * Function : to create account
      *
-     * @param idCustomer
+     * @param account
      * @return
      */
-    Customer findById(Long idCustomer);
+    Account createAccount(Account account);
 }
