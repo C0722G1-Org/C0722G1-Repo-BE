@@ -1,9 +1,70 @@
 package com.c0722g1repobe.service.post;
+import com.c0722g1repobe.dto.post.PostDtoViewList;
 
-import com.c0722g1repobe.entity.post.Post;
+import java.util.List;
+
+import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
+import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import org.springframework.data.repository.query.Param;
+import com.c0722g1repobe.dto.post.PostDto;
+import com.c0722g1repobe.dto.post.PostListViewDto;
+import com.c0722g1repobe.entity.post.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IPostService {
+    /**
+     *Created by: UyDD
+     * Date Created: 31/01/2023
+     * @param pageable
+     * @return page post
+     */
+    Page<Post> findAllPostByUserNameAccount(Pageable pageable, String userNameAccount);
+
+    /*Method use: getAll()
+     * Get List data of required attributes
+     * Use interface PostDto
+     * Parameter: NO
+     * Author: DatTQ
+     * */
+    List<PostDtoViewList> getAll();
+
+    /*Method uses: searchYear(String year)
+     * Get List data of required attributes
+     * Use interface PostDto
+     * Parameter: String year
+     * Author: DatTQ*/
+    List<PostDtoViewList> searchYear(String year);
+
+    /*Method uses: searchYear(@Param("year") String year,@Param("month") String month )
+     * Get List data of required attributes
+     * Use interface PostDto
+     * Parameter: String year,String month
+     * Author: DatTQ*/
+    List<PostDtoViewList> searchYearAndMonth(String year, String month);
+
+//    BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto);
+//
+//    PostDto addDefaultValue(CreatePostDto createPostDto);
+//
+//    void savePost(PostDto postDto);
+
+    BaseResponseCreatePost getResponseCreatePost(CreatePostDto createPostDto);
+
+    /**
+     * Method uses:
+     * find all list posts for homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     * @param area
+     * @param price
+     * @param demandType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAll(String area, String price, String demandType, String direction, String city, Pageable pageable);
     /**
      * Method uses:
      * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
