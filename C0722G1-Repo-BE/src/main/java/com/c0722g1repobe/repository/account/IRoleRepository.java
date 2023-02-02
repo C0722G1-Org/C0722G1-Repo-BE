@@ -15,7 +15,7 @@ public interface IRoleRepository extends JpaRepository<Role, Long> {
     /**
      * Create by: PhuongLTH,
      * Date created: 31/01/2023,
-     * Function: findByUsername,existsByUsername,existsByEmail
+     * Function: findByNameRole
      * @param roleName
      * @return HttpStatus.OK if have roleName in database or HttpStatus.NOT_FOUND if id not found in database
      */
@@ -24,6 +24,14 @@ public interface IRoleRepository extends JpaRepository<Role, Long> {
             countQuery = "select id_role as idRole,name from roles where name = :?", nativeQuery = true)
     Optional<Role> findByNameRole(RoleName roleName);
 
+
+    /**
+     * Create by: PhuongLTH,
+     * Date created: 31/01/2023,
+     * Function: findAllRole
+     * @param
+     * @return HttpStatus.OK ,if have data in database or HttpStatus.NOT_FOUND if not found in database
+     */
     @Query(value = "select id_role as idRole, name from roles where name = :?",
             countQuery = "select id_role as idRole, name from roles where name = :?", nativeQuery = true)
     List<Role> findAllRole();

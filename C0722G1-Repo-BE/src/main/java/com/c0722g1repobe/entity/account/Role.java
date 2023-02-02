@@ -9,8 +9,6 @@ import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 
 @Entity
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "roles")

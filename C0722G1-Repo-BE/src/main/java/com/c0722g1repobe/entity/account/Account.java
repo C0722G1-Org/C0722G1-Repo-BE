@@ -13,10 +13,6 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "Account", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
@@ -32,23 +28,16 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAccount;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
     private String name;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
     private String usernameAccount;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
     private String email;
 
-    @JsonIgnore
-    @NotBlank
-    @Size(min = 6, max = 100)
     private String encryptPassword;
+
+    @Column(columnDefinition = "bit default false")
+    private boolean flagDelete;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -57,12 +46,13 @@ public class Account {
     public Account() {
     }
 
-    public Account(Long idAccount, String name, String usernameAccount, String email, String encryptPassword, Set<Role> roles) {
+    public Account(Long idAccount, String name, String usernameAccount, String email, String encryptPassword, boolean flagDelete, Set<Role> roles) {
         this.idAccount = idAccount;
         this.name = name;
         this.usernameAccount = usernameAccount;
         this.email = email;
         this.encryptPassword = encryptPassword;
+        this.flagDelete = flagDelete;
         this.roles = roles;
     }
 

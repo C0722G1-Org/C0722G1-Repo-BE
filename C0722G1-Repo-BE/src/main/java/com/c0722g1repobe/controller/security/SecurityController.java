@@ -37,6 +37,13 @@ public class SecurityController {
     @Autowired
     JwtProvider jwtProvider;
 
+    /**
+     * Create by: PhuongLTH,
+     * Date created: 31/01/2023,
+     * Function: login
+     * @param @RequestBody SignInForm signInForm
+     * @return HttpStatus.OK ,if have username and password in database or HttpStatus.BAD_REQUEST if not found in database
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> login(@Valid @RequestBody SignInForm signInForm) {
         Authentication authentication = authenticationManager.authenticate(
