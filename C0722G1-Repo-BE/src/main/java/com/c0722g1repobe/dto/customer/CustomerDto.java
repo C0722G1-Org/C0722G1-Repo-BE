@@ -9,7 +9,6 @@ import org.springframework.validation.Validator;
 
 public class CustomerDto implements Validator {
     private Long idCustomer;
-<<<<<<< HEAD
     private String nameCustomer;
     private String phoneCustomer1;
     private String dateOfBirthCustomer;
@@ -23,33 +22,6 @@ public class CustomerDto implements Validator {
     private int approvalCustomer;
     private String encryptPassword;
 
-=======
-    
-    private String nameCustomer;
-
-    private String phoneCustomer1;
-
-    private String dateOfBirthCustomer;
-
-    private String phoneCustomer2;
-
-    private String emailCustomer;
-
-    private String addressCustomer;
-
-    private String idCardCustomer;
-
-    private String codeCustomer;
-
-    private Integer genderCustomer;
-
-    private boolean flagDelete = false;
-
-    private int approvalCustomer;
-
-    private String encryptPassword;
-
->>>>>>> 839ae16db6e10a2c25883a6b813beaeb4b537735
     public String getDateOfBirthCustomer() {
         return dateOfBirthCustomer;
     }
