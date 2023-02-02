@@ -14,14 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Account", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "usernameAccount"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })
-})
 @Setter
 @Getter
 @Table(name = "Account", uniqueConstraints = {
