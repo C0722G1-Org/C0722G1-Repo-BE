@@ -36,7 +36,7 @@ public interface IEmployeeService {
      *
      * @return json list employee searched
      */
-    Page<EmployeeInfo> searchEmployee(String codeSearch, String nameSearch, String emailSearch, String nameDivisionSearch, Pageable pageable);
+    Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(String codeSearch, String nameSearch, String emailSearch, String nameDivisionSearch, Pageable pageable);
 
     /**
      * Create by: NhanUQ
@@ -71,5 +71,4 @@ public interface IEmployeeService {
      * @param employee
      */
     void updateEmployee(Employee employee, Long id);
-
 }
