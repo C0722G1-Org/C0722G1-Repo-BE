@@ -28,8 +28,8 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
      * @param urlDataForm
      */
     @Modifying
-    @Query(value = "insert into data_form (content_data_form,url_data_form,flagDelete) " +
-            "value (:content_data_form, :url_data_form, :flagDelete)", nativeQuery = true)
+    @Query(value = "insert into data_form (content_data_form,url_data_form,flag_delete) " +
+            "value (:contentDataForm, :urlDataForm , false )", nativeQuery = true)
     @Transactional
     void saveDataForm(@Param("contentDataForm") String contentDataForm, @Param("urlDataForm") String urlDataForm);
 }
