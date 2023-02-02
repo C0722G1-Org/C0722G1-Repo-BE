@@ -1,14 +1,17 @@
 package com.c0722g1repobe.service.employee;
 
 import com.c0722g1repobe.dto.employee.EmployeeInfo;
-import com.c0722g1repobe.entity.employee.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import com.c0722g1repobe.entity.account.Account;
+import com.c0722g1repobe.entity.employee.Employee;
+
 
 import java.util.Optional;
 
 public interface IEmployeeService {
+
     /**
      * Create by: NhanUQ
      * Date created: 31/01/2023
@@ -33,7 +36,7 @@ public interface IEmployeeService {
      *
      * @return json list employee searched
      */
-    Page<EmployeeInfo> searchEmployee(String codeSearch, String nameSearch, String emailSearch, String nameDivisionSearch, Pageable pageable);
+    Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(String codeSearch, String nameSearch, String emailSearch, String nameDivisionSearch, Pageable pageable);
 
     /**
      * Create by: NhanUQ
@@ -45,14 +48,27 @@ public interface IEmployeeService {
     void deleteEmployee(Long id);
 
     /**
-     * Create by: NhanUQ
-     * Date created: 31/01/2023
-     * Function: find employee by id
-     *
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: find by id to employee
      * @param id
-     *
-     * @return object employee
      */
-    Optional<Employee> findIdEmployee(Long id);
-
+    Optional<Employee> findById(Long id);
+    
+    /**
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: create to employee
+     * @param employee
+     */
+    void saveEmployee(Employee employee);
+    
+    /**
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: update to employee
+     * @param id
+     * @param employee
+     */
+    void updateEmployee(Employee employee, Long id);
 }
