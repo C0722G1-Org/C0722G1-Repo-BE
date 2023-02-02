@@ -76,4 +76,56 @@ public interface IPostService {
      * @return a Post object that can be showed on Post detail screen
      */
     Post findPostById(@Param("id") Long id);
+    /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: delete post
+     *
+     * @param idPost
+     *
+     */
+    void deletePost(Long idPost);
+    /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: search post
+     *
+     * @param id
+     *
+     * @return json  post
+     */
+    Post findPost(Long id);
+
+    /**
+     *Created by: NgocLV
+     * Date Created: 31/01/2023
+     *
+     * @param demandTypeSearch
+     * @param lendTypeSearch
+     * @param pageable
+     * @param minPriceSearch
+     * @param maxPriceSearch
+     *
+     * @return json list posts
+     */
+    Page<PostDto> searchAllPost(String demandTypeSearch,String lendTypeSearch,Double minPriceSearch,Double maxPriceSearch, String positionSearch ,Pageable pageable);
+       /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: show list posts
+     *
+     * @param pageable
+     *
+     * @return json list posts
+     */
+    Page<PostDto> findAllPost( Pageable pageable);
+      /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: approval post
+     *
+     * @param id
+     *
+     */
+    void approvalPost( Long id);
 }
