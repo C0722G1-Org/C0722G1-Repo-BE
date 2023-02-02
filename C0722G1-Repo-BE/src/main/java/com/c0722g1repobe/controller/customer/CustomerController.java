@@ -1,11 +1,8 @@
 package com.c0722g1repobe.controller.customer;
 
-import com.c0722g1repobe.dto.customer.CustomerDto;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.customer.Customer;
-import com.c0722g1repobe.service.account.impl.AccountService;
 import com.c0722g1repobe.service.customer.impl.CustomerService;
-import jdk.internal.dynalink.support.NameCodec;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

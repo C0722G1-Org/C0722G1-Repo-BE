@@ -1,13 +1,11 @@
 package com.c0722g1repobe.controller.customer;
 
-import com.c0722g1repobe.dto.customer.CustomerDto;
 import com.c0722g1repobe.dto.customer.ResponseMessage;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
 import com.c0722g1repobe.entity.account.RoleName;
 import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.jwt.jwt.JwtProvider;
-import com.c0722g1repobe.service.account.impl.AccountService;
 import com.c0722g1repobe.service.account.impl.RoleService;
 import com.c0722g1repobe.service.customer.ICustomerService;
 import org.springframework.beans.BeanUtils;
