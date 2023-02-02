@@ -1,5 +1,7 @@
 package com.c0722g1repobe.service.post.impl;
 
+import com.c0722g1repobe.dto.post.PostDtoViewList;
+import com.c0722g1repobe.dto.post.PostListViewDto;
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.entity.customer.Customer;
@@ -23,12 +25,9 @@ public class PostService implements IPostService {
     @Autowired
     private IValidateCreatePost validateCreatePost;
     @Autowired
-    private iAddressRepository iAddressRepository;
+    private IAddressRepository addressRepository;
     @Autowired
-    private IPostRepository iPostRepository;
-
-    /*DI IPostRepository to use IPostRepository's methods
-     * Author: DatTQ*/
+    private IPostRepository postRepository;
 
     /*Call method getAll() of IPostRepository
      * Author: DatTQ*/
@@ -77,8 +76,8 @@ public class PostService implements IPostService {
 
         Long defaultIdStatus = 1L;
 
-        iAddressRepository.saveAddress(createPostDto.getNumberAddress(), createPostDto.getIdWards());
-        Long idAddress = iAddressRepository.findIdByNumberAddressAndIdWardsNativeQuery(createPostDto.getNumberAddress(), createPostDto.getIdWards());
+        addressRepository.saveAddress(createPostDto.getNumberAddress(), createPostDto.getIdWards());
+        Long idAddress = addressRepository.findIdByNumberAddressAndIdWardsNativeQuery(createPostDto.getNumberAddress(), createPostDto.getIdWards());
 
         return Post.builder()
                 .approval(false)
@@ -106,7 +105,7 @@ public class PostService implements IPostService {
      * @param post : an object of class PostDto
      */
     private void savePost(Post post) {
-        iPostRepository.savePost(post);
+        postRepository.savePost(post);
     }
 
     /**
@@ -141,15 +140,22 @@ public class PostService implements IPostService {
      */
     @Override
     public Page<Post> findAllPostByUserNameAccount(Pageable pageable, String userNameAccount) {
-        return iPostRepository.findAllPostByUserNameAccount(pageable, userNameAccount);
+        return postRepository.findAllPostByUserNameAccount(pageable, userNameAccount);
     }
 
-    private IPostRepository postRepository;
-
-    public PostService(IPostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
-
+    /**
+     * Create by: SangNP
+     * Date Create: 01/02/2023
+     * Description: return list for home page .
+     *
+     * @param area
+     * @param price
+     * @param demandType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return an Page<PostListViewDto> or null if not found
+     */
     @Override
     public Page<PostListViewDto> findAll(String area, String price, String demandType, String direction, String
             city, Pageable pageable) {
@@ -186,29 +192,20 @@ public class PostService implements IPostService {
         return null;
     }
 
+    /**
+     * Method uses:
+     * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
+     * if Post is found, return Post and OK http status
+     * Created by: HuyDN
+     * Created date: 31/01/2023
+     * Catching NullPointerException
+     *
+     * @param id: a Post' id
+     * @return a Post object that can be showed on Post detail screen
+     */
     @Override
-    public void deletePost(Long idPost) {
-        iPostRepository.deletePost(idPost);
+    public Post findPostById(Long id) {
+        return postRepository.findPostById(id);
     }
 
-    @Override
-    public Post findPost(Long id) {
-        return iPostRepository.findPost(id);
-    }
-
-
-    @Override
-    public Page<PostDto> findAllPost(Pageable pageable) {
-        return iPostRepository.findAllPost(pageable);
-    }
-
-    @Override
-    public void approvalPost(Long id) {
-        iPostRepository.approvalPost(id);
-    }
-
-    @Override
-    public Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Pageable pageable) {
-        return iPostRepository.searchAllPost(demandTypeSearch, lendTypeSearch, pageable);
-    }
 }

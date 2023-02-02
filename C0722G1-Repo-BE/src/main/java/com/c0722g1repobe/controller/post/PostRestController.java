@@ -1,6 +1,7 @@
 package com.c0722g1repobe.controller.post;
 
 import com.c0722g1repobe.dto.post.PostDto;
+import com.c0722g1repobe.dto.post.PostDtoViewList;
 import com.c0722g1repobe.dto.post.PostListViewDto;
 import com.c0722g1repobe.entity.post.Post;
 import com.c0722g1repobe.dto.post.PostDto;
@@ -43,19 +44,19 @@ public class PostRestController {
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(postList.getContent(), HttpStatus.OK);
+        return new ResponseEntity<>(postList.getContent(), HttpStatus.OK);}
 
     /*DI IPostService to use IPostService's methods;
      Author: DatTQ
      */
 
     /*Method use: displayList(), call getAll() of IPostService to get list data from database
-    * Use ResponseEntity to handling response, datatype: List<PostDto>
-    * Parameter: NO
-    * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
-    * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
-    * Author: DatTQ*/
-    @GetMapping("")
+     * Use ResponseEntity to handling response, datatype: List<PostDto>
+     * Parameter: NO
+     * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
+     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
+     * Author: DatTQ*/
+    @GetMapping("/charts")
     public ResponseEntity<List<PostDtoViewList>> displayList() {
         List<PostDtoViewList> postDtoViewListList = postService.getAll();
         if (postDtoViewListList.isEmpty()) {
@@ -75,9 +76,10 @@ public class PostRestController {
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
      * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
      * Author: DatTQ*/
-    @GetMapping("/search")
+    @GetMapping("/charts-search")
     public ResponseEntity<List<PostDtoViewList>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
-        List<PostDtoViewList> postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));;
+        List<PostDtoViewList> postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
+        ;
         if (month == -1) {
             postDtoViewListList = postService.searchYear(String.valueOf(year));
         }
@@ -93,6 +95,8 @@ public class PostRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
+    }
+
     /**
      * Method uses:
      * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
@@ -104,7 +108,6 @@ public class PostRestController {
      * @param id: a Post' id
      * @return a Post object that can be showed on Post detail screen
      */
-
     @GetMapping("/detail")
     public ResponseEntity<Post> findPostById(@RequestParam Long id) {
 
@@ -118,7 +121,7 @@ public class PostRestController {
         }
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
-}
+
     /**
      * Create by: BaoDP
      * Date create: 01/02/2023
@@ -127,12 +130,14 @@ public class PostRestController {
      * @param createPostDto: an object of class CreatePostDto
      * @return ResponseEntity with BaseResponseCreatePost and HttpStatus is code of BaseResponseCreatePost
      */
-    @PostMapping("create")
+    @PostMapping("/create")
     @ResponseBody
     public ResponseEntity<BaseResponseCreatePost> create(@RequestBody CreatePostDto createPostDto) {
         BaseResponseCreatePost baseResponseCreatePost = postService.getResponseCreatePost(createPostDto);
         return new ResponseEntity<>(baseResponseCreatePost, HttpStatus.valueOf(baseResponseCreatePost.getCode()));
-        
+    }
+
+    /**
      * Create by: SangNP
      * Date created: 31/01/2023
      * Function: show list post
@@ -145,7 +150,7 @@ public class PostRestController {
      * @param pageable   It's okay not to have
      * @return if have content it will return Page<Post> with HttpStatus.OK else it will return status HttpStatus.NO_CONTENT
      */
-    @GetMapping("")
+    @GetMapping("/list")
     public ResponseEntity<Page<PostListViewDto>> getAllPost(@RequestParam(defaultValue = "") String area,
                                                             @RequestParam(defaultValue = "") String price,
                                                             @RequestParam(defaultValue = "") String demandType,
@@ -160,69 +165,5 @@ public class PostRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-    /**
-     * Create by: NgocLV
-     * Date created: 31/01/2023
-     * Function: show list or search  Post
-     *
-     * @param demandTypeSearch
-     * @param lendTypeSearch
-     * @param pageable
-     *
-     * @return HttpStatus.OK if json list Post
-     */
-    @GetMapping("")
-    public ResponseEntity<Page<PostDto>> listAllPosts(@RequestParam(defaultValue = "") String demandTypeSearch,
-                                                      @RequestParam(defaultValue = "") String lendTypeSearch, @PageableDefault(page = 0,size = 3) Pageable pageable) {
-        Page<PostDto> listPostDtos;
-        if (demandTypeSearch != null || lendTypeSearch != null) {
-            listPostDtos = postService.searchAllPost(demandTypeSearch, lendTypeSearch, pageable);
-        }else {
-            listPostDtos = postService.findAllPost(pageable);
-        }
-        if(listPostDtos.isEmpty()){
-            return new ResponseEntity<Page<PostDto>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
-        }
-        return new ResponseEntity<Page<PostDto>>(listPostDtos, HttpStatus.OK);
-    }
-
-    /**
-     * Create by: NgocLV
-     * Date created: 31/01/2023
-     * Function: delete post
-     *
-     * @param id
-     *
-     * @return HttpStatus.OK if have id in database, delete success or HttpStatus.NOT_FOUND if id not found in database
-     */
-    @DeleteMapping("{id}")
-    public ResponseEntity<Post> deletePost(@PathVariable("id") Long id) {
-        Post currentPost = postService.findPost(id);
-        if (currentPost==null) {
-            System.out.println("Post with id " + id + " not found");
-            return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
-        }
-        postService.deletePost(id);
-        return new ResponseEntity<Post>(currentPost, HttpStatus.OK);
-    }
-    /**
-     * Create by: NgocLV
-     * Date created: 31/01/2023
-     * Function: approval post
-     *
-     * @param id
-     *
-     * @return HttpStatus.OK if have id in database, approval success or HttpStatus.NOT_FOUND if id not found in database
-     */
-    @DeleteMapping("/approval/{id}")
-    public ResponseEntity<Post> approvalPost(@PathVariable("id") Long id) {
-        Post currentPost = postService.findPost(id);
-
-        if (currentPost==null) {
-            return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
-        }
-        postService.approvalPost(id);
-        return new ResponseEntity<Post>(currentPost, HttpStatus.OK);
     }
 }
