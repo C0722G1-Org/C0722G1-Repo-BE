@@ -12,7 +12,7 @@ public class CustomerDto implements Validator {
 
     private String phoneCustomer1;
 
-    private String dateOfBirthCustomer;
+    private String dateOfBirth;
 
     private String phoneCustomer2;
 
@@ -32,12 +32,20 @@ public class CustomerDto implements Validator {
 
     private String encryptPassword;
 
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public String getDateOfBirthCustomer() {
-        return dateOfBirthCustomer;
+        return dateOfBirth;
     }
 
     public void setDateOfBirthCustomer(String dateOfBirthCustomer) {
-        this.dateOfBirthCustomer = dateOfBirthCustomer;
+        this.dateOfBirth = dateOfBirthCustomer;
     }
 
     public Long getIdCustomer() {
@@ -143,6 +151,21 @@ public class CustomerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+        if (customerDto.getNameCustomer().equals("")) {
+            errors.rejectValue("nameCustomer", "nameCustomer", "Họ không được bỏ trống");
+        } else {
+            if (!customerDto.getNameCustomer().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{2,30}$")) {
+                errors.rejectValue("nameCustomer", "nameCustomer", "Họ không đúng định dạng !");
+            }
+        }
 
+        if (customerDto.getEmailCustomer().equals("")) {
+            errors.rejectValue("email", "email", "Email không được bỏ trông");
+        } else {
+            if (!customerDto.getEmailCustomer().matches("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")) {
+                errors.rejectValue("email", "email", "Email must be valid");
+            }
+        }
     }
 }
