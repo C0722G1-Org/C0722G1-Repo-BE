@@ -27,7 +27,7 @@ public class NotificationRestController_deleteNotificationByListId {
      * @throws Exception
      */
     @Test
-    public void findListNotificationByListId_25() throws Exception {
+    public void deleteNotificationsByListId_25() throws Exception {
         ResponseEntity<HttpStatus> responseEntity
                 = this.notificationRestController.remove(null);
         Assertions.assertEquals(400, responseEntity.getStatusCodeValue());
@@ -41,7 +41,7 @@ public class NotificationRestController_deleteNotificationByListId {
      * @throws Exception
      */
     @Test
-    public void findListNotificationByListId_26() throws Exception {
+    public void deleteNotificationsByListId_26() throws Exception {
         ResponseEntity<HttpStatus> responseEntity
                 = this.notificationRestController.remove(Collections.emptyList());
         Assertions.assertEquals(400, responseEntity.getStatusCodeValue());
@@ -55,7 +55,7 @@ public class NotificationRestController_deleteNotificationByListId {
      * @throws Exception
      */
     @Test
-    public void findListNotificationByListId_27() throws Exception {
+    public void deleteNotificationsByListId_27() throws Exception {
         List<Integer> listIds = Arrays.asList(20, 21);
         ResponseEntity<HttpStatus> responseEntity
                 = this.notificationRestController.remove(listIds);
@@ -70,7 +70,7 @@ public class NotificationRestController_deleteNotificationByListId {
      * @throws Exception
      */
     @Test
-    public void findListNotificationByListId_28() throws Exception {
+    public void deleteNotificationsByListId_28() throws Exception {
         List<Integer> listIds = Arrays.asList(1, 2);
         ResponseEntity<HttpStatus> responseEntity
                 = this.notificationRestController.remove(listIds);
