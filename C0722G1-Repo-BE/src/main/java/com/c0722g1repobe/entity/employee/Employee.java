@@ -21,11 +21,11 @@ public class Employee {
     private String codeEmployee;
     private String nameEmployee;
     private String dateOfBirth;
-    private boolean genderEmployee;
+    private boolean gender;
     private String phoneEmployee;
     private String emailEmployee;
-    private String addressEmployee;
-    private boolean flagDeleted = false;
+    private String address;
+    private boolean flagDelete = false;
     @ManyToOne
     private Division division;
     @OneToOne

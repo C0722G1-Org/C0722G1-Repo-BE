@@ -1,11 +1,15 @@
 package com.c0722g1repobe.entity.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +26,16 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "Account", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "usernameAccount"
+        }),
+        @UniqueConstraint(columnNames = {
+                "email"
+        })
+})
 public class Account {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAccount;
@@ -41,7 +54,19 @@ public class Account {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-    
+
+    public Account() {
+    }
+
+    public Account(Long idAccount, String name, String usernameAccount, String email, String encryptPassword, boolean flagDelete, Set<Role> roles) {
+        this.idAccount = idAccount;
+        this.name = name;
+        this.usernameAccount = usernameAccount;
+        this.email = email;
+        this.encryptPassword = encryptPassword;
+        this.flagDelete = flagDelete;
+        this.roles = roles;
+    }
 
     public Long getIdAccount() {
         return idAccount;
