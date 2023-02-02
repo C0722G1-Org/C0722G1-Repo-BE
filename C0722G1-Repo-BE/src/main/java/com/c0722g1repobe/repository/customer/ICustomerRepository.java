@@ -11,31 +11,70 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
-@Repository
 @Transactional
-public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
+
+@Repository
+public interface ICustomerRepository extends JpaRepository<Customer, Long> {
+
+    /**
+     * Create by: HuyNV
+     * Date created : 31/01/2023
+     * Function : to create customer
+     *
+     * @param name
+     * @param idPhone
+     * @param email
+     * @param idCard
+     * @param codeCustomer
+     * @param gender
+     * @param dateOfBirth
+     * @param flagDeleted
+     * @param approval
+     * @param idAccount
+     */
+//    @Modifying
+//    @Query(value = "INSERT INTO sprint_1.customer(name_customer," +
+//            "id_phone_customer," +
+//            "email_customer," +
+//            "id_card_customer," +
+//            "code_customer," +
+//            "gender_customer," +
+//            "date_of_birth," +
+//            "flag_deleted," +
+//            "approval_customer," +
+//            "id_account)\n" +
+//            "values  (:name," +
+//            ":idPhone," +
+//            ":email," +
+//            ":idCard," +
+//            ":codeCustomer," +
+//            ":gender," +
+//            ":dateOfBirth," +
+//            ":flagDeleted," +
+//            ":approval," +
+//            "idAccount)",nativeQuery = true)
+//    void createCustomer(@Param("name") String name,
+//                        @Param("idPhone") String idPhone,
+//                        @Param("email") String email,
+//                        @Param("idCard") String idCard,
+//                        @Param("codeCustomer") String codeCustomer,
+//                        @Param("gender") Boolean gender,
+//                        @Param("dateOfBirth") String dateOfBirth,
+//                        @Param("flagDeleted") boolean flagDeleted,
+//                        @Param("approval") boolean approval,
+//                        @Param("idAccount")Account idAccount);
+
     /**
      * Create by: HocHH
      * Date created: 31/01/2023
-     * Function: .
+     * Function: Display list customer.
      *
      * @param allSearch : search all record
      * @param pageable
      * @return List customer have paging and search.
      */
-
-    /*
-    * id_customer, code_customer, name_customer, address_customer, phone_customer1, phone_customer2, approval_customer*/
-
-/*
-    @Query(value = "select * from customer where  name_customer like concat('%', :allSearch ,'%')  or address_customer like concat('%', :allSearch ,'%')  or code_customer  like concat('%', :allSearch ,'%')  and flag_delete = true ",
-            nativeQuery = true)
-    Page<Customer> searchCustomer(@Param("allSearch") String allSearch,
-                                  Pageable pageable);
-*/
 
     @Query(value = "select * from customer where  name_customer like concat('%', :allSearch ,'%')  or address_customer like concat('%', :allSearch ,'%')  or code_customer  like concat('%', :allSearch ,'%')  and flag_delete = true ",
             nativeQuery = true)
@@ -45,7 +84,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     /**
      * Create by: HocHH
      * Date created: 31/01/2023
-     * Function: .
+     * Function: Confirm Customer.
      *
      * @param id: id matches id_customer, used to confirm customer.
      */
@@ -54,9 +93,16 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Transactional
     void confirmCustomer(@Param("id") Long id);
 
+
+    /**
+     * Create by: HocHH
+     * Date create: 31/01/2023
+     * Function: Find by id.
+     *
+     * @param id
+     * @return
+     */
     @Query(value = "select * from customer where id_customer = :id", nativeQuery = true)
     Optional<Customer> findByIdCustomer(Long id);
 
-
-//    Optional<Customer> findById(Long id);
 }
