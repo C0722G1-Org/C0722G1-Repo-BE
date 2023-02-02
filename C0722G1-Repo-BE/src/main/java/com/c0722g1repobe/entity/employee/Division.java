@@ -1,6 +1,5 @@
 package com.c0722g1repobe.entity.employee;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +19,5 @@ public class Division {
     private Long idDivision;
     private String nameDivision;
     @OneToMany(mappedBy = "division")
-    @JsonBackReference
     private Set<Employee> employeeSet;
 }

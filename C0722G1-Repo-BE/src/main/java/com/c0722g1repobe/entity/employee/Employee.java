@@ -1,7 +1,6 @@
 package com.c0722g1repobe.entity.employee;
 
 import com.c0722g1repobe.entity.account.Account;
-import com.c0722g1repobe.entity.account.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
