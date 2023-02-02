@@ -10,5 +10,6 @@
         <module name="C0722G1-Repo-BE.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.8" />
   </component>
 </project>
