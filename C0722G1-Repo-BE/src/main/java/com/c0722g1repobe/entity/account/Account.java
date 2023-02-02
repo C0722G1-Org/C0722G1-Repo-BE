@@ -17,7 +17,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAccount;
-    
+
     private String name;
 
     private String usernameAccount;
