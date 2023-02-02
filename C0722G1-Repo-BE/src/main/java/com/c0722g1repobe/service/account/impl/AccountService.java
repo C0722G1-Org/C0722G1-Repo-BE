@@ -9,19 +9,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService implements IAccountService {
     @Autowired
-    private IAccountRepository iAccountRepository;
+    private IAccountRepository accountRepository;
 
     @Override
-    public Account findByIdAccount(Long idAccount) {
-        return iAccountRepository.findByIdAccount(idAccount);
+    public Account findCustomer(Long idAccount) {
+        return accountRepository.findByIdAccount(idAccount);
     }
 
     @Override
-    public void updatePassword(Account account) {
+    public void updateCustomer(Account account) {
         Long idAccount = account.getIdAccount();
         String encryptPassword = account.getEncryptPassword();
-        iAccountRepository.updatePassword(idAccount, encryptPassword);
+        accountRepository.updatePassword(idAccount, encryptPassword);
     }
 
-
+    /**
+     * Create by: HuyNV
+     * Date created : 01/02/2023
+     * Function : to create account
+     *
+     * @param account
+     * @return
+     */
+    @Override
+    public Account createAccount(Account account) {
+        return accountRepository.save(account);
+    }
 }
