@@ -1,6 +1,7 @@
 package com.c0722g1repobe.controller.customer;
 
 import com.c0722g1repobe.dto.customer.CustomerDto;
+import com.c0722g1repobe.dto.customer.ResponseMessage;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
 import com.c0722g1repobe.entity.account.RoleName;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +46,7 @@ public class CustomerRestController {
     /**
      * creator: Trịnh Minh Đức
      * date:31/01/2023
+     * @param customerDto
      * method of using save customer
      */
 

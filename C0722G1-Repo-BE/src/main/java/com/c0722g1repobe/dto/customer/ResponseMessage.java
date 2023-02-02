@@ -1,4 +1,4 @@
-package com.c0722g1repobe.controller.customer;
+package com.c0722g1repobe.dto.customer;
 
 public class ResponseMessage {
     private String message;

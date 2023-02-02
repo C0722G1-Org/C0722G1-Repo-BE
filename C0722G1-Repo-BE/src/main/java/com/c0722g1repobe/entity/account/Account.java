@@ -33,6 +33,7 @@ public class Account {
     private Long idAccount;
 
 
+
     private String name;
 
 
@@ -44,19 +45,12 @@ public class Account {
 
     private String encryptPassword;
 
+    @Column(columnDefinition = "bit default false")
+    private boolean flagDelete;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public Account(String nameCustomer, String usernameAccount, String emailCustomer, String encode) {
-    }
 
-    public Account( String name, String usernameAccount, String email, String encryptPassword, Set<Role> roles) {
-        this.idAccount = idAccount;
-        this.name = name;
-        this.usernameAccount = usernameAccount;
-        this.email = email;
-        this.encryptPassword = encryptPassword;
-        this.roles = roles;
-    }
 }

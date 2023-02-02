@@ -43,23 +43,41 @@ public class CustomerDto implements Validator {
 
     private Account account;
 
+    private Long idCustomer;
+
+
+    private String dateOfBirthCustomer;
+
+
+    private String codeCustomer;
+
+
+    private boolean flagDelete = false;
+
+    private int approvalCustomer;
+
+    private String encryptPassword;
+
+
     public CustomerDto() {
     }
 
-    public CustomerDto( String nameCustomer, boolean isDelete, String dateOfBirth, Integer genderCustomer, String idCardCustomer, String emailCustomer, String addressCustomer, String phoneCustomer1, String phoneCustomer2, Account account) {
 
-        this.nameCustomer = nameCustomer;
-        this.isDelete = isDelete;
-        this.dateOfBirth = dateOfBirth;
-        this.genderCustomer = genderCustomer;
-        this.idCardCustomer = idCardCustomer;
-        this.emailCustomer = emailCustomer;
-        this.addressCustomer = addressCustomer;
-        this.phoneCustomer1 = phoneCustomer1;
-        this.phoneCustomer2 = phoneCustomer2;
-        this.account = account;
+    public String getDateOfBirthCustomer() {
+        return dateOfBirthCustomer;
     }
 
+    public void setDateOfBirthCustomer(String dateOfBirthCustomer) {
+        this.dateOfBirthCustomer = dateOfBirthCustomer;
+    }
+
+    public Long getIdCustomer() {
+        return idCustomer;
+    }
+
+    public void setIdCustomer(Long idCustomer) {
+        this.idCustomer = idCustomer;
+    }
 
 
     public String getNameCustomer() {
@@ -69,6 +87,7 @@ public class CustomerDto implements Validator {
     public void setNameCustomer(String nameCustomer) {
         this.nameCustomer = nameCustomer;
     }
+
 
     public boolean isDelete() {
         return isDelete;
@@ -118,6 +137,7 @@ public class CustomerDto implements Validator {
         this.addressCustomer = addressCustomer;
     }
 
+
     public String getPhoneCustomer1() {
         return phoneCustomer1;
     }
@@ -134,12 +154,45 @@ public class CustomerDto implements Validator {
         this.phoneCustomer2 = phoneCustomer2;
     }
 
+
     public Account getAccount() {
         return account;
     }
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getCodeCustomer() {
+        return codeCustomer;
+    }
+
+    public void setCodeCustomer(String codeCustomer) {
+        this.codeCustomer = codeCustomer;
+    }
+
+    public boolean isFlagDelete() {
+        return flagDelete;
+    }
+
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
+    }
+
+    public int getApprovalCustomer() {
+        return approvalCustomer;
+    }
+
+    public void setApprovalCustomer(int approvalCustomer) {
+        this.approvalCustomer = approvalCustomer;
+    }
+
+    public String getEncryptPassword() {
+        return encryptPassword;
+    }
+
+    public void setEncryptPassword(String encryptPassword) {
+        this.encryptPassword = encryptPassword;
     }
 
     @Override
@@ -151,7 +204,7 @@ public class CustomerDto implements Validator {
     public void validate(Object target, Errors errors) {
         CustomerDto customerDto = (CustomerDto) target;
 
-        if (!customerDto.nameCustomer.matches("[A-Za-z ]+")){
+        if (!customerDto.nameCustomer.matches("[A-Za-z ]+")) {
             errors.rejectValue("name", "name.invalidFormat");
 
         }

@@ -13,6 +13,14 @@ import java.util.Optional;
 
 @Service
 public class RoleService implements IRoleService {
+
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+
     @Autowired
     IRoleRepository roleRepository;
     @Override

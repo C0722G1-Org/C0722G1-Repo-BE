@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.customer.impl;
 
+
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.repository.account.IAccountRepository;
@@ -27,35 +28,6 @@ public class CustomerService implements ICustomerService {
      * method of using save customer
      */
 
-//    @Override
-//    public void saveCustomer(Customer customer) {
-//
-////        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-////        Account account = new Account();
-////
-////        account.setName(customer.getNameCustomer());
-////        account.setEmail(customer.getEmailCustomer());
-////        account.setUsernameAccount(customer.getAccount().getUsernameAccount());
-////        account.setUsernameAccount( passwordEncoder.encode(customer.getAccount().getEncryptPassword()));
-////
-////        accountRepository.save(account);
-////
-////       customer.setAccount(account);
-////
-////        customerRepository.setPassword(customer.getAccount().getUsernameAccount(),
-////                passwordEncoder.encode(customer.getAccount().getEncryptPassword()),
-////                customer.getNameCustomer(),
-////                customer.getEmailCustomer());
-//
-//
-//        customerRepository.save(customer);
-//
-//    }
-
-    @Override
-    public List<Customer> findListAll() {
-        return customerRepository.findAll();
-    }
 
     @Override
     public void saveCustomerByAccount(Customer customer) {
@@ -70,4 +42,29 @@ public class CustomerService implements ICustomerService {
     }
 
 
+    /**
+     * Create by: HuyNV
+     * Date created : 31/01/2023
+     * Function : to create customer
+     *
+     * @param customer
+     */
+    @Override
+    public void createCustomer(Customer customer) {
+            customerRepository.save(customer);
+    }
+
+    /**
+     * Create by: HuyNV
+     * Date created : 01/02/2023
+     * Function : to create customer
+     *
+     * @param idCustomer
+     * @return
+     */
+    @Override
+    public Customer findById(Long idCustomer) {
+        return customerRepository.findById(idCustomer).orElse(null);
+    }
 }
+

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 
 
+
     /**
      * creator: Trịnh Minh Đức
      * date:31/01/2023
@@ -32,4 +33,57 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     void saveCustomer(@Param("c") Customer customer);
 
 
+    /**
+     * Create by: HuyNV
+     * Date created : 31/01/2023
+     * Function : to create customer
+     *
+     * @param name
+     * @param idPhone
+     * @param email
+     * @param idCard
+     * @param codeCustomer
+     * @param gender
+     * @param dateOfBirth
+     * @param flagDeleted
+     * @param approval
+     * @param idAccount
+     */
+
+    @Query(value = "select c.id_customer from sprint_1.customer as c where c.id_customer = :idCustomer and c.flag_delete=false", nativeQuery = true)
+    Long findIdByIdNativeQuery(@Param("idCustomer") Long idCustomer);
+
+
+//    @Modifying
+//    @Query(value = "INSERT INTO sprint_1.customer(name_customer," +
+//            "id_phone_customer," +
+//            "email_customer," +
+//            "id_card_customer," +
+//            "code_customer," +
+//            "gender_customer," +
+//            "date_of_birth," +
+//            "flag_deleted," +
+//            "approval_customer," +
+//            "id_account)\n" +
+//            "values  (:name," +
+//            ":idPhone," +
+//            ":email," +
+//            ":idCard," +
+//            ":codeCustomer," +
+//            ":gender," +
+//            ":dateOfBirth," +
+//            ":flagDeleted," +
+//            ":approval," +
+//            "idAccount)",nativeQuery = true)
+//    void createCustomer(@Param("name") String name,
+//                        @Param("idPhone") String idPhone,
+//                        @Param("email") String email,
+//                        @Param("idCard") String idCard,
+//                        @Param("codeCustomer") String codeCustomer,
+//                        @Param("gender") Boolean gender,
+//                        @Param("dateOfBirth") String dateOfBirth,
+//                        @Param("flagDeleted") boolean flagDeleted,
+//                        @Param("approval") boolean approval,
+//                        @Param("idAccount")Account idAccount);
 }
+
