@@ -1,23 +1,38 @@
-package com.c0722g1repobe.service.customer.impl;
+package com.c0722g1repobe.service.account.impl;
 
-import com.c0722g1repobe.entity.customer.Customer;
-import com.c0722g1repobe.repository.customer.ICustomerRepository;
-import com.c0722g1repobe.service.customer.ICustomerService;
+import com.c0722g1repobe.entity.account.Account;
+import com.c0722g1repobe.repository.account.IAccountRepository;
+import com.c0722g1repobe.service.account.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerService implements ICustomerService {
+public class AccountService implements IAccountService {
     @Autowired
-    private ICustomerRepository iCustomerRepository;
+    private IAccountRepository accountRepository;
 
     @Override
-    public Customer findCustomer(Long idCustomer) {
-        return iCustomerRepository.findCustomer(idCustomer);
+    public Account findCustomer(Long idAccount) {
+        return accountRepository.findByIdAccount(idAccount);
     }
 
     @Override
-    public void updateCustomer(Customer customer) {
-        iCustomerRepository.updateCustomer(customer.getNameCustomer(), customer.getEmailCustomer(), customer.getAddressCustomer(), customer.getDateOfBirth(), customer.getIdCardCustomer(), customer.getGenderCustomer(), customer.getApprovalCustomer(), customer.getPhoneCustomer1(), customer.getPhoneCustomer2(), customer.getIdCustomer());
+    public void updateCustomer(Account account) {
+        Long idAccount = account.getIdAccount();
+        String encryptPassword = account.getEncryptPassword();
+        accountRepository.updatePassword(idAccount, encryptPassword);
+    }
+
+    /**
+     * Create by: HuyNV
+     * Date created : 01/02/2023
+     * Function : to create account
+     *
+     * @param account
+     * @return
+     */
+    @Override
+    public Account createAccount(Account account) {
+        return accountRepository.save(account);
     }
 }
