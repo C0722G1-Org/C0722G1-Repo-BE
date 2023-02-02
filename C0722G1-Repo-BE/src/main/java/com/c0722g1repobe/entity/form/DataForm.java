@@ -16,7 +16,9 @@ public class DataForm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDataForm;
+    private String codeDataForm;
     private String contentDataForm;
     private boolean flagDelete = false;
-    private String urlDataForm;
+    @ManyToOne
+    private DetailForm detailForm;
 }

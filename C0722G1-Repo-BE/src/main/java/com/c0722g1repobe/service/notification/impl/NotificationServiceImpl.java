@@ -1,10 +1,10 @@
-package com.c0722g1repobe.service.impl;
+package com.c0722g1repobe.service.notification.impl;
 
-import com.c0722g1repobe.dto.NotificationDeleteDto;
-import com.c0722g1repobe.dto.NotificationAllPropertyDto;
-import com.c0722g1repobe.dto.NotificationSearchDto;
-import com.c0722g1repobe.repository.INotificationRepository;
-import com.c0722g1repobe.service.INotificationService;
+import com.c0722g1repobe.dto.notification.NotificationDeleteDto;
+import com.c0722g1repobe.dto.notification.NotificationAllPropertyDto;
+import com.c0722g1repobe.dto.notification.NotificationSearchDto;
+import com.c0722g1repobe.repository.notification.INotificationRepository;
+import com.c0722g1repobe.service.notification.INotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

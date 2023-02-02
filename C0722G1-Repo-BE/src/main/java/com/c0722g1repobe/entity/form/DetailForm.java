@@ -1,4 +1,4 @@
-package com.c0722g1repobe.entity.post;
+package com.c0722g1repobe.entity.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +15,9 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DemandType {
+public class DetailForm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDemandType;
-    private String nameDemandType;
+    private Long idDetailForm;
+    private String urlDetailForm;
 }
