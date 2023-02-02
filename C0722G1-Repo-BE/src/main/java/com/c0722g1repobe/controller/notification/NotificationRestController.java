@@ -1,12 +1,11 @@
-package com.c0722g1repobe.controller;
+package com.c0722g1repobe.controller.notification;
 
-import com.c0722g1repobe.dto.NotificationDeleteDto;
-import com.c0722g1repobe.dto.NotificationAllPropertyDto;
-import com.c0722g1repobe.dto.NotificationSearchDto;
-import com.c0722g1repobe.service.INotificationService;
+import com.c0722g1repobe.dto.notification.NotificationDeleteDto;
+import com.c0722g1repobe.dto.notification.NotificationAllPropertyDto;
+import com.c0722g1repobe.dto.notification.NotificationSearchDto;
+import com.c0722g1repobe.service.notification.INotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -75,7 +74,7 @@ public class NotificationRestController {
      */
     @PostMapping("/remove")
     public ResponseEntity<HttpStatus> remove(@RequestBody List<Integer> idList) {
-        if (idList.isEmpty()) {
+        if (idList == null || idList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<NotificationDeleteDto> notificationDeleteDtoList = notificationService.findByListId(idList);
