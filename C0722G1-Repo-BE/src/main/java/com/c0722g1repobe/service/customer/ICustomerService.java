@@ -1,9 +1,6 @@
 package com.c0722g1repobe.service.account;
 
-<<<<<<< HEAD
 import com.c0722g1repobe.entity.account.Account;
-
-=======
 import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import org.springframework.data.domain.Page;
@@ -14,9 +11,6 @@ import java.util.Optional;
 
 @Service
 public interface ICustomerService {
->>>>>>> 17cd8f51bdf28b9804257862ef30ffbb7cdb8e38
-
-public interface IAccountService {
     Account findCustomer(Long idAccount);
 
     void updateCustomer(Account account);
@@ -29,9 +23,8 @@ public interface IAccountService {
      * @param account
      * @return
      */
-<<<<<<< HEAD
     Account createAccount(Account account);
-=======
+
     Customer findById(Long idCustomer);
 
     /**
@@ -64,5 +57,4 @@ public interface IAccountService {
      */
     void confirmCustomer(Long id);
 
->>>>>>> 17cd8f51bdf28b9804257862ef30ffbb7cdb8e38
 }
