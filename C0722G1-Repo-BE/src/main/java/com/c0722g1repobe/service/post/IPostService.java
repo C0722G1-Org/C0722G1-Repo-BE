@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
-
 import org.springframework.data.repository.query.Param;
 import com.c0722g1repobe.dto.post.PostDto;
 import com.c0722g1repobe.dto.post.PostListViewDto;
@@ -14,6 +13,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IPostService {
+    /**
+     *Created by: UyDD
+     * Date Created: 31/01/2023
+     * @param pageable
+     * @return page post
+     */
+    Page<Post> findAllPostByUserNameAccount(Pageable pageable, String userNameAccount);
+
     /*Method use: getAll()
      * Get List data of required attributes
      * Use interface PostDto
@@ -107,5 +114,4 @@ public interface IPostService {
      *
      */
     void approvalPost( Long id);
-
 }

@@ -10,19 +10,24 @@ import com.c0722g1repobe.service.post.IPostService;
 import com.c0722g1repobe.validation.post.IValidateCreatePost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.time.LocalDate;
+
+import com.c0722g1repobe.entity.post.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class PostService implements IPostService {
     @Autowired
     private IValidateCreatePost validateCreatePost;
     @Autowired
-    private IAddressRepository IAddressRepository;
+    private iAddressRepository iAddressRepository;
     @Autowired
-    private IPostRepository IPostRepository;
+    private IPostRepository iPostRepository;
 
- /*DI IPostRepository to use IPostRepository's methods
+    /*DI IPostRepository to use IPostRepository's methods
      * Author: DatTQ*/
 
     /*Call method getAll() of IPostRepository
@@ -46,6 +51,7 @@ public class PostService implements IPostService {
     @Override
     public List<PostDtoViewList> searchYearAndMonth(String year, String month) {
         return postRepository.searchYearAndMonth(year, month);
+    }
 
     /**
      * Create by: BaoDP
@@ -71,8 +77,8 @@ public class PostService implements IPostService {
 
         Long defaultIdStatus = 1L;
 
-        IAddressRepository.saveAddress(createPostDto.getNumberAddress(), createPostDto.getIdWards());
-        Long idAddress = IAddressRepository.findIdByNumberAddressAndIdWardsNativeQuery(createPostDto.getNumberAddress(), createPostDto.getIdWards());
+        iAddressRepository.saveAddress(createPostDto.getNumberAddress(), createPostDto.getIdWards());
+        Long idAddress = iAddressRepository.findIdByNumberAddressAndIdWardsNativeQuery(createPostDto.getNumberAddress(), createPostDto.getIdWards());
 
         return Post.builder()
                 .approval(false)
@@ -100,7 +106,7 @@ public class PostService implements IPostService {
      * @param post : an object of class PostDto
      */
     private void savePost(Post post) {
-        IPostRepository.savePost(post);
+        iPostRepository.savePost(post);
     }
 
     /**
@@ -124,19 +130,20 @@ public class PostService implements IPostService {
         }
 
         return baseResponseCreatePost;
-=======
-import com.c0722g1repobe.dto.post.PostDto;
-import com.c0722g1repobe.dto.post.PostListViewDto;
-import com.c0722g1repobe.entity.post.Post;
-import com.c0722g1repobe.repository.post.IPostRepository;
-import com.c0722g1repobe.service.post.IPostService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+    }
 
-@Service
-public class PostService implements IPostService {
+    /**
+     * Created by: UyDD
+     * Date Created: 31/01/2023
+     *
+     * @param pageable
+     * @return page post from post repository
+     */
+    @Override
+    public Page<Post> findAllPostByUserNameAccount(Pageable pageable, String userNameAccount) {
+        return iPostRepository.findAllPostByUserNameAccount(pageable, userNameAccount);
+    }
+
     private IPostRepository postRepository;
 
     public PostService(IPostRepository postRepository) {
@@ -144,30 +151,31 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Page<PostListViewDto> findAll(String area, String price, String demandType, String direction, String city, Pageable pageable) {
-        if (area.equals("") && price.equals("")){
+    public Page<PostListViewDto> findAll(String area, String price, String demandType, String direction, String
+            city, Pageable pageable) {
+        if (area.equals("") && price.equals("")) {
             return postRepository.findAllWithDemandTypeDirectionCity(demandType, direction, city, pageable);
         }
-        if (!area.equals("") && price.equals("")){
+        if (!area.equals("") && price.equals("")) {
             String[] arr = area.split("-");
-            if (arr.length == 2){
+            if (arr.length == 2) {
                 Double areaMin = Double.parseDouble(arr[0]);
                 Double areaMax = Double.parseDouble(arr[1]);
                 return postRepository.findAllWithDemandTypeDirectionCityArea(demandType, direction, city, areaMin, areaMax, pageable);
             }
         }
-        if (area.equals("") && !price.equals("")){
+        if (area.equals("") && !price.equals("")) {
             String[] arr = price.split("-");
-            if (arr.length == 2){
+            if (arr.length == 2) {
                 Double priceMin = Double.parseDouble(arr[0]);
                 Double priceMax = Double.parseDouble(arr[1]);
                 return postRepository.findAllWithDemandTypeDirectionCityPrice(demandType, direction, city, priceMin, priceMax, pageable);
             }
         }
-        if (!area.equals("") && !price.equals("")){
+        if (!area.equals("") && !price.equals("")) {
             String[] arrOfArea = area.split("-");
             String[] arrOfPrice = price.split("-");
-            if (arrOfArea.length == 2 && arrOfPrice.length ==2){
+            if (arrOfArea.length == 2 && arrOfPrice.length == 2) {
                 Double areaMin = Double.parseDouble(arrOfArea[0]);
                 Double areaMax = Double.parseDouble(arrOfArea[1]);
                 Double priceMin = Double.parseDouble(arrOfPrice[0]);
@@ -177,8 +185,7 @@ public class PostService implements IPostService {
         }
         return null;
     }
-    @Autowired
-    private IPostRepository iPostRepository;
+
     @Override
     public void deletePost(Long idPost) {
         iPostRepository.deletePost(idPost);
@@ -188,7 +195,6 @@ public class PostService implements IPostService {
     public Post findPost(Long id) {
         return iPostRepository.findPost(id);
     }
-
 
 
     @Override
@@ -203,6 +209,6 @@ public class PostService implements IPostService {
 
     @Override
     public Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Pageable pageable) {
-        return iPostRepository.searchAllPost( demandTypeSearch,lendTypeSearch, pageable);
+        return iPostRepository.searchAllPost(demandTypeSearch, lendTypeSearch, pageable);
     }
 }

@@ -29,6 +29,22 @@ import java.util.List;
 public class PostRestController {
     @Autowired
     private IPostService postService;
+
+
+    /**
+     * Created by: UyDD
+     * Date Created: 31/01/2023
+     * @param pageable
+     * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
+     */
+    @GetMapping("/{userNameAccount}")
+    public ResponseEntity<List<Post>> getPostListByUserNameAccount(@PageableDefault(size = 5) Pageable pageable, @PathVariable String userNameAccount) {
+        Page<Post> postList = postService.findAllPostByUserNameAccount(pageable, userNameAccount);
+        if (postList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(postList.getContent(), HttpStatus.OK);
+
     /*DI IPostService to use IPostService's methods;
      Author: DatTQ
      */

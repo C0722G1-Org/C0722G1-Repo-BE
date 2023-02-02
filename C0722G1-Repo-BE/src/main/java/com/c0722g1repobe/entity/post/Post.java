@@ -36,7 +36,6 @@ public class Post {
     private String imageListURL;
     private boolean flagDeleted = false;
     private boolean approval;
-
     private LocalDate dateCreation = LocalDate.now();
     @ManyToOne
     private Direction direction;
