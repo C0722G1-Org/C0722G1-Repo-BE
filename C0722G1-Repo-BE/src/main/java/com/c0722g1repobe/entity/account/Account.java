@@ -14,10 +14,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "Account", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "usernameAccount"
+        }),
+        @UniqueConstraint(columnNames = {
+                "email"
+        })
+})
 @Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "Account", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "usernameAccount"
@@ -31,25 +37,80 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAccount;
-    @NotBlank
-    @Size(min = 3, max = 50)
+
     private String name;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
     private String usernameAccount;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
     private String email;
 
-    @JsonIgnore
-    @NotBlank
-    @Size(min = 6, max = 100)
     private String encryptPassword;
 
+    @Column(columnDefinition = "bit default false")
+    private boolean flagDelete;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    public Account() {
+    }
+
+    public Account(Long idAccount, String name, String usernameAccount, String email, String encryptPassword, boolean flagDelete, Set<Role> roles) {
+        this.idAccount = idAccount;
+        this.name = name;
+        this.usernameAccount = usernameAccount;
+        this.email = email;
+        this.encryptPassword = encryptPassword;
+        this.flagDelete = flagDelete;
+        this.roles = roles;
+    }
+
+    public Long getIdAccount() {
+        return idAccount;
+    }
+
+    public void setIdAccount(Long idAccount) {
+        this.idAccount = idAccount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsernameAccount() {
+        return usernameAccount;
+    }
+
+    public void setUsernameAccount(String usernameAccount) {
+        this.usernameAccount = usernameAccount;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEncryptPassword() {
+        return encryptPassword;
+    }
+
+    public void setEncryptPassword(String encryptPassword) {
+        this.encryptPassword = encryptPassword;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

@@ -1,5 +1,6 @@
-package com.c0722g1repobe.service.customer;
+package com.c0722g1repobe.service.account;
 
+import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import org.springframework.data.domain.Page;
@@ -10,24 +11,20 @@ import java.util.Optional;
 
 @Service
 public interface ICustomerService {
+    Account findCustomer(Long idAccount);
 
-    /**
-     * Create by: HuyNV
-     * Date created : 31/01/2023
-     * Function : to create customer
-     *
-     * @param customer
-     */
-    void createCustomer(Customer customer);
+    void updateCustomer(Account account);
 
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
-     * Function : to create customer
+     * Function : to create account
      *
-     * @param idCustomer
+     * @param account
      * @return
      */
+    Account createAccount(Account account);
+
     Customer findById(Long idCustomer);
 
     /**

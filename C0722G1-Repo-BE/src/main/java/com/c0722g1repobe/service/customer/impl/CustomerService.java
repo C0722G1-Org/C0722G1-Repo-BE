@@ -1,5 +1,8 @@
-package com.c0722g1repobe.service.customer.impl;
+package com.c0722g1repobe.service.account.impl;
 
+import com.c0722g1repobe.entity.account.Account;
+import com.c0722g1repobe.repository.account.IAccountRepository;
+import com.c0722g1repobe.service.account.IAccountService;
 import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.repository.customer.ICustomerRepository;
@@ -12,33 +15,33 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CustomerService implements ICustomerService {
+public class AccountService implements IAccountService {
     @Autowired
-    private ICustomerRepository customerRepository;
+    private IAccountRepository accountRepository;
 
-    /**
-     * Create by: HuyNV
-     * Date created : 31/01/2023
-     * Function : to create customer
-     *
-     * @param customer
-     */
     @Override
-    public void createCustomer(Customer customer) {
-            customerRepository.save(customer);
+    public Account findCustomer(Long idAccount) {
+        return accountRepository.findByIdAccount(idAccount);
+    }
+
+    @Override
+    public void updateCustomer(Account account) {
+        Long idAccount = account.getIdAccount();
+        String encryptPassword = account.getEncryptPassword();
+        accountRepository.updatePassword(idAccount, encryptPassword);
     }
 
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
-     * Function : to create customer
+     * Function : to create account
      *
-     * @param idCustomer
+     * @param account
      * @return
      */
     @Override
-    public Customer findById(Long idCustomer) {
-        return customerRepository.findById(idCustomer).orElse(null);
+    public Account createAccount(Account account) {
+        return accountRepository.save(account);
     }
 
     /**
