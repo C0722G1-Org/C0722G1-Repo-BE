@@ -11,13 +11,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< HEAD
-=======
 import java.util.Optional;
 
 @Transactional
->>>>>>> 17cd8f51bdf28b9804257862ef30ffbb7cdb8e38
-
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     /**
@@ -93,8 +89,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 //                        @Param("approval") boolean approval,
 //                        @Param("idAccount")Account idAccount);
 
-<<<<<<< HEAD
-=======
     /**
      * Create by: HocHH
      * Date created: 31/01/2023
@@ -133,6 +127,4 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      */
     @Query(value = "select * from customer where id_customer = :id", nativeQuery = true)
     Optional<Customer> findByIdCustomer(Long id);
-
->>>>>>> 17cd8f51bdf28b9804257862ef30ffbb7cdb8e38
 }
