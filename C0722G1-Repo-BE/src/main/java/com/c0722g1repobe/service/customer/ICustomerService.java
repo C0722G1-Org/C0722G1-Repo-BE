@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.customer;
 
+import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public interface ICustomerService {
      * @param pageable
      * @return
      */
-    Page<Customer> searchCustomer(String allSearch,Pageable pageable);
+    Page<ICustomerDto> searchCustomer(String allSearch, Pageable pageable);
 
     /**
      * Create by: HocHH

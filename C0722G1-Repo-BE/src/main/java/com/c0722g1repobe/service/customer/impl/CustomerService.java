@@ -1,6 +1,7 @@
 package com.c0722g1repobe.service.customer.impl;
 
 
+import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.repository.customer.ICustomerRepository;
 import com.c0722g1repobe.service.customer.ICustomerService;
@@ -35,7 +36,7 @@ public class CustomerService implements ICustomerService {
      * @return
      */
     @Override
-    public Page<Customer> searchCustomer(String allSearch, Pageable pageable) {
+    public Page<ICustomerDto> searchCustomer(String allSearch, Pageable pageable) {
         return iCustomerRepository.searchCustomer(allSearch,pageable);
     }
 

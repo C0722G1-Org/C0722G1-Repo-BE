@@ -1,5 +1,6 @@
 package com.c0722g1repobe.repository.customer;
 
+import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,8 +39,8 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Query(value = "select * from customer where  name_customer like concat('%', :allSearch ,'%')  or address_customer like concat('%', :allSearch ,'%')  or code_customer  like concat('%', :allSearch ,'%')  and flag_delete = true ",
             nativeQuery = true)
-    Page<Customer> searchCustomer(@Param("allSearch") String allSearch,
-                                  Pageable pageable);
+    Page<ICustomerDto> searchCustomer(@Param("allSearch") String allSearch,
+                                      Pageable pageable);
 
     /**
      * Create by: HocHH

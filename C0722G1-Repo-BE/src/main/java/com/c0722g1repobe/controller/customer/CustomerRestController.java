@@ -1,5 +1,6 @@
 package com.c0722g1repobe.controller.customer;
 
+import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,9 @@ public class CustomerRestController {
      * @return HttpStatus.OK if result is not error or HttpStatus.NO_CONTENT if database is empty.
      */
     @GetMapping("")
-    public ResponseEntity<Page<Customer>> getAllCustomerPaging(@PageableDefault(value = 5) Pageable pageable,
-                                                      @RequestParam(value = "allSearch",defaultValue = "") String allSearch) {
-        Page<Customer> customerPage = iCustomerService.searchCustomer(allSearch, pageable);
+    public ResponseEntity<Page<ICustomerDto>> getAllCustomerPaging(@PageableDefault(value = 5) Pageable pageable,
+                                                                   @RequestParam(value = "allSearch",defaultValue = "") String allSearch) {
+        Page<ICustomerDto> customerPage = iCustomerService.searchCustomer(allSearch, pageable);
         if (customerPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -58,5 +59,16 @@ public class CustomerRestController {
         iCustomerService.confirmCustomer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /*
+        public ResponseEntity<List<Customer>> confirmCustomer(@PathVariable("id") Long id) {
+        Optional<ICustomerDto> customer = iCustomerService.findById(id);
+        if (!customer.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        iCustomerService.confirmCustomer(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    * */
 
 }

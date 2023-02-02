@@ -57,7 +57,7 @@ public class CustomerRestController_getListCustomer {
                                 .get("/api/customer?allSearch=Hao"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
-
+        /*coming soon*/
     }
 
 }
