@@ -25,7 +25,7 @@ public class NotificationRestController_findListNotificationByListId {
      * Date created: 01/02/2023
      * Function: notification list search by list id with list id are null
      *
-     * @param: null
+     * @throws Exception
      */
 
     @Test
@@ -39,7 +39,7 @@ public class NotificationRestController_findListNotificationByListId {
      * Date created: 01/02/2023
      * Function: notification list search by list id with list id are empty
      *
-     * @param: empty
+     * @throws Exception
      */
 
     @Test
@@ -54,7 +54,7 @@ public class NotificationRestController_findListNotificationByListId {
      * Date created: 01/02/2023
      * Function: notification list search by list id with value does not exist in database
      *
-     * @param: (20, 21)
+     * @throws Exception
      */
     @Test
     public void findListNotificationByListId_31() throws Exception {
@@ -69,7 +69,7 @@ public class NotificationRestController_findListNotificationByListId {
      * Date created: 01/02/2023
      * Function: notification list search by list id with correct id value
      *
-     * @param: (1, 2)
+     * @throws Exception
      */
     @Test
     public void findListNotificationByListId_32() throws Exception {

@@ -24,9 +24,8 @@ public class NotificationRestController_deleteNotificationByListId {
      * Date created: 01/02/2023
      * Function: delete notification by list id with list id are null
      *
-     * @param: null
+     * @throws Exception
      */
-
     @Test
     public void findListNotificationByListId_25() throws Exception {
         ResponseEntity<HttpStatus> responseEntity
@@ -39,7 +38,7 @@ public class NotificationRestController_deleteNotificationByListId {
      * Date created: 01/02/2023
      * Function: delete notification by list id with list id are empty
      *
-     * @param: empty
+     * @throws Exception
      */
     @Test
     public void findListNotificationByListId_26() throws Exception {
@@ -53,7 +52,7 @@ public class NotificationRestController_deleteNotificationByListId {
      * Date created: 01/02/2023
      * Function: delete notifications with id value does not exist in database
      *
-     * @param: (20, 21)
+     * @throws Exception
      */
     @Test
     public void findListNotificationByListId_27() throws Exception {
@@ -68,7 +67,7 @@ public class NotificationRestController_deleteNotificationByListId {
      * Date created: 01/02/2023
      * Function: delete notifications by list id with correct id value
      *
-     * @param: (1, 2)
+     * @throws Exception
      */
     @Test
     public void findListNotificationByListId_28() throws Exception {

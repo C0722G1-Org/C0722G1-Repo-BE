@@ -25,7 +25,7 @@ public class NotificationRestController_getListNotification {
      * Date created: 01/02/2023
      * Function: get notification listing with pagination and dto object to search is null
      *
-     * @param: null
+     * @throws Exception
      */
     @Test
     public void getListNotification_33() throws Exception {
@@ -39,7 +39,7 @@ public class NotificationRestController_getListNotification {
      * Date created: 01/02/2023
      * Function: get notification listing with pagination and dto object to search is empty
      *
-     * @param: notificationSearchDto with empty attribute values
+     * @throws Exception
      */
     @Test
     public void getListNotification_34() throws Exception {
@@ -64,7 +64,7 @@ public class NotificationRestController_getListNotification {
      * Date created: 01/02/2023
      * Function: get pagination notification list with dto object to search is does not exist in database
      *
-     * @param: new NotificationSearchDto("2025-01-01","","")
+     * @throws Exception
      */
     @Test
     public void getListNotification_35() throws Exception {
@@ -79,7 +79,7 @@ public class NotificationRestController_getListNotification {
      * Date created: 01/02/2023
      * Function: get pagination notification list with dto object to search is exist in database
      *
-     * @param: new NotificationSearchDto("2025-01-01","Thông báo đầu tiên","Nội dung thông báo: Trân trọng thông báo website "Quản lý môi giới bất động sản" chính thức đi vào hoạt động.")
+     * @throws Exception
      */
     @Test
     public void getListNotification_36() throws Exception {
