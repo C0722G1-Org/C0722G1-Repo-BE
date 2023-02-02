@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.c0722g1repobe.entity.customer.Customer;
@@ -18,7 +19,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Builder
 @Setter
 @Getter
 @NoArgsConstructor
@@ -32,10 +32,10 @@ public class Post {
     private String namePost;
     private Double area;
     private String note;
+    private String descriptionPost;
     private Double price;
-    private String imageListURL;
     private boolean flagDeleted = false;
-    private boolean approval;
+    private int approval;
     private LocalDate dateCreation = LocalDate.now();
     @ManyToOne
     private Direction direction;

@@ -1,5 +1,10 @@
-package com.c0722g1repobe.dto;
+package com.c0722g1repobe.dto.notification;
 
+/**
+ * Create by: DatLA
+ * Date created: 02/02/2023
+ * For: to get search object
+ */
 public class NotificationSearchDto {
     private String startDate;
     private String title;
