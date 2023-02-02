@@ -1,6 +1,6 @@
 package com.c0722g1repobe.controller.notification;
 
-import com.c0722g1repobe.controller.notification.NotificationRestController;
+
 import com.c0722g1repobe.dto.notification.NotificationDeleteDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
