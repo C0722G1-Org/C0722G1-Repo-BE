@@ -7,21 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Account", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "usernameAccount"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })
-})
-@Setter
-@Getter
 @Table(name = "Account", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "usernameAccount"
@@ -94,14 +86,6 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean isFlagDelete() {
-        return flagDelete;
-    }
-
-    public void setFlagDelete(boolean flagDelete) {
-        this.flagDelete = flagDelete;
     }
 
     public String getEncryptPassword() {
