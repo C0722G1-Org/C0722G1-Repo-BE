@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
-
 import org.springframework.data.repository.query.Param;
 import com.c0722g1repobe.dto.post.PostDto;
 import com.c0722g1repobe.dto.post.PostListViewDto;
@@ -14,6 +13,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IPostService {
+    /**
+     *Created by: UyDD
+     * Date Created: 31/01/2023
+     * @param pageable
+     * @return page post
+     */
+    Page<Post> findAllPostByUserNameAccount(Pageable pageable, String userNameAccount);
+
     /*Method use: getAll()
      * Get List data of required attributes
      * Use interface PostDto
@@ -44,6 +51,19 @@ public interface IPostService {
 
     BaseResponseCreatePost getResponseCreatePost(CreatePostDto createPostDto);
 
+    /**
+     * Method uses:
+     * find all list posts for homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     * @param area
+     * @param price
+     * @param demandType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
     Page<PostListViewDto> findAll(String area, String price, String demandType, String direction, String city, Pageable pageable);
     /**
      * Method uses:
@@ -56,7 +76,6 @@ public interface IPostService {
      * @return a Post object that can be showed on Post detail screen
      */
     Post findPostById(@Param("id") Long id);
-    
     /**
      * Create by: NgocLV
      * Date created: 31/01/2023
@@ -76,19 +95,21 @@ public interface IPostService {
      * @return json  post
      */
     Post findPost(Long id);
+
     /**
-     * Create by: NgocLV
-     * Date created: 31/01/2023
-     * Function: search list posts
+     *Created by: NgocLV
+     * Date Created: 31/01/2023
      *
      * @param demandTypeSearch
      * @param lendTypeSearch
      * @param pageable
+     * @param minPriceSearch
+     * @param maxPriceSearch
      *
      * @return json list posts
      */
-    Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Pageable pageable);
-    /**
+    Page<PostDto> searchAllPost(String demandTypeSearch,String lendTypeSearch,Double minPriceSearch,Double maxPriceSearch, String positionSearch ,Pageable pageable);
+       /**
      * Create by: NgocLV
      * Date created: 31/01/2023
      * Function: show list posts
@@ -97,8 +118,8 @@ public interface IPostService {
      *
      * @return json list posts
      */
-    Page<PostDto> findAllPost(Pageable pageable);
-    /**
+    Page<PostDto> findAllPost( Pageable pageable);
+      /**
      * Create by: NgocLV
      * Date created: 31/01/2023
      * Function: approval post
@@ -107,5 +128,4 @@ public interface IPostService {
      *
      */
     void approvalPost( Long id);
-
 }
