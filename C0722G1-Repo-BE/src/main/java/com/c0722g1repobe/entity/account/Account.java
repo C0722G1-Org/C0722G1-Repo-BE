@@ -22,8 +22,6 @@ import java.util.Set;
 })
 @Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "Account", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "usernameAccount"

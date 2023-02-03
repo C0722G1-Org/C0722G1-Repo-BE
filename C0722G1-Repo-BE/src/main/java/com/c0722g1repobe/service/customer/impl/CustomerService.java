@@ -1,15 +1,12 @@
 package com.c0722g1repobe.service.account.impl;
 
-<<<<<<< HEAD
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.repository.account.IAccountRepository;
 import com.c0722g1repobe.service.account.IAccountService;
-=======
 import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.repository.customer.ICustomerRepository;
 import com.c0722g1repobe.service.customer.ICustomerService;
->>>>>>> 17cd8f51bdf28b9804257862ef30ffbb7cdb8e38
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
