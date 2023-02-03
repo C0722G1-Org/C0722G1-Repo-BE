@@ -1,5 +1,6 @@
 package com.c0722g1repobe.controller;
 
+import com.c0722g1repobe.dto.form.DataFormDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
