@@ -7,13 +7,27 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public interface ICustomerService {
-    Account findCustomer(Long idAccount);
+     /**
+     * Create by: VanNTC
+     * Date created : 03/02/2023
+     * Function : to find customer by id 
+     *
+     * @param idCustomer
+     * @return
+     */
+    Account findCustomer(Long idCustomer);
+    /**
+     * Create by: VanNTC
+     * Date created : 03/02/2023
+     * Function : update customer
+     *
+     * @param account
+     * @return
+     */
 
-    void updateCustomer(Account account);
+    void updateCustomer(Customer customer);
 
     /**
      * Create by: HuyNV
