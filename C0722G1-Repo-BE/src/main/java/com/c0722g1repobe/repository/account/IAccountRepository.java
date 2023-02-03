@@ -37,4 +37,12 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
 
     @Query(value = "select * from account where idAccount =:idAccount and flag_delete = 0", nativeQuery = true)
     Account findByIdAccount(@Param(value = "idAccount") Long idAccount);
+
+    /**
+     * Create by LongPT
+     * Date created 31/1/2023
+     * Function save account
+     */
+    @Query(value = "insert into account(username_account, encrypt_password) values (:username, :password)", nativeQuery = true)
+    public void saveAccount(@Param("username") String username, @Param("password") String password);
 }
