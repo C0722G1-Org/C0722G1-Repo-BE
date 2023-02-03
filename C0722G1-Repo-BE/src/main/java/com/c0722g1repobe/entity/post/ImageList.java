@@ -15,9 +15,9 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DemandType {
+public class ImageList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDemandType;
-    private String nameDemandType;
+    private Long idImageList;
+    private String url;
 }
