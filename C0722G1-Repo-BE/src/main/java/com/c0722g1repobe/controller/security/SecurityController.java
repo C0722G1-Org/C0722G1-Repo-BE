@@ -53,7 +53,12 @@ public class SecurityController {
 
         String token = jwtProvider.createToken(authentication);
         AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(token, accountPrinciple.getName(), accountPrinciple.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(token,
+                accountPrinciple.getName(),
+                accountPrinciple.getAuthorities(),
+                accountPrinciple.getUsernameAccount(),
+                accountPrinciple.getIdAccount(),
+                accountPrinciple.getEmail()));
     }
 
 
