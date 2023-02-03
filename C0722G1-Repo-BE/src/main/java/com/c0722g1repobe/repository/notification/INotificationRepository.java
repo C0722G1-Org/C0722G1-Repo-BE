@@ -94,5 +94,4 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
                             @Param("posting_date") String posting_date ,
                             @Param("content") String content ,
                             @Param("flag_delete") Boolean flag_delete);
-
 }

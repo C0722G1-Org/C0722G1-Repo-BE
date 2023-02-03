@@ -1,7 +1,7 @@
 package com.c0722g1repobe.service.notification.impl;
 
-import com.c0722g1repobe.dto.notification.NotificationAllPropertyDto;
 import com.c0722g1repobe.dto.notification.NotificationDeleteDto;
+import com.c0722g1repobe.dto.notification.NotificationAllPropertyDto;
 import com.c0722g1repobe.dto.notification.NotificationSearchDto;
 import com.c0722g1repobe.entity.notification.Notification;
 import com.c0722g1repobe.repository.notification.INotificationRepository;
@@ -56,6 +56,7 @@ public class NotificationService implements INotificationService {
     public void removeByListId(List<Long> idList) {
         notificationRepository.removeByListId(idList);
     }
+
 
     @Override
     public void updateNotification(Notification notification) {

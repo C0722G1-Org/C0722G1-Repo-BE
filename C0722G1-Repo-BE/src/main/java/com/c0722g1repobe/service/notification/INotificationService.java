@@ -3,10 +3,11 @@ package com.c0722g1repobe.service.notification;
 import com.c0722g1repobe.dto.notification.NotificationAllPropertyDto;
 import com.c0722g1repobe.dto.notification.NotificationDeleteDto;
 import com.c0722g1repobe.dto.notification.NotificationSearchDto;
+import com.c0722g1repobe.entity.notification.Notification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
-import com.c0722g1repobe.entity.notification.Notification;
 
 public interface INotificationService {
 
@@ -38,6 +39,7 @@ public interface INotificationService {
      * @param idList
      */
     void removeByListId(List<Long> idList);
+
     /**
      * Create by: AnhTDQ
      * Date created: 01/02/2023
@@ -65,6 +67,6 @@ public interface INotificationService {
      * @param id
      * @return notification
      */
-
     Notification findNotificationById(long id);
+
 }

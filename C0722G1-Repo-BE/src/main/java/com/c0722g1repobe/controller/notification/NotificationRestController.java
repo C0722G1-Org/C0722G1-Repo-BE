@@ -43,6 +43,7 @@ public class NotificationRestController {
         return new ResponseEntity<>(notificationPage, HttpStatus.OK);
     }
 
+
     /**
      * Create by: DatLA
      * Date created: 31/01/2023
