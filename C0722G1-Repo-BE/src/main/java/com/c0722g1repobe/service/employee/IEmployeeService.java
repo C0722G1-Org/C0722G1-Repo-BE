@@ -44,8 +44,9 @@ public interface IEmployeeService {
      * Function: delete employee
      *
      * @param id
+     * @return boolean
      */
-    void deleteEmployee(Long id);
+    boolean isDeleteEmployee(Long id);
 
     /**
      * Create by: LongPT

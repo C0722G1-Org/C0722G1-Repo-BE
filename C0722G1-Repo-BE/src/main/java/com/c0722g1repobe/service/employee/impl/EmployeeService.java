@@ -63,10 +63,16 @@ public class EmployeeService implements IEmployeeService {
      * Function: delete employee
      *
      * @param id
+     * @return true if delete success or false if id not exist
      */
     @Override
-    public void deleteEmployee(Long id) {
+    public boolean isDeleteEmployee(Long id) {
+        Optional<Employee> employee = employeeRepository.getByIdEmployee(id);
+        if (!employee.isPresent()) {
+            return false;
+        }
         employeeRepository.deleteEmployee(id);
+        return true;
     }
 
     /**
