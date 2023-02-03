@@ -1,6 +1,55 @@
 package com.c0722g1repobe.controller.customer;
 
 import com.c0722g1repobe.dto.customer.CustomerDto;
+<<<<<<< HEAD
+import com.c0722g1repobe.entity.customer.Customer;
+import com.c0722g1repobe.service.customer.ICustomerService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping("/api/customer")
+@CrossOrigin(origins = "*")
+public class CustomerController {
+    @Autowired
+    private ICustomerService customerService;
+
+
+    /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function: update info Customer
+     *
+     * @param idCustomer
+     * @return "Cập nhật thông tin thành công" + HttpStatus.OK
+     */
+
+
+    @GetMapping("/{idCustomer}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long idCustomer) {
+        Customer customer = this.customerService.findCustomer(idCustomer);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @PatchMapping("/update-customer/{idCustomer}")
+    public ResponseEntity<CustomerDto> updateCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult bindingResult) {
+        if (customerService.findCustomer(customerDto.getIdCustomer()) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(customerDto, customer);
+        customerService.updateCustomer(customer);
+=======
 import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.customer.Customer;
@@ -114,6 +163,7 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         customerService.confirmCustomer(id);
+>>>>>>> 1bb28e6b1fb875b7a486fe3cfb32ace83c2ba987
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

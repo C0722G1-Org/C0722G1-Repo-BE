@@ -6,5 +6,5 @@ public interface IAccountService {
 
     Account findByIdAccount(Long idAccount);
 
-   void updatePassword(Account account);
+    void updatePassword(Account account);
 }

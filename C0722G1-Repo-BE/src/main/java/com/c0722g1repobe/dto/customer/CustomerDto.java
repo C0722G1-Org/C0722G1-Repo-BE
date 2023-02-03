@@ -22,6 +22,7 @@ public class CustomerDto implements Validator {
     private int approvalCustomer;
     private String encryptPassword;
 
+
     public String getDateOfBirthCustomer() {
         return dateOfBirthCustomer;
     }
