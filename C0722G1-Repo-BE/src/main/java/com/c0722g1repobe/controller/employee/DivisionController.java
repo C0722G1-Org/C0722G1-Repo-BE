@@ -25,7 +25,7 @@ public class DivisionController {
      * Date created: 02/02/2023
      * Function: show list division
      *
-     * @return list employee, HttpStatus.OK
+     * @return HttpStatus.OK if result a list division
      */
     @GetMapping("")
     public ResponseEntity<List<Division>> getAllDivision() {
