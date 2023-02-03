@@ -78,4 +78,13 @@ public interface ICustomerService {
      * @param customer
      */
     void updateCustomer(Customer customer);
-}
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+
+    void saveCustomerByAccount(Customer customer);
+
+    void saveCustomer(Customer customer);
