@@ -1,5 +1,7 @@
 package com.c0722g1repobe.service.post.impl;
 
+
+import com.c0722g1repobe.dto.post.PostDto;
 import com.c0722g1repobe.dto.post.PostDtoViewList;
 import com.c0722g1repobe.dto.post.PostListViewDto;
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
@@ -29,39 +31,28 @@ public class PostService implements IPostService {
     @Autowired
     private IPostRepository postRepository;
 
-    /*Call method getAll() of IPostRepository
+    /**Call method getAll() of IPostRepository
      * Author: DatTQ*/
     @Override
     public List<PostDtoViewList> getAll() {
         return postRepository.getAll();
     }
 
-    /*Call method searchYear(String year) of IPostRepository
+    /**Call method searchYear(String year) of IPostRepository
       Parameter: String year
       Author: DatTQ */
     @Override
     public List<PostDtoViewList> searchYear(String year) {
         return postRepository.searchYear(year);
+
     }
 
-    /*Call method searchYear(String year, String month) of IPostRepository
+    /**Call method searchYear(String year, String month) of IPostRepository
      Parameter: String year, String month
      Author: DatTQ */
     @Override
     public List<PostDtoViewList> searchYearAndMonth(String year, String month) {
         return postRepository.searchYearAndMonth(year, month);
-    }
-
-    /**
-     * Create by: BaoDP
-     * Date Create: 01/02/2023
-     * Description: call method validateCreatePost from class ValidateCreatePost.
-     *
-     * @param createPostDto : an object of class CreatePostDto
-     * @return an object of class BaseResponseCreatePost
-     */
-    private BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto) {
-        return validateCreatePost.validateCreatePost(createPostDto);
     }
 
     /**
@@ -106,6 +97,18 @@ public class PostService implements IPostService {
      */
     private void savePost(Post post) {
         postRepository.savePost(post);
+    }
+
+    /**
+     * Create by: BaoDP
+     * Date Create: 01/02/2023
+     * Description: call method validateCreatePost from class ValidateCreatePost.
+     *
+     * @param createPostDto : an object of class CreatePostDto
+     * @return an object of class BaseResponseCreatePost
+     */
+    private BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto) {
+        return validateCreatePost.validateCreatePost(createPostDto);
     }
 
     /**
@@ -193,6 +196,43 @@ public class PostService implements IPostService {
     }
 
     /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: delete post .
+     *
+     * @param idPost
+     * @return delete post or null if not found
+     */
+    @Override
+    public void deletePost(Long idPost) {
+        postRepository.deletePost(idPost);
+    }
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: find post .
+     *
+     * @param id
+     * @return  post or null if not found
+     */
+    @Override
+    public Post findPost(Long id) {
+        return postRepository.findPost(id);
+    }
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: find list post .
+     *
+     * @param pageable
+     * @return  list post or null if not found
+     */
+      @Override
+       public Page<PostDto> findAllPost(Pageable pageable) {
+        return postRepository.findAllPost(pageable);}
+
+
+    /**
      * Method uses:
      * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
      * if Post is found, return Post and OK http status
@@ -206,6 +246,35 @@ public class PostService implements IPostService {
     @Override
     public Post findPostById(Long id) {
         return postRepository.findPostById(id);
-    }
 
+    }
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: approval post .
+     *
+     * @param id
+     * @return  approval post  or null if not found
+     */
+    @Override
+    public void approvalPost(Long id) {
+        postRepository.approvalPost(id);
+    }
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: approval post .
+     *
+     * @param demandTypeSearch
+     * @param lendTypeSearch
+     * @param minPriceSearch
+     * @param maxPriceSearch
+     * @param positionSearch
+     * @return  list post  or null if not found
+     */
+
+    @Override
+    public Page<PostDto> searchAllPost(String demandTypeSearch,String lendTypeSearch,Double minPriceSearch,Double maxPriceSearch, String positionSearch ,Pageable pageable) {
+        return postRepository.searchAllPost( demandTypeSearch,lendTypeSearch,minPriceSearch, maxPriceSearch, positionSearch,  pageable);
+    }
 }
