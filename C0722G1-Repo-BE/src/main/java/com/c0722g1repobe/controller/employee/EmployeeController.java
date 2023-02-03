@@ -83,8 +83,12 @@ public class EmployeeController {
         if (!employee.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        employeeService.deleteEmployee(employee.get().getIdEmployee());
-        return new ResponseEntity<>(HttpStatus.OK);
+        boolean flagDelete = employeeService.isDeleteEmployee(employee.get().getIdEmployee());
+        if (flagDelete) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
