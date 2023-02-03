@@ -8,7 +8,7 @@ public interface IDivisionService {
     /**
      * Create by: NhanUQ
      * Date created: 02/02/2023
-     * Function: show list division
+     * Function: get list division
      *
      * @return json list division
      */

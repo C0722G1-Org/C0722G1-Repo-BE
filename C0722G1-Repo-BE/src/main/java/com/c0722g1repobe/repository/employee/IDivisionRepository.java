@@ -12,7 +12,7 @@ public interface IDivisionRepository extends JpaRepository<Division, Long> {
      * Date created: 02/02/2023
      * Function: show list division
      *
-     * @return json list division
+     * @return list division json
      */
     @Query(value = "SELECT * FROM division", nativeQuery = true)
     List<Division> getAllDivision();
