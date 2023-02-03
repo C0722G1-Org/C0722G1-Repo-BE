@@ -1,9 +1,8 @@
 package com.c0722g1repobe.entity.post;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.c0722g1repobe.entity.customer.Customer;
+import lombok.*;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.c0722g1repobe.entity.customer.Customer;
