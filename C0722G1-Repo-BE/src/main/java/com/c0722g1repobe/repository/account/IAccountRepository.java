@@ -41,6 +41,12 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
     Account findByIdAccount(@Param(value = "idAccount") Long idAccount);
 
     /**
+     * Create by LongPT
+     * Date created 31/1/2023
+     * Function save account
+     */
+    @Query(value = "insert into account(username_account, encrypt_password) values (:username, :password)", nativeQuery = true)
+    public void saveAccount(@Param("username") String username, @Param("password") String password);
      * Create by: PhuongLTH,
      * Date created: 31/01/2023,
      * Function: findByUsername,existsByUsername,existsByEmail
