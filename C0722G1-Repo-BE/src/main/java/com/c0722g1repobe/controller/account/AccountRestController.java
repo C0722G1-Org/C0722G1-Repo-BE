@@ -1,5 +1,6 @@
 package com.c0722g1repobe.controller.account;
 
+
 import com.c0722g1repobe.dto.account.request.SignInForm;
 import com.c0722g1repobe.dto.account.response.JwtResponse;
 import com.c0722g1repobe.entity.account.Account;
@@ -55,7 +56,6 @@ public class AccountRestController {
         Account account = this.iAccountService.findByIdAccount((idAccount));
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
-
     /***Created by VanNTC
      * Date created: 31/01/2023
      * Function: Update new password
@@ -63,6 +63,7 @@ public class AccountRestController {
      * @param emailCustomer
      * @return "Cập nhật mật khẩu thành công" + HttpStatus.OK
      */
+
     @PatchMapping("/update-password/{IdAccount}")
     public ResponseEntity<?> updatePassword(@RequestParam(value = "id_account", required = false) Long idAccount,
                                             @RequestParam(value = "email", required = false) String emailCustomer){

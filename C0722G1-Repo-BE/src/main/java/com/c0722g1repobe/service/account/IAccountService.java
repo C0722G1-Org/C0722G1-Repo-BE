@@ -2,6 +2,7 @@ package com.c0722g1repobe.service.account;
 
 import com.c0722g1repobe.entity.account.Account;
 
+
 import java.util.Optional;
 
 public interface IAccountService {
@@ -35,9 +36,33 @@ public interface IAccountService {
      * @return
      */
     void updatePassword(Account account);
+    /**
+ * Create by: PhuongLTH
+ * Date created : 01/02/2023
+ * Function : findByUsername
+ *
+ * @param username
+ * @return
+ */
+Optional<Account> findByUsername(String username);
 
-    Optional<Account> findByUsername(String username);
+/**
+ * Create by: PhuongLTH
+ * Date created : 01/02/2023
+ * Function : existsByUsername
+ *
+ * @param username
+ * @return
+ */
+Boolean existsByUsername(String username);
 
-    Boolean existsByUsername(String username);
-    Boolean existsByEmail(String email);
+/**
+ * Create by: PhuongLTH
+ * Date created : 01/02/2023
+ * Function : existsByUsername
+ *
+ * @param email
+ * @return
+ */
+Boolean existsByEmail(String email);
 }
