@@ -1,13 +1,11 @@
 package com.c0722g1repobe.entity.post;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@Builder
 @Setter
 @Getter
 @NoArgsConstructor

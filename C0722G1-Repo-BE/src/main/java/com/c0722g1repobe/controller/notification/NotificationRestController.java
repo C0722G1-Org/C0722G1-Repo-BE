@@ -52,7 +52,7 @@ public class NotificationRestController {
      * @return HttpStatus.NO_CONTENT if exists any notification not found or HttpStatus.OK and notification found
      */
     @PostMapping("/find-by-list-id")
-    public ResponseEntity<List<NotificationDeleteDto>> findByListId(@RequestBody List<Long> idList) {
+    public ResponseEntity<List<NotificationDeleteDto>> findByListId(@RequestBody List<Integer> idList) {
         if (idList == null || idList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -73,7 +73,7 @@ public class NotificationRestController {
      * or HttpStatus.BAD_REQUEST if request is error
      */
     @PostMapping("/remove")
-    public ResponseEntity<HttpStatus> remove(@RequestBody List<Long> idList) {
+    public ResponseEntity<HttpStatus> remove(@RequestBody List<Integer> idList) {
         if (idList == null || idList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

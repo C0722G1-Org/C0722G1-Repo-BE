@@ -56,7 +56,7 @@ public class NotificationRestController_deleteNotificationByListId {
      */
     @Test
     public void deleteNotificationsByListId_27() throws Exception {
-        List<Long> listIds = Arrays.asList(20L, 21L);
+        List<Integer> listIds = Arrays.asList(20, 21);
         ResponseEntity<HttpStatus> responseEntity
                 = this.notificationRestController.remove(listIds);
         Assertions.assertEquals(204, responseEntity.getStatusCodeValue());
@@ -71,7 +71,7 @@ public class NotificationRestController_deleteNotificationByListId {
      */
     @Test
     public void deleteNotificationsByListId_28() throws Exception {
-        List<Long> listIds = Arrays.asList(1L, 2L);
+        List<Integer> listIds = Arrays.asList(1, 2);
         ResponseEntity<HttpStatus> responseEntity
                 = this.notificationRestController.remove(listIds);
         Assertions.assertEquals(200, responseEntity.getStatusCodeValue());
