@@ -40,7 +40,7 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
 
     /**
      * Create by LongPT
-     * Dât created 31/1/2023
+     * Date created 31/1/2023
      * Function save account
      */
     @Query(value = "insert into account(username_account, encrypt_password) values (:username, :password)", nativeQuery = true)

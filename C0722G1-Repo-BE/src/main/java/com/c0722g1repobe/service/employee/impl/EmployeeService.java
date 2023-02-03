@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class EmployeeService implements IEmployeeService {
     @Autowired
     private IEmployeeRepository employeeRepository;
+
     @Autowired
     private IAccountRepository accountRepository;
 
@@ -127,6 +128,7 @@ public class EmployeeService implements IEmployeeService {
                 employee.getAddressEmployee(),
                 employee.getDateOfBirth(),
                 employee.getDivision());
+
     }
     /**
      * Create by: LongPT
