@@ -180,7 +180,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * @param pageable
      * @return Page<PostListViewDto>
      */
-    @Query(value = "SELECT p.name_post,\n" +
+    @Query(value = "SELECT p.id_post,\n" +
+            "       p.name_post,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
             "       d2.name_district as district,\n" +
@@ -197,13 +198,15 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
-            "WHERE flag_deleted = false\n" +
-            "  AND approval = 1\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND sp.id_status_post = 2\n" +
             "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')",
             nativeQuery = true,
-            countQuery = "SELECT p.name_post,\n" +
+            countQuery = "SELECT p.id_post,\n" +
+                    "       p.name_post,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
                     "       d2.name_district as district,\n" +
@@ -220,8 +223,9 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
-                    "WHERE flag_deleted = false\n" +
-                    "  AND approval = 1\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND sp.id_status_post = 2\n" +
                     "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')")
@@ -242,7 +246,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * @param pageable
      * @return Page<PostListViewDto>
      */
-    @Query(value = "SELECT p.name_post,\n" +
+    @Query(value = "SELECT p.id_post,\n" +
+            "       p.name_post,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
             "       d2.name_district as district,\n" +
@@ -259,14 +264,16 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
-            "WHERE flag_deleted = false\n" +
-            "  AND approval = 1\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND sp.id_status_post = 2\n" +
             "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
             "  AND p.area BETWEEN :minArea AND :maxArea",
             nativeQuery = true,
-            countQuery = "SELECT p.name_post,\n" +
+            countQuery = "SELECT p.id_post,\n" +
+                    "       p.name_post,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
                     "       d2.name_district as district,\n" +
@@ -283,8 +290,9 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
-                    "WHERE flag_deleted = false\n" +
-                    "  AND approval = 1\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND sp.id_status_post = 2\n" +
                     "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
@@ -308,7 +316,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * @param pageable
      * @return Page<PostListViewDto>
      */
-    @Query(value = "SELECT p.name_post,\n" +
+    @Query(value = "SELECT p.id_post,\n" +
+            "       p.name_post,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
             "       d2.name_district as district,\n" +
@@ -325,14 +334,16 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
-            "WHERE flag_deleted = false\n" +
-            "  AND approval = 1\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND sp.id_status_post = 2\n" +
             "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
             "  AND p.area BETWEEN :priceMin AND :priceMax",
             nativeQuery = true,
-            countQuery = "SELECT p.name_post,\n" +
+            countQuery = "SELECT p.id_post,\n" +
+                    "       p.name_post,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
                     "       d2.name_district as district,\n" +
@@ -349,8 +360,9 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
-                    "WHERE flag_deleted = false\n" +
-                    "  AND approval = 1\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND sp.id_status_post = 2\n" +
                     "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
@@ -375,7 +387,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * @param pageable
      * @return Page<PostListViewDto>
      */
-    @Query(value = "SELECT p.name_post,\n" +
+    @Query(value = "SELECT p.id_post,\n" +
+            "       p.name_post,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
             "       d2.name_district as district,\n" +
@@ -392,15 +405,17 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
-            "WHERE flag_deleted = false\n" +
-            "  AND approval = 1\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND sp.id_status_post = 2\n" +
             "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
             "  AND p.area BETWEEN :minArea AND :maxArea\n" +
             "  AND p.price BETWEEN :priceMin AND :priceMax",
             nativeQuery = true,
-            countQuery = "SELECT p.name_post,\n" +
+            countQuery = "SELECT p.id_post,\n" +
+                    "       p.name_post,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
                     "       d2.name_district as district,\n" +
@@ -417,8 +432,9 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
-                    "WHERE flag_deleted = false\n" +
-                    "  AND approval = 1\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND sp.id_status_post = 2\n" +
                     "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
