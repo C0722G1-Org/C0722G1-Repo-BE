@@ -1,4 +1,4 @@
-package com.c0722g1repobe.service.account;
+package com.c0722g1repobe.service.customer;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.dto.customer.ICustomerDto;
@@ -11,20 +11,24 @@ import java.util.Optional;
 
 @Service
 public interface ICustomerService {
-    Account findCustomer(Long idAccount);
 
-    void updateCustomer(Account account);
+    /**
+     * Create by: HuyNV
+     * Date created : 31/01/2023
+     * Function : to create customer
+     *
+     * @param customer
+     */
+    void createCustomer(Customer customer);
 
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
-     * Function : to create account
+     * Function : find customer by id
      *
-     * @param account
+     * @param idCustomer
      * @return
      */
-    Account createAccount(Account account);
-
     Customer findById(Long idCustomer);
 
     /**
@@ -57,4 +61,21 @@ public interface ICustomerService {
      */
     void confirmCustomer(Long id);
 
+    /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function: find customer by id
+     *
+     * @param idCustomer
+     */
+    Customer findCustomer(Long idCustomer);
+
+    /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function:update customer
+     *
+     * @param customer
+     */
+    void updateCustomer(Customer customer);
 }

@@ -44,7 +44,6 @@ public class PostService implements IPostService {
     @Override
     public List<PostDtoViewList> searchYear(String year) {
         return postRepository.searchYear(year);
-
     }
 
     /**Call method searchYear(String year, String month) of IPostRepository
@@ -194,7 +193,7 @@ public class PostService implements IPostService {
         }
         return null;
     }
-
+    
     /**
      * Create by: NgocLV
      * Date Create: 01/02/2023
@@ -272,7 +271,6 @@ public class PostService implements IPostService {
      * @param positionSearch
      * @return  list post  or null if not found
      */
-
     @Override
     public Page<PostDto> searchAllPost(String demandTypeSearch,String lendTypeSearch,Double minPriceSearch,Double maxPriceSearch, String positionSearch ,Pageable pageable) {
         return postRepository.searchAllPost( demandTypeSearch,lendTypeSearch,minPriceSearch, maxPriceSearch, positionSearch,  pageable);
