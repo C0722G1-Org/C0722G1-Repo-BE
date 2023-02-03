@@ -39,7 +39,7 @@ public class NotificationServiceImpl implements INotificationService {
      * @return notification list
      */
     @Override
-    public List<NotificationDeleteDto> findByListId(List<Integer> idList) {
+    public List<NotificationDeleteDto> findByListId(List<Long> idList) {
         return notificationRepository.findByListId(idList);
     }
 
@@ -51,7 +51,7 @@ public class NotificationServiceImpl implements INotificationService {
      * @param idList
      */
     @Override
-    public void removeByListId(List<Integer> idList) {
+    public void removeByListId(List<Long> idList) {
         notificationRepository.removeByListId(idList);
     }
 }

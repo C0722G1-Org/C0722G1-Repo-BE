@@ -47,7 +47,7 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
      * @return notifications list
      */
     @Query(value = "SELECT `id_notification` AS idNotification, `title` FROM `notification` WHERE id_notification IN :idList AND flag_delete = 0", nativeQuery = true)
-    List<NotificationDeleteDto> findByListId(@Param("idList") List<Integer> idList);
+    List<NotificationDeleteDto> findByListId(@Param("idList") List<Long> idList);
 
     /**
      * Create by DatLA
@@ -58,6 +58,6 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
      */
     @Modifying
     @Query(value = "UPDATE `notification` SET flag_delete = 1 WHERE id_notification IN :idList", nativeQuery = true)
-    void removeByListId(@Param("idList") List<Integer> idList);
+    void removeByListId(@Param("idList") List<Long> idList);
 
 }

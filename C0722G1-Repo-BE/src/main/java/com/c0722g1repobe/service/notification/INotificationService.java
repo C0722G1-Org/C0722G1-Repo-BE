@@ -27,7 +27,7 @@ public interface INotificationService {
      * @param idList
      * @return notification list
      */
-    List<NotificationDeleteDto> findByListId(List<Integer> idList);
+    List<NotificationDeleteDto> findByListId(List<Long> idList);
 
     /**
      * Create by: DatLA
@@ -36,5 +36,5 @@ public interface INotificationService {
      *
      * @param idList
      */
-    void removeByListId(List<Integer> idList);
+    void removeByListId(List<Long> idList);
 }
