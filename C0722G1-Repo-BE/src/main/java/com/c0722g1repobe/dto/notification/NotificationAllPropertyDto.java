@@ -6,7 +6,7 @@ package com.c0722g1repobe.dto.notification;
  * For: to show list notification by interface with all property
  */
 public interface NotificationAllPropertyDto {
-    Integer getIdNotification();
+    Long getIdNotification();
     String getPostingDate();
     String getTitle();
     String getContent();
