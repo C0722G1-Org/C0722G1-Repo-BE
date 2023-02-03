@@ -137,4 +137,20 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "select * from customer where id_customer = :id", nativeQuery = true)
     Optional<Customer> findByIdCustomer(Long id);
 
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    @Modifying
+    @Query(value = "update account set encrypt_password = :password,email = :email,name = :name where username_account = :accountname and flag_deleted =0", nativeQuery = true)
+    void setPassword(@Param("accountname") String accountname, @Param("password") String password, @Param("name") String name, @Param("email") String email);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "call sign_up(:#{#c.account.usernameAccount},:#{#c.account.encryptPassword},:#{#c.nameCustomer} ,:#{#c.dateOfBirthCustomer},:#{#c.genderCustomer},:#{#c.idCardCustomer}," +
+            ":#{#c.emailCustomer},:#{#c.addressCustomer}:#{#c.phoneCustomer1}:#{#c.phoneCustomer2})", nativeQuery = true)
+    void saveCustomer(@Param("c") Customer customer);
+
 }
