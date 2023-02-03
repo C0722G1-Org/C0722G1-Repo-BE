@@ -1,4 +1,4 @@
-package com.c0722g1repobe.service.account.impl;
+package com.c0722g1repobe.service.customer.impl;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.repository.account.IAccountRepository;
@@ -15,33 +15,32 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AccountService implements IAccountService {
+public class CustomerService implements ICustomerService {
     @Autowired
-    private IAccountRepository accountRepository;
-
+    private ICustomerRepository customerRepository;
+    /**
+     * Create by: HuyNV
+     * Date created : 31/01/2023
+     * Function : to create customer
+     *
+     * @param customer
+     */
     @Override
-    public Account findCustomer(Long idAccount) {
-        return accountRepository.findByIdAccount(idAccount);
-    }
-
-    @Override
-    public void updateCustomer(Account account) {
-        Long idAccount = account.getIdAccount();
-        String encryptPassword = account.getEncryptPassword();
-        accountRepository.updatePassword(idAccount, encryptPassword);
+    public void createCustomer(Customer customer) {
+        customerRepository.save(customer);
     }
 
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
-     * Function : to create account
+     * Function : to create customer
      *
-     * @param account
+     * @param idCustomer
      * @return
      */
     @Override
-    public Account createAccount(Account account) {
-        return accountRepository.save(account);
+    public Customer findById(Long idCustomer) {
+        return customerRepository.findById(idCustomer).orElse(null);
     }
 
     /**
@@ -84,5 +83,27 @@ public class AccountService implements IAccountService {
     @Override
     public void confirmCustomer(Long id) {
         customerRepository.confirmCustomer(id);
+    }
+    /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function: find customer by id
+     *
+     * @param idCustomer
+     */
+    @Override
+    public Customer findCustomer(Long idCustomer) {
+        return customerRepository.findCustomer(idCustomer);
+    }
+    /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function:update customer
+     *
+     * @param customer
+     */
+    @Override
+    public void updateCustomer(Customer customer) {
+        customerRepository.updateCustomer(customer.getNameCustomer(), customer.getEmailCustomer(), customer.getAddressCustomer(), customer.getDateOfBirth(), customer.getIdCardCustomer(), customer.getGenderCustomer(), customer.getApprovalCustomer(), customer.getPhoneCustomer1(), customer.getPhoneCustomer2(), customer.getIdCustomer());
     }
 }

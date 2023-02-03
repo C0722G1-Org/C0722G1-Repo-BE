@@ -14,8 +14,6 @@ public interface IAccountService {
      */
     Account createAccount(Account account);
 
-    Account saveAccount(Account account);
-    
     /**
      * Create by: VanNTC
      * Date created : 01/02/2023
@@ -25,7 +23,7 @@ public interface IAccountService {
      * @return
      */
     Account findByIdAccount(Long idAccount);
-    
+
     /**
      * Create by: VanNTC
      * Date created : 01/02/2023
