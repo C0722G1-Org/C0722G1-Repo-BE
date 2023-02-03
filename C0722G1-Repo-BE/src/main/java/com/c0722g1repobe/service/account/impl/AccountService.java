@@ -6,6 +6,8 @@ import com.c0722g1repobe.service.account.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AccountService implements IAccountService {
     @Autowired
@@ -47,5 +49,41 @@ public class AccountService implements IAccountService {
         Long idAccount = account.getIdAccount();
         String encryptPassword = account.getEncryptPassword();
         accountRepository.updatePassword(idAccount, encryptPassword);
+    }
+
+    /**
+     * Create by: PhuongLTH
+     * Date created: 31/01/2023
+     * Function:findByUsername
+     *
+     * @param username
+     */
+    @Override
+    public Optional<Account> findByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
+    /**
+     * Create by: PhuongLTH
+     * Date created: 31/01/2023
+     * Function:existsByUsername
+     *
+     * @param username
+     */
+    @Override
+    public Boolean existsByUsername(String username) {
+        return accountRepository.existsByUsername(username);
+    }
+
+    /**
+     * Create by: PhuongLTH
+     * Date created: 31/01/2023
+     * Function:existsByEmail
+     *
+     * @param email
+     */
+    @Override
+    public Boolean existsByEmail(String email) {
+        return accountRepository.existsByEmail(email);
     }
 }
