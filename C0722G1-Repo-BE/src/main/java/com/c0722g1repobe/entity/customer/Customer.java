@@ -11,6 +11,14 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "Customer", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "idCardCustomer"
+        }),
+        @UniqueConstraint(columnNames = {
+                "codeCustomer"
+        })
+})
 @Setter
 @Getter
 @NoArgsConstructor

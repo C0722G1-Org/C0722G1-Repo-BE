@@ -11,10 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/customer")
 @CrossOrigin(origins = "*")
-public class CustomerRestController {
+public class CustomerController {
     @Autowired
     private ICustomerService customerService;
 
@@ -26,7 +28,6 @@ public class CustomerRestController {
      *
      * @param idCustomer
      * @return "Cập nhật thông tin thành công" + HttpStatus.OK
-     *
      */
 
 
@@ -37,7 +38,7 @@ public class CustomerRestController {
     }
 
     @PatchMapping("/update-customer/{idCustomer}")
-    public ResponseEntity<CustomerDto> updateCustomer(@Validated @RequestBody CustomerDto customerDto, BindingResult bindingResult) {
+    public ResponseEntity<CustomerDto> updateCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult bindingResult) {
         if (customerService.findCustomer(customerDto.getIdCustomer()) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -49,5 +50,4 @@ public class CustomerRestController {
         customerService.updateCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

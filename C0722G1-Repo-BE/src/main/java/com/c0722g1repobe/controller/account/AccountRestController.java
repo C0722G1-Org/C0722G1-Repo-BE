@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,10 +24,9 @@ public class AccountRestController {
      * Date created: 31/01/2023
      * Function:find account by idAccount
      * @param idAccount
-     * @return "Cập nhật mật khẩu thành công" + HttpStatus.OK
      */
 
-    @GetMapping("/idAccount")
+    @GetMapping("/{idAccount}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long idAccount){
         Account account = this.iAccountService.findByIdAccount((idAccount));
         return new ResponseEntity<>(account, HttpStatus.OK);
@@ -35,15 +35,15 @@ public class AccountRestController {
      * Date created: 31/01/2023
      * Function: Update new password
      * @param idAccount
-     * @param encryptPassword
+     * @param emailCustomer
      * @return "Cập nhật mật khẩu thành công" + HttpStatus.OK
      */
 
     @PatchMapping("/update-password/{IdAccount}")
     public ResponseEntity<?> updatePassword(@RequestParam(value = "id_account", required = false) Long idAccount,
-                                            @RequestParam(value = "encrypt_password", required = false) String encryptPassword){
+                                            @RequestParam(value = "email", required = false) String emailCustomer){
         Account account = new Account();
-//        account.setEncryptPassword(passwordEncoder.encode(encryptPassword));
+//        account.setEncryptPassword(passwordEncoder.encode(emailCustomer));
         iAccountService.updatePassword(account);
         return new ResponseEntity<>("Cập nhật mật khẩu thành công", HttpStatus.OK);
     }
