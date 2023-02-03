@@ -15,4 +15,24 @@ public interface IAccountService {
     Account createAccount(Account account);
 
     Account saveAccount(Account account);
+    
+    /**
+     * Create by: VanNTC
+     * Date created : 01/02/2023
+     * Function : to find account by id
+     *
+     * @param idAccount
+     * @return
+     */
+    Account findByIdAccount(Long idAccount);
+    
+    /**
+     * Create by: VanNTC
+     * Date created : 01/02/2023
+     * Function : update account
+     *
+     * @param Account
+     * @return
+     */
+    void updatePassword(Account account);
 }

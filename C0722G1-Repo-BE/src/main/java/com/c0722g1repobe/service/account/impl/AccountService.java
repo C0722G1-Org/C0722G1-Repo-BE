@@ -11,6 +11,17 @@ public class AccountService implements IAccountService {
     @Autowired
     private IAccountRepository accountRepository;
 
+    @Override
+    public Account findCustomer(Long idAccount) {
+        return accountRepository.findByIdAccount(idAccount);
+    }
+
+    @Override
+    public void updateCustomer(Account account) {
+        Long idAccount = account.getIdAccount();
+        String encryptPassword = account.getEncryptPassword();
+        accountRepository.updatePassword(idAccount, encryptPassword);
+    }
 
     /**
      * Create by: HuyNV
@@ -22,11 +33,6 @@ public class AccountService implements IAccountService {
      */
     @Override
     public Account createAccount(Account account) {
-        return accountRepository.save(account);
-    }
-
-    @Override
-    public Account saveAccount(Account account) {
         return accountRepository.save(account);
     }
 }

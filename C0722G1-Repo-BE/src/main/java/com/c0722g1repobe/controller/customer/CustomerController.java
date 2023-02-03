@@ -16,9 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
-
 import javax.validation.Valid;
 
 @RestController
@@ -122,19 +120,25 @@ public class CustomerController {
     /**
      * Create by: VanNTC
      * Date created: 31/01/2023
-     * Function: update info Customer
+     * Function: get Customer by idCustomer
      *
      * @param idCustomer
-     * @return "Cập nhật thông tin thành công" + HttpStatus.OK
+     * @return  HttpStatus.OK
      */
-
-
     @GetMapping("/{idCustomer}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long idCustomer) {
         Customer customer = this.customerService.findCustomer(idCustomer);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-
+    
+       /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function: update Customer
+     *
+     * @param idCustomer
+     * @return  HttpStatus.OK
+     */
     @PatchMapping("/update-customer/{idCustomer}")
     public ResponseEntity<CustomerDto> updateCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult bindingResult) {
         if (customerService.findCustomer(customerDto.getIdCustomer()) == null) {
@@ -146,6 +150,7 @@ public class CustomerController {
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
         customerService.updateCustomer(customer);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

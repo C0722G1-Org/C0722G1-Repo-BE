@@ -1,35 +1,25 @@
 package com.c0722g1repobe.dto.customer;
 
+
+import com.c0722g1repobe.entity.account.Account;
+
+import javax.validation.constraints.*;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
 public class CustomerDto implements Validator {
-
     private Long idCustomer;
-
     private String nameCustomer;
-
     private String phoneCustomer1;
-
     private String dateOfBirth;
-
     private String phoneCustomer2;
-
     private String emailCustomer;
-
     private String addressCustomer;
-
     private String idCardCustomer;
-
     private String codeCustomer;
-
     private Integer genderCustomer;
-
     private boolean flagDelete = false;
-
     private int approvalCustomer;
-
     private String encryptPassword;
 
     public String getDateOfBirth() {
@@ -38,14 +28,6 @@ public class CustomerDto implements Validator {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getDateOfBirthCustomer() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirthCustomer(String dateOfBirthCustomer) {
-        this.dateOfBirth = dateOfBirthCustomer;
     }
 
     public Long getIdCustomer() {
@@ -151,21 +133,5 @@ public class CustomerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        CustomerDto customerDto = (CustomerDto) target;
-        if (customerDto.getNameCustomer().equals("")) {
-            errors.rejectValue("nameCustomer", "nameCustomer", "Họ không được bỏ trống");
-        } else {
-            if (!customerDto.getNameCustomer().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{2,30}$")) {
-                errors.rejectValue("nameCustomer", "nameCustomer", "Họ không đúng định dạng !");
-            }
-        }
-
-        if (customerDto.getEmailCustomer().equals("")) {
-            errors.rejectValue("email", "email", "Email không được bỏ trông");
-        } else {
-            if (!customerDto.getEmailCustomer().matches("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")) {
-                errors.rejectValue("email", "email", "Email must be valid");
-            }
-        }
     }
 }
