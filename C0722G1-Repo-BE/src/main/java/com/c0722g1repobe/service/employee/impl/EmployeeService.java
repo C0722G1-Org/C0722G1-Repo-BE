@@ -1,7 +1,11 @@
 package com.c0722g1repobe.service.employee.impl;
 
 import com.c0722g1repobe.dto.employee.EmployeeInfo;
+import com.c0722g1repobe.entity.account.Account;
+import com.c0722g1repobe.entity.account.Role;
+import com.c0722g1repobe.entity.account.RoleName;
 import com.c0722g1repobe.entity.employee.Employee;
+import com.c0722g1repobe.repository.account.IAccountRepository;
 import com.c0722g1repobe.repository.employee.IEmployeeRepository;
 import com.c0722g1repobe.service.employee.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,9 @@ import org.springframework.stereotype.Service;
 public class EmployeeService implements IEmployeeService {
     @Autowired
     private IEmployeeRepository employeeRepository;
+
+    @Autowired
+    private IAccountRepository accountRepository;
 
     /**
      * Create by: NhanUQ
@@ -127,5 +134,38 @@ public class EmployeeService implements IEmployeeService {
                 employee.getAddressEmployee(),
                 employee.getDateOfBirth(),
                 employee.getDivision());
+
+    }
+    /**
+     * Create by: LongPT
+     * Date created : 03/02/2023
+     * Function : save account
+     * @param account
+     */
+    @Override
+    public void saveAccount(Account account) {
+        accountRepository.saveAccount(account.getUsernameAccount(), account.getEncryptPassword());
+    }
+
+    /**
+     * Create by: LongPT
+     * Date created : 03/02/2023
+     * Function : save account
+     * @param username
+     */
+    @Override
+    public Account getIdAccount(String username) {
+        return employeeRepository.getIdAccount(username);
+    }
+
+    /**
+     * Create by: LongPT
+     * Date created : 03/02/2023
+     * Function : get role by name
+     * @param name
+     */
+    @Override
+    public Role getRoleByName(RoleName name) {
+        return employeeRepository.getRoleByName(name);
     }
 }

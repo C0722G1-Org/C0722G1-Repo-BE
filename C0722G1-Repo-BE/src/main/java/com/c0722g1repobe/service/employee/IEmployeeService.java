@@ -1,6 +1,8 @@
 package com.c0722g1repobe.service.employee;
 
 import com.c0722g1repobe.dto.employee.EmployeeInfo;
+import com.c0722g1repobe.entity.account.Role;
+import com.c0722g1repobe.entity.account.RoleName;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -72,4 +74,28 @@ public interface IEmployeeService {
      * @param employee
      */
     void updateEmployee(Employee employee, Long id);
+
+    /**
+     * Create by: LongPT
+     * Date created : 03/02/2023
+     * Function : save account
+     * @param account
+     */
+    void saveAccount(Account account);
+
+    /**
+     * Create by: LongPT
+     * Date created : 03/02/2023
+     * Function : get id account
+     * @param username
+     */
+    Account getIdAccount(String username);
+
+    /**
+     * Create by: LongPT
+     * Date created : 03/02/2023
+     * Function : get id account
+     * @param name
+     */
+    Role getRoleByName(RoleName name);
 }
