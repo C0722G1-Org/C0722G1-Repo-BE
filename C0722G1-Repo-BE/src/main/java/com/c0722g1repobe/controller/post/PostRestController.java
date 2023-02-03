@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -165,5 +166,76 @@ public class PostRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: show list or search  Post
+     *
+     * @param demandTypeSearch
+     * @param lendTypeSearch
+     * @param pageable
+     * @return HttpStatus.OK if json list Post
+     */
+    @GetMapping("")
+    public ResponseEntity<Page<PostDto>> listAllPosts(@RequestParam() Optional<String> demandTypeSearch,
+                                                      @RequestParam() Optional<String> lendTypeSearch,
+                                                      @RequestParam() Optional<Double> minPriceSearch,
+                                                      @RequestParam() Optional<Double> maxPriceSearch,
+                                                      @RequestParam() Optional<String> positionSearch,
+                                                      @PageableDefault(page = 0, size = 5) Pageable pageable) {
+        Page<PostDto> listPostDtos;
+        String demandTypeSearchValue = demandTypeSearch.orElse("");
+        String lendTypeSearchValue = lendTypeSearch.orElse("");
+        Double minPriceSearchValue = minPriceSearch.orElse(0.0);
+        Double maxPriceSearchValue = maxPriceSearch.orElse(99999999999999999.0);
+        String positionSearchValue = positionSearch.orElse("");
+
+        if (demandTypeSearchValue != "" || lendTypeSearchValue != "" || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || positionSearchValue != "") {
+            listPostDtos = postService.searchAllPost(demandTypeSearchValue, lendTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, positionSearchValue, pageable);
+        } else {
+            listPostDtos = postService.findAllPost(pageable);
+        }
+        if (listPostDtos.isEmpty()) {
+            return new ResponseEntity<Page<PostDto>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<Page<PostDto>>(listPostDtos, HttpStatus.OK);
+    }
+
+    /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: delete post
+     *
+     * @param id
+     * @return HttpStatus.OK if have id in database, delete success or HttpStatus.NOT_FOUND if id not found in database
+     */
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Post> deletePost(@PathVariable("id") Long id) {
+        Post currentPost = postService.findPost(id);
+        if (currentPost == null) {
+            System.out.println("Post with id " + id + " not found");
+            return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
+        }
+        postService.deletePost(id);
+        return new ResponseEntity<Post>(currentPost, HttpStatus.OK);
+    }
+
+    /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: approval post
+     *
+     * @param id
+     * @return HttpStatus.OK if have id in database, approval success or HttpStatus.NOT_FOUND if id not found in database
+     */
+    @DeleteMapping("/approval/{id}")
+    public ResponseEntity<Post> approvalPost(@PathVariable("id") Long id) {
+        Post currentPost = postService.findPost(id);
+        if (currentPost == null) {
+            return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
+        }
+        postService.approvalPost(id);
+        return new ResponseEntity<Post>(currentPost, HttpStatus.OK);
     }
 }
