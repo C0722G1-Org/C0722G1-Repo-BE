@@ -1,6 +1,7 @@
 package com.c0722g1repobe.repository.employee;
 
 import com.c0722g1repobe.dto.employee.EmployeeInfo;
+import com.c0722g1repobe.entity.account.RoleName;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.c0722g1repobe.entity.account.Account;
@@ -239,4 +240,13 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             nativeQuery = true)
     Account getIdAccount(@Param("username") String username);
 
+    /**
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: get id account
+     *
+     * @param name
+     */
+    @Query(value = "select * from role where role.name = :name")
+    Role getRoleByName(@Param("name") RoleName name);
 }
