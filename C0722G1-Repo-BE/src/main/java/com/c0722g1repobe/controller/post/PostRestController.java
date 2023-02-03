@@ -34,10 +34,10 @@ public class PostRestController {
      */
 
     /*Method use: displayList(), call getAll() of IPostService to get list data from database
-    * Use ResponseEntity to handling response, datatype: List<PostDto>
+    * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
     * Parameter: NO
-    * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
-    * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
+    * If the list returned is an empty list, gitreturn http status code : HttpStatus.NO_CONTENT
+    * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDtoViewList>
     * Author: DatTQ*/
     @GetMapping("")
     public ResponseEntity<List<PostDtoViewList>> displayList() {
@@ -55,9 +55,9 @@ public class PostRestController {
      * If parameter month is == -1, List<PostDto> = method searchYear of IPostService
      * If parameter year is != -1 and month != -1 => List<PostDto> = method searchYearAndMonth of IPostService
      * If parameter year is == -1 and month != -1 => assign 2 parameters year and month = current year and current month
-                => List<PostDto> = method searchYearAndMonth of IPostService
+                => List<PostDtoViewList> = method searchYearAndMonth of IPostService
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
-     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
+     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDtoViewList>
      * Author: DatTQ*/
     @GetMapping("/search")
     public ResponseEntity<List<PostDtoViewList>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
