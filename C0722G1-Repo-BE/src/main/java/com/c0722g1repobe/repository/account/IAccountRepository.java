@@ -2,14 +2,44 @@ package com.c0722g1repobe.repository.account;
 
 import com.c0722g1repobe.entity.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, Long> {
+
+    /**
+     * Created by VanNTC
+     * Date created 31/12/2023
+     * Function Update password for account
+     *
+     * @param idAccount
+     * @param encryptPassword
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "update account as a set a.name=?1, a.username_account=?2, a.email=?3, a.encrypt_password =?4 where a.id_account=?5", nativeQuery = true)
+    void updatePassword(@Param(value = "idAccount") Long idAccount,
+                        @Param(value = "encryptPassword") String encryptPassword);
+
+
+    /**
+     * Created by VanNTC
+     * Date created 31/12/2023
+     * Function find account by idAccount
+     *
+     * @param idAccount
+     * @@return account
+     */
+
+    @Query(value = "select * from account where idAccount =:idAccount and flag_delete = 0", nativeQuery = true)
+    Account findByIdAccount(@Param(value = "idAccount") Long idAccount);
+
     /**
      * Create by: PhuongLTH,
      * Date created: 31/01/2023,
@@ -31,8 +61,8 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
      * @return HttpStatus.OK if have usernameAccount and email in database or HttpStatus.NOT_FOUND if id not found in database
      */
     @Query(value = "select username_account from account where username_account = :username_account",
-    countQuery = "select username_account from account where username_account = :username_account",
-    nativeQuery = true)
+            countQuery = "select username_account from account where username_account = :username_account",
+            nativeQuery = true)
     Boolean existsByUsername(@Param("username_account")String usernameAccount);
 
     /**
