@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RequestMapping("/api")
+@RequestMapping("/api/public")
 @RestController
 @CrossOrigin("*")
 public class SecurityController {
