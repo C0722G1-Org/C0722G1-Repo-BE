@@ -6,6 +6,6 @@ package com.c0722g1repobe.dto.notification;
  * For: to show list notification to delete
  */
 public interface NotificationDeleteDto {
-    Long getIdNotification();
+    Integer getIdNotification();
     String getTitle();
 }

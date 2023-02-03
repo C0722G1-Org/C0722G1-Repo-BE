@@ -6,6 +6,7 @@ import com.c0722g1repobe.dto.notification.NotificationSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
+import com.c0722g1repobe.entity.notification.Notification;
 
 public interface INotificationService {
 
@@ -37,4 +38,33 @@ public interface INotificationService {
      * @param idList
      */
     void removeByListId(List<Long> idList);
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to update notification
+     *
+     * @return notification
+     */
+
+    void updateNotification(Notification notification);
+
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to create notification
+     *
+     * @return notification
+     */
+    void createUser(Notification notification);
+
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to find notification by id
+     *
+     * @param id
+     * @return notification
+     */
+
+    Notification findNotificationById(long id);
 }

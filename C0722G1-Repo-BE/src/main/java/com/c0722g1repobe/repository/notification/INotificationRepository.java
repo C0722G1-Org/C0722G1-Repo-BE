@@ -60,4 +60,39 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
     @Query(value = "UPDATE `notification` SET flag_delete = 1 WHERE id_notification IN :idList", nativeQuery = true)
     void removeByListId(@Param("idList") List<Long> idList);
 
+    /**
+     * Create by: AnhTDQ
+     * Date created: 31/01/2023
+     * Function: create new Notification
+     *
+     * @param title, posting_date,  content,  flag_delete
+     * @return Optional<Notification>
+     */
+
+    @Modifying
+    @Query(value = "insert into notification (title,posting_date,content,flag_delete)" +
+            " value ( :title , :posting_date , :content, :flag_delete )", nativeQuery = true)
+    void saveNotification(@Param("title") String title,
+                          @Param("posting_date") String posting_date,
+                          @Param("content") String content,
+                          @Param("flag_delete") Boolean flag_delete);
+
+
+    /**
+     * Create by: AnhTDQ
+     * Date created: 31/01/2023
+     * Function: update Notification
+     *
+     * @param   title,  posting_date,  content,  flag_delete , id_notification
+     * @return Optional<Notification>
+     */
+
+    @Modifying
+    @Query(value = "update notification set title = :title ,posting_date = :posting_date , content = :content , flag_delete = :flag_delete " +
+            " where  (id_notification = :id )", nativeQuery = true)
+    void updateNotification(@Param("title") String title ,
+                            @Param("posting_date") String posting_date ,
+                            @Param("content") String content ,
+                            @Param("flag_delete") Boolean flag_delete);
+
 }
