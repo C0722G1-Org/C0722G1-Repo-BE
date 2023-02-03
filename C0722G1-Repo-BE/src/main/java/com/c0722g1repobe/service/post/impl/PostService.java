@@ -31,40 +31,27 @@ public class PostService implements IPostService {
     @Autowired
     private IPostRepository postRepository;
 
-    /*Call method getAll() of IPostRepository
+    /**Call method getAll() of IPostRepository
      * Author: DatTQ*/
     @Override
     public List<PostDtoViewList> getAll() {
         return postRepository.getAll();
     }
 
-    /*Call method searchYear(String year) of IPostRepository
+    /**Call method searchYear(String year) of IPostRepository
       Parameter: String year
       Author: DatTQ */
     @Override
     public List<PostDtoViewList> searchYear(String year) {
         return postRepository.searchYear(year);
-
     }
 
-    /*Call method searchYear(String year, String month) of IPostRepository
+    /**Call method searchYear(String year, String month) of IPostRepository
      Parameter: String year, String month
      Author: DatTQ */
     @Override
     public List<PostDtoViewList> searchYearAndMonth(String year, String month) {
         return postRepository.searchYearAndMonth(year, month);
-    }
-
-    /**
-     * Create by: BaoDP
-     * Date Create: 01/02/2023
-     * Description: call method validateCreatePost from class ValidateCreatePost.
-     *
-     * @param createPostDto : an object of class CreatePostDto
-     * @return an object of class BaseResponseCreatePost
-     */
-    private BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto) {
-        return validateCreatePost.validateCreatePost(createPostDto);
     }
 
     /**
@@ -114,25 +101,6 @@ public class PostService implements IPostService {
     /**
      * Create by: BaoDP
      * Date Create: 01/02/2023
-     * Description: if createPostDto is valid then save Post before send BaseResponseCreatePost to Front-end project for handle http status code .
-     *
-     * @param createPostDto : an object of class CreatePostDto
-     * @return an object of class BaseResponseCreatePost
-     */
-    @Override
-    }
-
-    /*Call method searchYear(String year, String month) of IPostRepository
-     Parameter: String year, String month
-     Author: DatTQ */
-    @Override
-    public List<PostDtoViewList> searchYearAndMonth(String year, String month) {
-        return postRepository.searchYearAndMonth(year, month);
-    }
-
-    /**
-     * Create by: BaoDP
-     * Date Create: 01/02/2023
      * Description: call method validateCreatePost from class ValidateCreatePost.
      *
      * @param createPostDto : an object of class CreatePostDto
@@ -140,50 +108,6 @@ public class PostService implements IPostService {
      */
     private BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto) {
         return validateCreatePost.validateCreatePost(createPostDto);
-    }
-
-    /**
-     * Create by: BaoDP
-     * Date Create: 01/02/2023
-     * Description: transfer attributes form createPostDto to an object of class Post and add another default value to it.
-     *
-     * @param createPostDto : an object of class CreatePostDto
-     * @return an object of class PostDto
-     */
-    private Post addDefaultValue(CreatePostDto createPostDto) {
-
-        Long defaultIdStatus = 1L;
-
-        addressRepository.saveAddress(createPostDto.getNumberAddress(), createPostDto.getIdWards());
-        Long idAddress = addressRepository.findIdByNumberAddressAndIdWardsNativeQuery(createPostDto.getNumberAddress(), createPostDto.getIdWards());
-
-        return Post.builder()
-                .approval(false)
-                .area(createPostDto.getArea())
-                .dateCreation(LocalDate.now())
-                .flagDeleted(false)
-                .namePost(createPostDto.getNamePost())
-                .note(createPostDto.getNote())
-                .price(createPostDto.getPrice())
-                .address(Address.builder().idAddress(idAddress).build())
-                .demandType(DemandType.builder().idDemandType(createPostDto.getIdDemand()).build())
-                .direction(Direction.builder().idDirection(createPostDto.getIdDirection()).build())
-                .imageListURL(createPostDto.getImageListURL())
-                .landType(LandType.builder().idLandType(createPostDto.getIdLandType()).build())
-                .statusPost(StatusPost.builder().idStatusPost(defaultIdStatus).build())
-                .customer(Customer.builder().idCustomer(createPostDto.getIdCustomer()).build())
-                .build();
-    }
-
-    /**
-     * Create by: BaoDP
-     * Date Create: 01/02/2023
-     * Description: call method savePost from PostRepository to save Post.
-     *
-     * @param post : an object of class PostDto
-     */
-    private void savePost(Post post) {
-        postRepository.savePost(post);
     }
 
     /**
@@ -322,6 +246,43 @@ public class PostService implements IPostService {
 
 
     /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: delete post .
+     *
+     * @param idPost
+     * @return delete post or null if not found
+     */
+    @Override
+    public void deletePost(Long idPost) {
+        postRepository.deletePost(idPost);
+    }
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: find post .
+     *
+     * @param id
+     * @return  post or null if not found
+     */
+    @Override
+    public Post findPost(Long id) {
+        return postRepository.findPost(id);
+    }
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: find list post .
+     *
+     * @param pageable
+     * @return  list post or null if not found
+     */
+      @Override
+       public Page<PostDto> findAllPost(Pageable pageable) {
+        return postRepository.findAllPost(pageable);}
+
+
+    /**
      * Method uses:
      * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
      * if Post is found, return Post and OK http status
@@ -361,7 +322,6 @@ public class PostService implements IPostService {
      * @param positionSearch
      * @return  list post  or null if not found
      */
-
     @Override
     public Page<PostDto> searchAllPost(String demandTypeSearch,String lendTypeSearch,Double minPriceSearch,Double maxPriceSearch, String positionSearch ,Pageable pageable) {
         return postRepository.searchAllPost( demandTypeSearch,lendTypeSearch,minPriceSearch, maxPriceSearch, positionSearch,  pageable);
