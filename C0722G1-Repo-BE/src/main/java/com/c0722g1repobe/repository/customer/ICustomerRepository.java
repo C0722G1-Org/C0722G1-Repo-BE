@@ -152,5 +152,4 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "call sign_up(:#{#c.account.usernameAccount},:#{#c.account.encryptPassword},:#{#c.nameCustomer} ,:#{#c.dateOfBirthCustomer},:#{#c.genderCustomer},:#{#c.idCardCustomer}," +
             ":#{#c.emailCustomer},:#{#c.addressCustomer}:#{#c.phoneCustomer1}:#{#c.phoneCustomer2})", nativeQuery = true)
     void saveCustomer(@Param("c") Customer customer);
-
 }

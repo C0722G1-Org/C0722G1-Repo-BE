@@ -88,7 +88,3 @@ public interface ICustomerService {
     void saveCustomerByAccount(Customer customer);
 
     void saveCustomer(Customer customer);
-
-
-
-}
