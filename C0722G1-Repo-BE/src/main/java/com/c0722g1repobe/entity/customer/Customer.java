@@ -2,6 +2,8 @@ package com.c0722g1repobe.entity.customer;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.post.Post;
+
+import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+<<<<<<< HEAD
 @Table(name = "Customer", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "idCardCustomer"
@@ -19,6 +22,9 @@ import java.util.Set;
                 "codeCustomer"
         })
 })
+=======
+@Builder
+>>>>>>> 1bb28e6b1fb875b7a486fe3cfb32ace83c2ba987
 @Setter
 @Getter
 @NoArgsConstructor
@@ -33,13 +39,10 @@ public class Customer {
     private String idCardCustomer;
     private String codeCustomer;
     private Integer genderCustomer;
-    private String dateOfBirth;
     private boolean flagDelete = false;
     private int approvalCustomer;
     private String phoneCustomer1;
     private String phoneCustomer2;
     @OneToOne
     private Account account;
-    @OneToMany(mappedBy = "customer")
-    private Set<Post> postSet;
 }

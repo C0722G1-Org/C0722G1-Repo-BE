@@ -20,6 +20,18 @@ import java.util.Set;
                 "email"
         })
 })
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "Account", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "usernameAccount"
+        }),
+        @UniqueConstraint(columnNames = {
+                "email"
+        })
+})
 public class Account {
 
     @Id
