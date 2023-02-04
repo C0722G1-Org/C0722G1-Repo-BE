@@ -145,7 +145,7 @@ public class PostRestController {
      *
      * @param area       It's okay not to have
      * @param price      It's okay not to have
-     * @param demandType It's okay not to have
+     * @param landType It's okay not to have
      * @param direction  It's okay not to have
      * @param city       It's okay not to have
      * @param pageable   It's okay not to have
@@ -154,12 +154,12 @@ public class PostRestController {
     @GetMapping("/list")
     public ResponseEntity<Page<PostListViewDto>> getAllPost(@RequestParam(defaultValue = "") String area,
                                                             @RequestParam(defaultValue = "") String price,
-                                                            @RequestParam(defaultValue = "") String demandType,
+                                                            @RequestParam(defaultValue = "") String landType,
                                                             @RequestParam(defaultValue = "") String direction,
                                                             @RequestParam(defaultValue = "") String city,
-                                                            Pageable pageable) {
-        if (area != null && price != null && demandType != null && direction != null && city != null) {
-            Page<PostListViewDto> postList = postService.findAll(area, price, demandType, direction, city, pageable);
+                                                            @PageableDefault(size = 8) Pageable pageable) {
+        if (area != null && price != null && landType != null && direction != null && city != null) {
+            Page<PostListViewDto> postList = postService.findAll(area, price, landType, direction, city, pageable);
             if (postList != null && postList.hasContent()) {
                 return new ResponseEntity<>(postList, HttpStatus.OK);
             }
