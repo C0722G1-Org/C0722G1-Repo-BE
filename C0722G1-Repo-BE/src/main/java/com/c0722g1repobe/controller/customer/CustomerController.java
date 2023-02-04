@@ -84,7 +84,6 @@ public class CustomerController {
 //        iCustomerService.saveCustomer(customer);
 //        return new ResponseEntity<>(new ResponseMessage("Create success!"), HttpStatus.OK);
 //    }
-
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
