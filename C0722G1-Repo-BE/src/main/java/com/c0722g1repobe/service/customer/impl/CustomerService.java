@@ -106,4 +106,23 @@ public class CustomerService implements ICustomerService {
     public void updateCustomer(Customer customer) {
         customerRepository.updateCustomer(customer.getNameCustomer(), customer.getEmailCustomer(), customer.getAddressCustomer(), customer.getDateOfBirth(), customer.getIdCardCustomer(), customer.getGenderCustomer(), customer.getApprovalCustomer(), customer.getPhoneCustomer1(), customer.getPhoneCustomer2(), customer.getIdCustomer());
     }
+
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+
+    @Override
+    public void saveCustomerByAccount(Customer customer) {
+
+        customerRepository.saveCustomer(customer);
+
+    }
+
+    @Override
+    public void saveCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
 }
