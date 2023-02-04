@@ -47,13 +47,14 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
      */
     @Query(value = "insert into account(username_account, encrypt_password) values (:username, :password)", nativeQuery = true)
     public void saveAccount(@Param("username") String username, @Param("password") String password);
+
+    /**
      * Create by: PhuongLTH,
      * Date created: 31/01/2023,
      * Function: findByUsername,existsByUsername,existsByEmail
      * @param usernameAccount,email
      * @return HttpStatus.OK if have usernameAccount and email in database or HttpStatus.NOT_FOUND if id not found in database
      */
-
     @Query(value = "select id_account, email, encrypt_password, name, username_account,flag_delete from account where flag_delete = false and username_account = :username_account",
             countQuery = "select id_account, email, encrypt_password, name, username_account,flag_delete from account where flag_delete = false and username_account = :username_account",
             nativeQuery = true)
