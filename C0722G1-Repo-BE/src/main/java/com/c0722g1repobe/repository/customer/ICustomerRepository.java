@@ -10,11 +10,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
 
-@Transactional
 @Repository
+@Transactional
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     /**
      * Create by: VanNTC
@@ -41,47 +40,57 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             "c.phone_customer1=?8, c.phone_customer2=?9 where id_customer =?10", nativeQuery = true)
     void updateCustomer(String nameCustomer, String emailCustomer, String addressCustomer, String dateOfBirth, String idCardCustomer, Integer genderCustomer, int approvalCustomer, String phoneCustomer1, String phoneCustomer2, Long idCustomer);
 
-    /**
-     * Create by: HuyNV
-     * Date created : 31/01/2023
-     * Function : to create customer
-     *
-     * @param name
-     * @param idPhone
-     * @param email
-     * @param idCard
-     * @param codeCustomer
-     * @param gender
-     * @param dateOfBirth
-     * @param flagDeleted
-     * @param approval
-     * @param idAccount
-     */
+//    /**
+//     * Create by: HuyNV
+//     * Date created : 31/01/2023
+//     * Function : to create customer
+//     *
+//     * @param name
+//     * @param idPhone
+//     * @param email
+//     * @param idCard
+//     * @param codeCustomer
+//     * @param gender
+//     * @param dateOfBirth
+//     * @param flagDeleted
+//     * @param approval
+//     * @param idAccount
+//     */
 //    @Modifying
-//    @Query(value = "INSERT INTO sprint_1.customer(name_customer," +
-//            "id_phone_customer," +
-//            "email_customer," +
-//            "id_card_customer," +
-//            "code_customer," +
-//            "gender_customer," +
-//            "date_of_birth," +
-//            "flag_deleted," +
+//    @Query(value = "INSERT INTO sprint_1.customer(address_customer," +
 //            "approval_customer," +
-//            "id_account)\n" +
-//            "values  (:name," +
-//            ":idPhone," +
-//            ":email," +
-//            ":idCard," +
-//            ":codeCustomer," +
-//            ":gender," +
-//            ":dateOfBirth," +
-//            ":flagDeleted," +
+//            "code_customer," +
+//            "date_of_birth_customer," +
+//            "email_customer," +
+//            "flag_delete," +
+//            "gender_customer," +
+//            "id_card_customer," +
+//            "name_customer," +
+//            "phone_customer1," +
+//            "phone_customer2," +
+//            "account_id_account)\n" +
+//            "values  (:address," +
 //            ":approval," +
+//            ":dateBirth," +
+//            ":email," +
+//            ":flagDelete," +
+//            ":gender," +
+//            ":idCard," +
+//            ":name," +
+//            ":phoneCustomer1," +
+//            ":phoneCustomer2," +
 //            "idAccount)",nativeQuery = true)
-//    void createCustomer(@Param("name") String name,
-//                        @Param("idPhone") String idPhone,
+//    void addCustomer(@Param("address") String address,
+//                        @Param("approval") boolean approval,
+//                        @Param("dateBirth") String dateBirth,
 //                        @Param("email") String email,
+//                        @Param("flagDelete") boolean flagDelete,
+//                        @Param("gender") boolean gender,
 //                        @Param("idCard") String idCard,
+//                        @Param("name") boolean name,
+//                        @Param("phoneCustomer1") String phoneCustomer1,
+//                        @Param("phoneCustomer2") String phoneCustomer2,
+//                        @Param("idAccount") Account idAccount);
 //                        @Param("codeCustomer") String codeCustomer,
 //                        @Param("gender") Boolean gender,
 //                        @Param("dateOfBirth") String dateOfBirth,
@@ -127,4 +136,21 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      */
     @Query(value = "select * from customer where id_customer = :id", nativeQuery = true)
     Optional<Customer> findByIdCustomer(Long id);
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    @Modifying
+    @Query(value = "update account set encrypt_password = :password,email = :email,name = :name where username_account = :accountname and flag_deleted =0", nativeQuery = true)
+    void setPassword(@Param("accountname") String accountname, @Param("password") String password, @Param("name") String name, @Param("email") String email);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "call sign_up(:#{#c.account.usernameAccount},:#{#c.account.encryptPassword},:#{#c.nameCustomer} ,:#{#c.dateOfBirthCustomer},:#{#c.genderCustomer},:#{#c.idCardCustomer}," +
+            ":#{#c.emailCustomer},:#{#c.addressCustomer}:#{#c.phoneCustomer1}:#{#c.phoneCustomer2})", nativeQuery = true)
+    void saveCustomer(@Param("c") Customer customer);
+
 }

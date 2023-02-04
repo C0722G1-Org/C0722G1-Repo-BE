@@ -11,7 +11,7 @@ public class CustomerDto implements Validator {
     private Long idCustomer;
     private String nameCustomer;
     private String phoneCustomer1;
-    private String dateOfBirthCustomer;
+    private String dateOfBirth;
     private String phoneCustomer2;
     private String emailCustomer;
     private String addressCustomer;
@@ -22,13 +22,12 @@ public class CustomerDto implements Validator {
     private int approvalCustomer;
     private String encryptPassword;
 
-
-    public String getDateOfBirthCustomer() {
-        return dateOfBirthCustomer;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDateOfBirthCustomer(String dateOfBirthCustomer) {
-        this.dateOfBirthCustomer = dateOfBirthCustomer;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Long getIdCustomer() {

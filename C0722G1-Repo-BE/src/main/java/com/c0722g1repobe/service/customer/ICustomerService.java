@@ -1,4 +1,4 @@
-package com.c0722g1repobe.service.account;
+package com.c0722g1repobe.service.customer;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.dto.customer.ICustomerDto;
@@ -7,38 +7,28 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public interface ICustomerService {
-     /**
-     * Create by: VanNTC
-     * Date created : 03/02/2023
-     * Function : to find customer by id 
-     *
-     * @param idCustomer
-     * @return
-     */
-    Account findCustomer(Long idCustomer);
-    /**
-     * Create by: VanNTC
-     * Date created : 03/02/2023
-     * Function : update customer
-     *
-     * @param account
-     * @return
-     */
 
-    void updateCustomer(Customer customer);
+    /**
+     * Create by: HuyNV
+     * Date created : 31/01/2023
+     * Function : to create customer
+     *
+     * @param customer
+     */
+    void createCustomer(Customer customer);
 
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
-     * Function : to create account
+     * Function : find customer by id
      *
-     * @param account
+     * @param idCustomer
      * @return
      */
-    Account createAccount(Account account);
-
     Customer findById(Long idCustomer);
 
     /**
@@ -70,5 +60,33 @@ public interface ICustomerService {
      * @param id
      */
     void confirmCustomer(Long id);
+
+    /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function: find customer by id
+     *
+     * @param idCustomer
+     */
+    Customer findCustomer(Long idCustomer);
+
+    /**
+     * Create by: VanNTC
+     * Date created: 31/01/2023
+     * Function:update customer
+     *
+     * @param customer
+     */
+    void updateCustomer(Customer customer);
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+
+    void saveCustomerByAccount(Customer customer);
+
+    void saveCustomer(Customer customer);
 
 }

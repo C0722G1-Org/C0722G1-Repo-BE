@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -31,10 +32,10 @@ public class PostRestController {
     @Autowired
     private IPostService postService;
 
-
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
+     *
      * @param pageable
      * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
      */
@@ -44,18 +45,19 @@ public class PostRestController {
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(postList.getContent(), HttpStatus.OK);}
+        return new ResponseEntity<>(postList.getContent(), HttpStatus.OK);
+    }
 
     /*DI IPostService to use IPostService's methods;
      Author: DatTQ
      */
 
     /*Method use: displayList(), call getAll() of IPostService to get list data from database
-     * Use ResponseEntity to handling response, datatype: List<PostDto>
+     * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
      * Parameter: NO
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
-     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
-     * Author: DatTQ*/
+     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDtoViewList>
+     * Author: DatTQ ; Date create: 31/01/2022 */
     @GetMapping("/charts")
     public ResponseEntity<List<PostDtoViewList>> displayList() {
         List<PostDtoViewList> postDtoViewListList = postService.getAll();
@@ -66,16 +68,16 @@ public class PostRestController {
         return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     }
 
-    /*Method use: search(), call searchYear() and searchYearAndMonth of IPostService to get list data from database
-     * Use ResponseEntity to handling response, datatype: List<PostDto>
+    /*Method use: search(), call searchYear() and searchYearAndMonth() of IPostService to get list data from database
+     * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
      * Parameter: Integer year (defaultValue = "-1"), Integer month (defaultValue = "-1")
-     * If parameter month is == -1, List<PostDto> = method searchYear of IPostService
-     * If parameter year is != -1 and month != -1 => List<PostDto> = method searchYearAndMonth of IPostService
+     * If parameter month is == -1, List<PostDtoViewList> = method searchYear of IPostService
+     * If parameter year is != -1 and month != -1 => List<PostDtoViewList> = method searchYearAndMonth of IPostService
      * If parameter year is == -1 and month != -1 => assign 2 parameters year and month = current year and current month
-                => List<PostDto> = method searchYearAndMonth of IPostService
+                => List<PostDtoViewList> = method searchYearAndMonth of IPostService
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
-     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDto>
-     * Author: DatTQ*/
+     * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDtoViewList>
+     * Author: DatTQ ; Date create: 31/01/2022 */
     @GetMapping("/charts-search")
     public ResponseEntity<List<PostDtoViewList>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
         List<PostDtoViewList> postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
@@ -144,7 +146,7 @@ public class PostRestController {
      *
      * @param area       It's okay not to have
      * @param price      It's okay not to have
-     * @param demandType It's okay not to have
+     * @param landType It's okay not to have
      * @param direction  It's okay not to have
      * @param city       It's okay not to have
      * @param pageable   It's okay not to have
@@ -153,17 +155,89 @@ public class PostRestController {
     @GetMapping("/list")
     public ResponseEntity<Page<PostListViewDto>> getAllPost(@RequestParam(defaultValue = "") String area,
                                                             @RequestParam(defaultValue = "") String price,
-                                                            @RequestParam(defaultValue = "") String demandType,
+                                                            @RequestParam(defaultValue = "") String landType,
                                                             @RequestParam(defaultValue = "") String direction,
                                                             @RequestParam(defaultValue = "") String city,
-                                                            Pageable pageable) {
-        if (area != null && price != null && demandType != null && direction != null && city != null) {
-            Page<PostListViewDto> postList = postService.findAll(area, price, demandType, direction, city, pageable);
+                                                            @PageableDefault(size = 8) Pageable pageable) {
+        if (area != null && price != null && landType != null && direction != null && city != null) {
+            Page<PostListViewDto> postList = postService.findAll(area, price, landType, direction, city, pageable);
             if (postList != null && postList.hasContent()) {
                 return new ResponseEntity<>(postList, HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: show list or search  Post
+     *
+     * @param demandTypeSearch
+     * @param lendTypeSearch
+     * @param pageable
+     * @return HttpStatus.OK if json list Post
+     */
+    @GetMapping("")
+    public ResponseEntity<Page<PostDto>> listAllPosts(@RequestParam() Optional<String> demandTypeSearch,
+                                                      @RequestParam() Optional<String> lendTypeSearch,
+                                                      @RequestParam() Optional<Double> minPriceSearch,
+                                                      @RequestParam() Optional<Double> maxPriceSearch,
+                                                      @RequestParam() Optional<String> positionSearch,
+                                                      @PageableDefault(page = 0, size = 5) Pageable pageable) {
+        Page<PostDto> listPostDtos;
+        String demandTypeSearchValue = demandTypeSearch.orElse("");
+        String lendTypeSearchValue = lendTypeSearch.orElse("");
+        Double minPriceSearchValue = minPriceSearch.orElse(0.0);
+        Double maxPriceSearchValue = maxPriceSearch.orElse(99999999999999999.0);
+        String positionSearchValue = positionSearch.orElse("");
+
+        if (demandTypeSearchValue != "" || lendTypeSearchValue != "" || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || positionSearchValue != "") {
+            listPostDtos = postService.searchAllPost(demandTypeSearchValue, lendTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, positionSearchValue, pageable);
+        } else {
+            listPostDtos = postService.findAllPost(pageable);
+        }
+        if (listPostDtos.isEmpty()) {
+            return new ResponseEntity<Page<PostDto>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<Page<PostDto>>(listPostDtos, HttpStatus.OK);
+    }
+
+    /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: delete post
+     *
+     * @param id
+     * @return HttpStatus.OK if have id in database, delete success or HttpStatus.NOT_FOUND if id not found in database
+     */
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Post> deletePost(@PathVariable("id") Long id) {
+        Post currentPost = postService.findPost(id);
+        if (currentPost == null) {
+            System.out.println("Post with id " + id + " not found");
+            return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
+        }
+        postService.deletePost(id);
+        return new ResponseEntity<Post>(currentPost, HttpStatus.OK);
+    }
+
+    /**
+     * Create by: NgocLV
+     * Date created: 31/01/2023
+     * Function: approval post
+     *
+     * @param id
+     * @return HttpStatus.OK if have id in database, approval success or HttpStatus.NOT_FOUND if id not found in database
+     */
+    @DeleteMapping("/approval/{id}")
+    public ResponseEntity<Post> approvalPost(@PathVariable("id") Long id) {
+        Post currentPost = postService.findPost(id);
+        if (currentPost == null) {
+            return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
+        }
+        postService.approvalPost(id);
+        return new ResponseEntity<Post>(currentPost, HttpStatus.OK);
     }
 }
