@@ -58,13 +58,13 @@ public interface IPostService {
      * Created date: 31/01/2023
      * @param area
      * @param price
-     * @param demandType
+     * @param landType
      * @param direction
      * @param city
      * @param pageable
      * @return Page<PostListViewDto> and null if not found
      */
-    Page<PostListViewDto> findAll(String area, String price, String demandType, String direction, String city, Pageable pageable);
+    Page<PostListViewDto> findAll(String area, String price, String landType, String direction, String city, Pageable pageable);
     /**
      * Method uses:
      * find in database a Post that has and id equal to parameter id, if Post is null or is deleted, return not found http status
