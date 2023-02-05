@@ -1,9 +1,4 @@
 package com.c0722g1repobe.dto.customer;
-
-
-import com.c0722g1repobe.entity.account.Account;
-
-import javax.validation.constraints.*;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

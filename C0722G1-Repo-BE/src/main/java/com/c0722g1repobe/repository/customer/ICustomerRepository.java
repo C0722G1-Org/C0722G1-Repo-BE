@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Repository
@@ -22,7 +23,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      *
      * @param idCustomer
      */
-    @Query(value = "select * from customer where id_customer = :idCustomer ", nativeQuery = true)
+    @Query(value = "select * from customer where id_customer = :idCustomer and flag_delete = 0", nativeQuery = true)
     Customer findCustomer(@Param("idCustomer") Long idCustomer);
 
     /**

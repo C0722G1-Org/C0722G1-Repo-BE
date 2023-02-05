@@ -174,7 +174,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * Date create: 01/02/2023
      * Description: take post list homepage
      *
-     * @param landType
+     * @param demandType
      * @param direction
      * @param city
      * @param pageable
@@ -201,7 +201,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "WHERE p.flag_deleted = false\n" +
             "  AND p.approval = 1\n" +
             "  AND sp.id_status_post = 2\n" +
-            "  AND dt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')",
             nativeQuery = true,
@@ -226,10 +226,10 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "WHERE p.flag_deleted = false\n" +
                     "  AND p.approval = 1\n" +
                     "  AND sp.id_status_post = 2\n" +
-                    "  AND dt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')")
-    Page<PostListViewDto> findAllWithDemandTypeDirectionCity(@Param("landType") String landType,
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCity(@Param("demandType") String demandType,
                                                              @Param("direction") String direction,
                                                              @Param("city") String city, Pageable pageable);
 
@@ -238,7 +238,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * Date create: 01/02/2023
      * Description: take post list homepage
      *
-     * @param landType
+     * @param demandType
      * @param direction
      * @param city
      * @param minArea
@@ -267,7 +267,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "WHERE p.flag_deleted = false\n" +
             "  AND p.approval = 1\n" +
             "  AND sp.id_status_post = 2\n" +
-            "  AND dt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
             "  AND p.area BETWEEN :minArea AND :maxArea",
@@ -293,11 +293,11 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "WHERE p.flag_deleted = false\n" +
                     "  AND p.approval = 1\n" +
                     "  AND sp.id_status_post = 2\n" +
-                    "  AND dt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
                     "  AND p.area BETWEEN :minArea AND :maxArea")
-    Page<PostListViewDto> findAllWithDemandTypeDirectionCityArea(@Param("landType") String landType,
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityArea(@Param("demandType") String demandType,
                                                                  @Param("direction") String direction,
                                                                  @Param("city") String city,
                                                                  @Param("minArea") Double minArea,
@@ -308,7 +308,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * Date create: 01/02/2023
      * Description: take post list homepage
      *
-     * @param landType
+     * @param demandType
      * @param direction
      * @param city
      * @param priceMin
@@ -337,7 +337,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "WHERE p.flag_deleted = false\n" +
             "  AND p.approval = 1\n" +
             "  AND sp.id_status_post = 2\n" +
-            "  AND dt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
             "  AND p.area BETWEEN :priceMin AND :priceMax",
@@ -363,11 +363,11 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "WHERE p.flag_deleted = false\n" +
                     "  AND p.approval = 1\n" +
                     "  AND sp.id_status_post = 2\n" +
-                    "  AND dt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
                     "  AND p.area BETWEEN :priceMin AND :priceMax")
-    Page<PostListViewDto> findAllWithDemandTypeDirectionCityPrice(@Param("landType") String landType,
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityPrice(@Param("demandType") String demandType,
                                                                   @Param("direction") String direction,
                                                                   @Param("city") String city,
                                                                   @Param("priceMin") Double priceMin,
@@ -377,7 +377,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * Create by : SangNP
      * Date create: 01/02/2023
      * Description: take post list homepage
-     * @param landType
+     * @param demandType
      * @param direction
      * @param city
      * @param minArea
@@ -408,7 +408,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "WHERE p.flag_deleted = false\n" +
             "  AND p.approval = 1\n" +
             "  AND sp.id_status_post = 2\n" +
-            "  AND dt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
             "  AND p.area BETWEEN :minArea AND :maxArea\n" +
@@ -435,12 +435,12 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "WHERE p.flag_deleted = false\n" +
                     "  AND p.approval = 1\n" +
                     "  AND sp.id_status_post = 2\n" +
-                    "  AND dt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND dt.name_demand_type LIKE CONCAT('%', :demandType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
                     "  AND p.area BETWEEN :minArea AND :maxArea\n" +
                     "  AND p.price BETWEEN :priceMin AND :priceMax")
-    Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaPrice(@Param("landType") String landType,
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaPrice(@Param("demandType") String demandType,
                                                                       @Param("direction") String direction,
                                                                       @Param("city") String city,
                                                                       @Param("minArea") Double minArea,
