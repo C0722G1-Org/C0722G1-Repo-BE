@@ -1,9 +1,7 @@
 package com.c0722g1repobe.entity.account;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -23,7 +21,8 @@ public class Role {
     @Column(length = 60)
     private RoleName name;
 
-
+    @OneToMany(mappedBy = "role")
+    private Set<AccountRole> accountRoles;
     public Long getIdRole() {
         return idRole;
     }
@@ -38,5 +37,13 @@ public class Role {
 
     public void setName(RoleName name) {
         this.name = name;
+    }
+
+    public Set<AccountRole> getAccountRoles() {
+        return accountRoles;
+    }
+
+    public void setAccountRoles(Set<AccountRole> accountRoles) {
+        this.accountRoles = accountRoles;
     }
 }

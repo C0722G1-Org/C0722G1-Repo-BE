@@ -1,16 +1,11 @@
 package com.c0722g1repobe.entity.account;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,7 +26,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAccount;
-  
+
     private String name;
 
     private String usernameAccount;
@@ -43,22 +38,8 @@ public class Account {
     @Column(columnDefinition = "bit default false")
     private boolean flagDelete;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
-    public Account() {
-    }
-
-    public Account(Long idAccount, String name, String usernameAccount, String email, String encryptPassword, boolean flagDelete, Set<Role> roles) {
-        this.idAccount = idAccount;
-        this.name = name;
-        this.usernameAccount = usernameAccount;
-        this.email = email;
-        this.encryptPassword = encryptPassword;
-        this.flagDelete = flagDelete;
-        this.roles = roles;
-    }
+    @OneToMany(mappedBy = "account")
+    private Set<AccountRole> accountRoles;
 
     public Long getIdAccount() {
         return idAccount;
@@ -100,11 +81,19 @@ public class Account {
         this.encryptPassword = encryptPassword;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public boolean isFlagDelete() {
+        return flagDelete;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
+    }
+
+    public Set<AccountRole> getAccountRoles() {
+        return accountRoles;
+    }
+
+    public void setAccountRoles(Set<AccountRole> accountRoles) {
+        this.accountRoles = accountRoles;
     }
 }

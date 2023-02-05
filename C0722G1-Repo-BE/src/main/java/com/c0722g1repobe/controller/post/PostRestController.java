@@ -2,6 +2,7 @@ package com.c0722g1repobe.controller.post;
 
 import com.c0722g1repobe.entity.post.Post;
 import com.c0722g1repobe.service.post.IPostService;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,15 +23,22 @@ public class PostRestController {
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
+     *
      * @param pageable
      * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
      */
-    @GetMapping("/{userNameAccount}")
-    public ResponseEntity<List<Post>> getPostListByUserNameAccount(@PageableDefault(size = 5) Pageable pageable, @PathVariable String userNameAccount) {
-        Page<Post> postList = postService.findAllPostByUserNameAccount(pageable, userNameAccount);
-        if (postList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(postList.getContent(), HttpStatus.OK);
+//    @GetMapping("/{idCustomer}")
+//    public ResponseEntity<?> getPostListByIdCustomer(@PageableDefault(size = 8) Pageable pageable, @PathVariable String idCustomer) {
+//        Page<Post> postList = postService.findAllPostByIdCustomer(pageable, idCustomer);
+//        if (postList.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(postList, HttpStatus.OK);
+//    }
+
+    @GetMapping("search-page")
+    public ResponseEntity<?> getAllAndSearch(@PageableDefault(value = 4) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
+        Page<Post> postList = postService.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
+        return new ResponseEntity<>(postList, HttpStatus.OK);
     }
 }

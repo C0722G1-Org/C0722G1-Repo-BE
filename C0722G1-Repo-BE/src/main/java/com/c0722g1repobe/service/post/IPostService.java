@@ -11,5 +11,7 @@ public interface IPostService {
      * @param pageable
      * @return page post
      */
-    Page<Post> findAllPostByUserNameAccount(Pageable pageable, String userNameAccount);
+//    Page<Post> findAllPostByIdCustomer(Pageable pageable, String idCustomer);
+
+    Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idCustomer, Pageable pageable);
 }
