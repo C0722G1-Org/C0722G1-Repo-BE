@@ -16,16 +16,13 @@ public class PostService implements IPostService {
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
+     *
      * @param pageable
-     * @return page post from post repository
+     * @return page post customer from post repository
      */
-//    @Override
-//    public Page<Post> findAllPostByIdCustomer(Pageable pageable, String idCustomer) {
-//        return iPostRepository.findAllPostByIdCustomer(pageable, idCustomer);
-//    }
 
     @Override
     public Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
-        return iPostRepository.getAllAndSearch(nameDemandTypeSearch,idCustomer, pageable);
+        return iPostRepository.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
     }
 }

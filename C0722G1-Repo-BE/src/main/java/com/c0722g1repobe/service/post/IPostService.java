@@ -8,10 +8,10 @@ public interface IPostService {
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
+     *
      * @param pageable
-     * @return page post
+     * @return page post customer
      */
-//    Page<Post> findAllPostByIdCustomer(Pageable pageable, String idCustomer);
 
     Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idCustomer, Pageable pageable);
 }
