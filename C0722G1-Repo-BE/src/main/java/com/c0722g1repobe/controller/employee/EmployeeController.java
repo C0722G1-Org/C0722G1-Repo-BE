@@ -142,6 +142,6 @@ public class EmployeeController {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
         employeeService.updateEmployee(employee, id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
