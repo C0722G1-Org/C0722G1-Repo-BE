@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -84,9 +85,10 @@ public interface ICustomerService {
      * date:31/01/2023
      * method of using save customer
      */
-
-    void saveCustomerByAccount(Customer customer);
-
+    String ramdomCodeCustomer();
     void saveCustomer(Customer customer);
+
+    List<String> findAllCheckMailCustomerAnhNameAccount();
+
 
 }

@@ -37,4 +37,15 @@ public class DistrictService implements IDistrictService {
     public String findNameByIdNativeQuery(Long idDistrict) {
         return districtRepository.findNameByIdNativeQuery(idDistrict);
     }
+    /**
+     * Create by: NgocLV
+     * Date Create: 03/02/2023
+     * Description: find list District .
+     *
+     * @return  list District or null if not found
+     */
+    @Override
+    public List<District> findListDistrict(Long idCity) {
+        return districtRepository.findListDistrict(idCity);
+    }
 }

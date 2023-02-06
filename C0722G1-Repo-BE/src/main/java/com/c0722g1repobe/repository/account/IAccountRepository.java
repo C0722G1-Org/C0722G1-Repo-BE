@@ -16,29 +16,26 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
     /**
      * Created by VanNTC
      * Date created 31/12/2023
-     * Function Update password for account
-     *
-     * @param idAccount
-     * @param encryptPassword
-     */
-    @Transactional
-    @Modifying
-    @Query(value = "update account as a set a.name=?1, a.username_account=?2, a.email=?3, a.encrypt_password =?4 where a.id_account=?5", nativeQuery = true)
-    void updatePassword(@Param(value = "idAccount") Long idAccount,
-                        @Param(value = "encryptPassword") String encryptPassword);
-
-
-    /**
-     * Created by VanNTC
-     * Date created 31/12/2023
      * Function find account by idAccount
      *
      * @param idAccount
      * @@return account
      */
 
-    @Query(value = "select * from account where idAccount =:idAccount and flag_delete = 0", nativeQuery = true)
+    @Query(value = "select * from account where id_account =:idAccount and flag_delete = 0", nativeQuery = true)
     Account findByIdAccount(@Param(value = "idAccount") Long idAccount);
+
+    /**
+     * Created by VanNTC
+     * Date created 31/12/2023
+     * Function Update password for account
+     *
+     * @param idAccount
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "update account as a set a.name=?1, a.username_account=?2, a.email=?3, a.encrypt_password =?4 where a.id_account=?5", nativeQuery = true)
+    void updatePassword(String name, String userNameAccount, String email, String encryptPassword, Long idAccount);
 
     /**
      * Create by LongPT
