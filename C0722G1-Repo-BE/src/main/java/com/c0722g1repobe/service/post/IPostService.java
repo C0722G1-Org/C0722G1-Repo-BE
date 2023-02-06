@@ -46,12 +46,6 @@ public interface IPostService {
      * Author: DatTQ*/
     List<PostDtoViewList> searchYearAndMonth(String year, String month);
 
-//    BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto);
-//
-//    PostDto addDefaultValue(CreatePostDto createPostDto);
-//
-//    void savePost(PostDto postDto);
-
     BaseResponseCreatePost getResponseCreatePost(CreatePostDto createPostDto);
 
     /**
