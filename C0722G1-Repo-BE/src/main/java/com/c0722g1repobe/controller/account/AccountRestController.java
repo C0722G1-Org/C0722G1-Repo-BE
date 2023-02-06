@@ -5,6 +5,7 @@ import com.c0722g1repobe.dto.account.AccountDto;
 import com.c0722g1repobe.dto.account.request.SignInForm;
 import com.c0722g1repobe.dto.account.response.JwtResponse;
 import com.c0722g1repobe.dto.customer.CustomerDto;
+import com.c0722g1repobe.dto.customer.CustomerDtoMD;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
 import com.c0722g1repobe.entity.account.RoleName;
@@ -71,18 +72,20 @@ public class AccountRestController {
     private ICustomerService customerService;
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<Customer> register(@Valid @RequestBody Customer customer,
+    public ResponseEntity<Customer> register(@Valid @RequestBody CustomerDtoMD customerDtoMD,
                                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<Customer>((Customer) bindingResult.getFieldErrors(),
                     HttpStatus.BAD_REQUEST);
         }
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(customerDtoMD, customer);
         customer.setCodeCustomer(customerService.ramdomCodeCustomer());
         Account account = new Account();
-        account.setName(customer.getNameCustomer());
-        account.setUsernameAccount(customer.getAccount().getUsernameAccount());
-        account.setEncryptPassword(passwordEncoder.encode(customer.getAccount().getEncryptPassword()));
-        account.setEmail(customer.getEmailCustomer());
+        account.setName(customerDtoMD.getNameCustomer());
+        account.setUsernameAccount(customerDtoMD.getAccount().getUsernameAccount());
+        account.setEncryptPassword(passwordEncoder.encode(customerDtoMD.getAccount().getEncryptPassword()));
+        account.setEmail(customerDtoMD.getEmailCustomer());
         Set<Role> roles = new HashSet<>();
         Role customerRole = roleService.findByNameAccount(RoleName.CUSTOMER).orElse(new Role()) ;
         roles.add(customerRole);
