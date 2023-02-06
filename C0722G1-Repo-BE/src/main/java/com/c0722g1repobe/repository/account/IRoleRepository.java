@@ -35,4 +35,13 @@ public interface IRoleRepository extends JpaRepository<Role, Long> {
     @Query(value = "select id_role as idRole, name from roles where name = :?",
             countQuery = "select id_role as idRole, name from roles where name = :?", nativeQuery = true)
     List<Role> findAllRole();
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    Optional<Role> findByName(RoleName roleName);
+    List<Role> findAll();
+
 }

@@ -14,6 +14,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -31,7 +32,9 @@ public class Post {
     private Double area;
     private String note;
     private Double price;
-    private String imageListURL;
+    @OneToMany(mappedBy = "post")
+    @JsonBackReference
+    private Set<Image> imageSet;
     private boolean flagDeleted = false;
     private boolean approval;
     private LocalDate dateCreation = LocalDate.now();
