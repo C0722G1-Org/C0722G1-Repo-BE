@@ -1,7 +1,6 @@
 package com.c0722g1repobe.service.post;
 
 import com.c0722g1repobe.dto.post.ImageDto;
-import com.c0722g1repobe.entity.post.Image;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
