@@ -2,7 +2,6 @@ package com.c0722g1repobe.entity.customer;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.post.Post;
-
 import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +9,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "Customer", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "idCardCustomer"
+        }),
+        @UniqueConstraint(columnNames = {
+                "codeCustomer"
+        })
+})
 @Builder
 @Setter
 @Getter

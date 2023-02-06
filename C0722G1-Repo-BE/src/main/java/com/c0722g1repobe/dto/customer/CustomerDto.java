@@ -12,7 +12,7 @@ public class CustomerDto implements Validator {
 
     private String phoneCustomer1;
 
-    private String dateOfBirthCustomer;
+    private String dateOfBirth;
 
     private String phoneCustomer2;
 
@@ -30,14 +30,42 @@ public class CustomerDto implements Validator {
 
     private int approvalCustomer;
 
+    private String usernameAccount;
+
     private String encryptPassword;
 
+    private String nameAccount;
+
+    public String getNameAccount() {
+        return nameAccount;
+    }
+
+    public void setNameAccount(String nameAccount) {
+        this.nameAccount = nameAccount;
+    }
+
+    public String getUsernameAccount() {
+        return usernameAccount;
+    }
+
+    public void setUsernameAccount(String usernameAccount) {
+        this.usernameAccount = usernameAccount;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public String getDateOfBirthCustomer() {
-        return dateOfBirthCustomer;
+        return dateOfBirth;
     }
 
     public void setDateOfBirthCustomer(String dateOfBirthCustomer) {
-        this.dateOfBirthCustomer = dateOfBirthCustomer;
+        this.dateOfBirth = dateOfBirthCustomer;
     }
 
     public Long getIdCustomer() {

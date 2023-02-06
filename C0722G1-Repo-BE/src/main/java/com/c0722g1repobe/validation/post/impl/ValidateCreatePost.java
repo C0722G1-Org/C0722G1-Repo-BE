@@ -8,24 +8,27 @@ import com.c0722g1repobe.utils.ResponseStatusEnum;
 import com.c0722g1repobe.validation.post.IValidateCreatePost;
 import org.springframework.stereotype.Component;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Component
 public class ValidateCreatePost implements IValidateCreatePost {
     private final BaseResponseCreatePost baseResponseCreatePost;
     private final CustomerRepository customerRepository;
-    private final IDemandTypeRepository IDemandTypeRepository;
-    private final ILandTypeRepository ILandTypeRepository;
-    private final IWardsRepository IWardsRepository;
-    private final IDirectionRepository IDirectionRepository;
-    private final IAddressRepository IAddressRepository;
+    private final IDemandTypeRepository demandTypeRepository;
+    private final ILandTypeRepository landTypeRepository;
+    private final IWardsRepository wardsRepository;
+    private final IDirectionRepository directionRepository;
+    private final IAddressRepository addressRepository;
 
-    public ValidateCreatePost(BaseResponseCreatePost baseResponseCreatePost, CustomerRepository customerRepository, IDemandTypeRepository IDemandTypeRepository, ILandTypeRepository ILandTypeRepository, IWardsRepository IWardsRepository, IDirectionRepository IDirectionRepository, IAddressRepository IAddressRepository) {
+    public ValidateCreatePost(BaseResponseCreatePost baseResponseCreatePost, CustomerRepository customerRepository, IDemandTypeRepository demandTypeRepository, ILandTypeRepository landTypeRepository, IWardsRepository wardsRepository, IDirectionRepository directionRepository, IAddressRepository addressRepository) {
         this.baseResponseCreatePost = baseResponseCreatePost;
         this.customerRepository = customerRepository;
-        this.IDemandTypeRepository = IDemandTypeRepository;
-        this.ILandTypeRepository = ILandTypeRepository;
-        this.IWardsRepository = IWardsRepository;
-        this.IDirectionRepository = IDirectionRepository;
-        this.IAddressRepository = IAddressRepository;
+        this.demandTypeRepository = demandTypeRepository;
+        this.landTypeRepository = landTypeRepository;
+        this.wardsRepository = wardsRepository;
+        this.directionRepository = directionRepository;
+        this.addressRepository = addressRepository;
     }
 
     /**
@@ -46,7 +49,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
 
         if (checkCreatePostDtoIsNull(createPostDto)) return baseResponseCreatePost;
         if (validateIdCustomer().getCode() != VALID_CODE) return baseResponseCreatePost;
-        if (validateIdDemand().getCode() != VALID_CODE) return baseResponseCreatePost;
+        if (validateIdDemandType().getCode() != VALID_CODE) return baseResponseCreatePost;
         if (validateIdLandType().getCode() != VALID_CODE) return baseResponseCreatePost;
         if (validateIdWards().getCode() != VALID_CODE) return baseResponseCreatePost;
         if (validateIdDirection().getCode() != VALID_CODE) return baseResponseCreatePost;
@@ -71,7 +74,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
      */
     private boolean checkCreatePostDtoIsNull(CreatePostDto createPostDto) {
         if (createPostDto == null) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Vui lòng nhập các thông tin cho bài đăng");
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tạo mới bài đăng (null)");
             return true;
         }
         return false;
@@ -100,11 +103,37 @@ public class ValidateCreatePost implements IValidateCreatePost {
      * @return baseResponseCreatePost after validate id of Customer
      */
     private BaseResponseCreatePost validateIdCustomer() {
-        Long idCustomer = baseResponseCreatePost.getCreatePostDto().getIdCustomer();
+        try {
+            Long idCustomer = baseResponseCreatePost.getCreatePostDto().getIdCustomer();
 
-        boolean idCustomerNotExist = customerRepository.findIdByIdNativeQuery(idCustomer) == null;
-        if (idCustomerNotExist) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mã khách hàng không tồn tại !");
+            boolean idCustomerIsNull = idCustomer == null;
+            boolean idCustomerIsEmpty = !idCustomerIsNull && idCustomer == Long.parseLong("");
+            boolean idCustomerNotExist = customerRepository.findIdByIdNativeQuery(idCustomer) == null;
+            boolean idCustomerInvalidMin = !idCustomerIsNull && idCustomer < 1;
+            boolean idCustomerInvalidMax = !idCustomerIsNull && idCustomer > 9000000000L;
+
+            if (idCustomerIsNull) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận mã khách hàng (null)");
+                return baseResponseCreatePost;
+            }
+
+            if (idCustomerIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mã khách hàng không được để trống");
+                return baseResponseCreatePost;
+            }
+
+            if (idCustomerNotExist) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mã khách hàng không tồn tại");
+                return baseResponseCreatePost;
+            }
+
+            if (idCustomerInvalidMin || idCustomerInvalidMax) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mã khách hàng không hợp lệ");
+                return baseResponseCreatePost;
+            }
+
+        } catch (NumberFormatException e) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mã khách không đúng định dạng");
             return baseResponseCreatePost;
         }
 
@@ -118,12 +147,38 @@ public class ValidateCreatePost implements IValidateCreatePost {
      *
      * @return baseResponseCreatePost after validate idDemand
      */
-    private BaseResponseCreatePost validateIdDemand() {
-        Long idDemand = baseResponseCreatePost.getCreatePostDto().getIdDemand();
+    private BaseResponseCreatePost validateIdDemandType() {
+        try {
+            Long idDemandType = baseResponseCreatePost.getCreatePostDto().getIdDemand();
 
-        boolean demandTypeNotExist = IDemandTypeRepository.findByIdNativeQuery(idDemand) == null;
-        if (demandTypeNotExist) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Nhu cầu không tồn tại !");
+            boolean idDemandTypeIsNull = idDemandType == null;
+            boolean idDemandTypeIsEmpty = !idDemandTypeIsNull && idDemandType == Long.parseLong("");
+            boolean idDemandTypeNotExist = demandTypeRepository.findByIdNativeQuery(idDemandType) == null;
+            boolean idDemandTypeInvalidMin = !idDemandTypeIsNull && idDemandType < 1;
+            boolean idDemandTypeInvalidMax = !idDemandTypeIsNull && idDemandType > 9000000000L;
+
+            if (idDemandTypeIsNull) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận loại nhu cầu (null)");
+                return baseResponseCreatePost;
+            }
+
+            if (idDemandTypeIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại nhu cầu không được để trống");
+                return baseResponseCreatePost;
+            }
+
+            if (idDemandTypeNotExist) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại nhu cầu không tồn tại");
+                return baseResponseCreatePost;
+            }
+
+            if (idDemandTypeInvalidMin || idDemandTypeInvalidMax) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại nhu cầu không hợp lệ");
+                return baseResponseCreatePost;
+            }
+
+        } catch (NumberFormatException e) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại nhu cầu không đúng định dạng");
             return baseResponseCreatePost;
         }
 
@@ -138,11 +193,37 @@ public class ValidateCreatePost implements IValidateCreatePost {
      * @return baseResponseCreatePost after validate idLandType
      */
     private BaseResponseCreatePost validateIdLandType() {
-        Long idLandType = baseResponseCreatePost.getCreatePostDto().getIdLandType();
+        try {
+            Long idLandType = baseResponseCreatePost.getCreatePostDto().getIdLandType();
 
-        boolean landTypeNotExist = ILandTypeRepository.findByIdNativeQuery(idLandType) == null;
-        if (landTypeNotExist) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại bất động sản không tồn tại !");
+            boolean idLandTypeIsNull = idLandType == null;
+            boolean idLandTypeIsEmpty = !idLandTypeIsNull && idLandType == Long.parseLong("");
+            boolean idLandTypeNotExist = landTypeRepository.findByIdNativeQuery(idLandType) == null;
+            boolean idLandTypeInvalidMin = !idLandTypeIsNull && idLandType < 1;
+            boolean idLandTypeInvalidMax = !idLandTypeIsNull && idLandType > 9000000000L;
+
+            if (idLandTypeIsNull) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận loại bất động sản (null)");
+                return baseResponseCreatePost;
+            }
+
+            if (idLandTypeIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại bất động sản không được để trống");
+                return baseResponseCreatePost;
+            }
+
+            if (idLandTypeNotExist) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại bất động sản không tồn tại");
+                return baseResponseCreatePost;
+            }
+
+            if (idLandTypeInvalidMin || idLandTypeInvalidMax) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại bất động sản không hợp lệ");
+                return baseResponseCreatePost;
+            }
+
+        } catch (NumberFormatException e) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Loại bất động sản không đúng định dạng");
             return baseResponseCreatePost;
         }
 
@@ -157,11 +238,37 @@ public class ValidateCreatePost implements IValidateCreatePost {
      * @return baseResponseCreatePost after validate idWards
      */
     private BaseResponseCreatePost validateIdWards() {
-        Long idWards = baseResponseCreatePost.getCreatePostDto().getIdWards();
+        try {
+            Long idWards = baseResponseCreatePost.getCreatePostDto().getIdWards();
 
-        boolean wardsNotExist = IWardsRepository.findNameByIdNativeQuery(idWards) == null;
-        if (wardsNotExist) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Địa chỉ không phù hợp !");
+            boolean idWardsIsNull = idWards == null;
+            boolean idWardsIsEmpty = !idWardsIsNull && idWards == Long.parseLong("");
+            boolean idWardsNotExist = wardsRepository.findNameByIdNativeQuery(idWards) == null;
+            boolean idWardsInvalidMin = !idWardsIsNull && idWards < 1;
+            boolean idWardsInvalidMax = !idWardsIsNull && idWards > 9000000000L;
+
+            if (idWardsIsNull) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận địa chỉ (null)");
+                return baseResponseCreatePost;
+            }
+
+            if (idWardsIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Phường/xã không được để trống");
+                return baseResponseCreatePost;
+            }
+
+            if (idWardsNotExist) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Phường/xã không tồn tại");
+                return baseResponseCreatePost;
+            }
+
+            if (idWardsInvalidMin || idWardsInvalidMax) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Phường/xã không hợp lệ");
+                return baseResponseCreatePost;
+            }
+
+        } catch (NumberFormatException e) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Phường/xã không đúng định dạng");
             return baseResponseCreatePost;
         }
 
@@ -176,11 +283,37 @@ public class ValidateCreatePost implements IValidateCreatePost {
      * @return baseResponseCreatePost after validate idDirection
      */
     private BaseResponseCreatePost validateIdDirection() {
-        Long idDirection = baseResponseCreatePost.getCreatePostDto().getIdDirection();
+        try {
+            Long idDirection = baseResponseCreatePost.getCreatePostDto().getIdDirection();
 
-        boolean directionNotExist = IDirectionRepository.findByIdNativeQuery(idDirection) == null;
-        if (directionNotExist) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Hướng nhà không tồn tại !");
+            boolean idDirectionIsNull = idDirection == null;
+            boolean idDirectionIsEmpty = !idDirectionIsNull && idDirection == Long.parseLong("");
+            boolean idDirectionNotExist = directionRepository.findByIdNativeQuery(idDirection) == null;
+            boolean idDirectionInvalidMin = !idDirectionIsNull && idDirection < 1;
+            boolean idDirectionInvalidMax = !idDirectionIsNull && idDirection > 9000000000L;
+
+            if (idDirectionIsNull) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hướng bất động sản (null)");
+                return baseResponseCreatePost;
+            }
+
+            if (idDirectionIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Hướng bất động sản không được để trống");
+                return baseResponseCreatePost;
+            }
+
+            if (idDirectionNotExist) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Hướng bất động sản không tồn tại");
+                return baseResponseCreatePost;
+            }
+
+            if (idDirectionInvalidMin || idDirectionInvalidMax) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Hướng bất động sản không hợp lệ");
+                return baseResponseCreatePost;
+            }
+
+        } catch (NumberFormatException e) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Hướng bất động sản không đúng định dạng");
             return baseResponseCreatePost;
         }
 
@@ -198,14 +331,31 @@ public class ValidateCreatePost implements IValidateCreatePost {
         String numberAddress = baseResponseCreatePost.getCreatePostDto().getNumberAddress();
 
         boolean numberAddressIsNull = numberAddress == null;
+        boolean numberAddressIsEmptyOrBlank = !numberAddressIsNull && (numberAddress.isEmpty() || numberAddress.trim().isEmpty());
+        boolean numberAddressInvalidMin = !numberAddressIsNull && numberAddress.length() < 10;
+        boolean numberAddressInvalidMax = !numberAddressIsNull && numberAddress.length() > 50;
+
+        Pattern pattern = Pattern.compile("[^aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9/ ]");
+        Matcher matcher = pattern.matcher(numberAddress);
+        boolean numberAddressInvalidCharacters = matcher.find();
+
         if (numberAddressIsNull) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Địa chỉ nhà không hợp lệ !");
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận địa chỉ - địa chỉ cụ thể (null)");
             return baseResponseCreatePost;
         }
 
-        boolean invalidNumberAddressLength = numberAddress.length() > 50 || numberAddress.length() < 5;
-        if (invalidNumberAddressLength) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Địa chỉ nhà không đúng (ít hơn 5 kí tự hoặc lớn hơn 50 kí tự) !");
+        if (numberAddressIsEmptyOrBlank) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Địa chỉ cụ thể không được để trống");
+            return baseResponseCreatePost;
+        }
+
+        if (numberAddressInvalidMax || numberAddressInvalidMin) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Địa chỉ cụ thể không hợp lệ (Tối đa 50 kí tự và tối thiểu 5 kí tự)");
+            return baseResponseCreatePost;
+        }
+
+        if (numberAddressInvalidCharacters) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Địa chỉ cụ thể chứa các kí tự đặc biệt (chỉ cho phép chữ cái, chữ số , dấu cách và dấu /)");
             return baseResponseCreatePost;
         }
 
@@ -224,18 +374,26 @@ public class ValidateCreatePost implements IValidateCreatePost {
             Double price = baseResponseCreatePost.getCreatePostDto().getPrice();
 
             boolean priceIsNull = price == null;
+            boolean invalidPriceMinMax = !priceIsNull && (price < 1000000 || price > 100000000000d);
+            boolean priceIsEmpty = !priceIsNull && price == Double.parseDouble("");
+
+
             if (priceIsNull) {
-                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Giá tiền không hợp lệ !");
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận giá tiền (null)");
                 return baseResponseCreatePost;
             }
 
-            boolean invalidPriceMinMax = price < 1000000 || price > Double.parseDouble("100000000000");
+            if (priceIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Giá tiền không được để trống");
+                return baseResponseCreatePost;
+            }
+
             if (invalidPriceMinMax) {
                 setBaseResponseCreatePostWhenInvalidWithCustomMessage("Giá tiền không được hỗ trợ (phải bé hơn 100 tỷ và lớn hơn 1 triệu)");
             }
 
         } catch (NumberFormatException e) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Giá tiền không hợp lệ (chứa kí tự) !");
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Giá tiền sai định dạng (chứa kí tự)");
             return baseResponseCreatePost;
         }
 
@@ -254,18 +412,26 @@ public class ValidateCreatePost implements IValidateCreatePost {
             Double area = baseResponseCreatePost.getCreatePostDto().getArea();
 
             boolean areaIsNull = area == null;
+            boolean invalidAreaMinMax = !areaIsNull && (area < 10 || area > 10000);
+            boolean areaIsEmpty = !areaIsNull && area == Double.parseDouble("");
+
+
             if (areaIsNull) {
-                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Diện tích không hợp lệ !");
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận diện tích (null)");
                 return baseResponseCreatePost;
             }
 
-            boolean invalidPriceMinMax = area < 30 || area > 10000;
-            if (invalidPriceMinMax) {
-                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Diện tích không được hỗ trợ (phải bé hơn 10000m2 và lớn hơn 30m2)");
+            if (areaIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Diện tích không được để trống");
+                return baseResponseCreatePost;
+            }
+
+            if (invalidAreaMinMax) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Diện tích không được hỗ trợ (phải bé hơn 10000m2 và lớn hơn 1m2)");
             }
 
         } catch (NumberFormatException e) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Diện tích không hợp lệ (chứa kí tự)!");
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Diện tích không hợp lệ (chứa kí tự)");
             return baseResponseCreatePost;
         }
 
@@ -282,9 +448,25 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private BaseResponseCreatePost validateNote() {
         String note = baseResponseCreatePost.getCreatePostDto().getNote();
 
-        boolean invalidNoteMaxLength = note.length() > 500;
-        if (invalidNoteMaxLength) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mô tả chi tiết không được vượt quá 255 kí tự");
+        boolean noteIsNull = note == null;
+        boolean noteInvalidMax = !noteIsNull && note.length() > 500;
+
+        Pattern pattern = Pattern.compile("[^aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9/ ]");
+        Matcher matcher = pattern.matcher(note);
+        boolean noteInvalidCharacters = matcher.find();
+
+        if (noteIsNull) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận mô tả chi tiết (null)");
+            return baseResponseCreatePost;
+        }
+
+        if (noteInvalidMax) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mô tả chi tiết không hợp lệ (Tối đa 500 kí tự)");
+            return baseResponseCreatePost;
+        }
+
+        if (noteInvalidCharacters) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mô tả chi tiết chứa các kí tự đặc biệt (chỉ cho phép chữ cái, chữ số , dấu cách và dấu /)");
             return baseResponseCreatePost;
         }
 
@@ -299,7 +481,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
      * @return baseResponseCreatePost after validate Address
      */
     private BaseResponseCreatePost validateAddress() {
-        Long idAddress = IAddressRepository.findIdByNumberAddressAndIdWardsNativeQuery(baseResponseCreatePost.getCreatePostDto().getNumberAddress(), baseResponseCreatePost.getCreatePostDto().getIdWards());
+        Long idAddress = addressRepository.findIdByNumberAddressAndIdWardsNativeQuery(baseResponseCreatePost.getCreatePostDto().getNumberAddress(), baseResponseCreatePost.getCreatePostDto().getIdWards());
 
         boolean addressExist = idAddress != null;
         if (addressExist) {
@@ -318,12 +500,42 @@ public class ValidateCreatePost implements IValidateCreatePost {
      * @return baseResponseCreatePost after validate imageListURL
      */
     private BaseResponseCreatePost validateImageListURL() {
-        String imageListURL = baseResponseCreatePost.getCreatePostDto().getImageListURL();
+        String[] imageListURL = baseResponseCreatePost.getCreatePostDto().getImageListURL();
 
-        boolean invalidImageListURLMinMaxLength = imageListURL.length() > 255 || imageListURL.length() == 0;
-        if (invalidImageListURLMinMaxLength) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Quá trình upload ảnh xảy ra lỗi. Vui lòng thử lại !");
+        boolean imageListURLIsNull = imageListURL == null;
+        boolean imageListURLIsEmpty = !imageListURLIsNull && imageListURL.length == 0;
+
+
+        if (imageListURLIsNull) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hình ảnh của bài đăng (null URL)");
             return baseResponseCreatePost;
+        }
+
+        if (imageListURLIsEmpty) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Vui lòng đính kèm hình ảnh");
+            return baseResponseCreatePost;
+        }
+
+        for (String imageURL : imageListURL) {
+            boolean imageURLIsNull = imageURL == null;
+            boolean imageURLIsEmpty = !imageURLIsNull && imageURL.length() == 0;
+            boolean imageURLInvalidMin = !imageURLIsNull && imageURL.length() < 5;
+            boolean imageURLInvalidMax = !imageURLIsNull && imageURL.length() > 255;
+
+            if (imageURLIsNull) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hình ảnh của bài đăng (null URL)");
+                return baseResponseCreatePost;
+            }
+
+            if (imageURLIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hình ảnh của bài đăng (empty URL)");
+                return baseResponseCreatePost;
+            }
+
+            if (imageURLInvalidMin || imageURLInvalidMax) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hình ảnh của bài đăng (Size of URL)");
+                return baseResponseCreatePost;
+            }
         }
 
         return baseResponseCreatePost;
@@ -339,9 +551,32 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private BaseResponseCreatePost validateNamePost() {
         String namePost = baseResponseCreatePost.getCreatePostDto().getNamePost();
 
-        boolean invalidNamePostMinMaxLength = namePost.length() > 50 || namePost.length() < 10;
-        if (invalidNamePostMinMaxLength) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Tên bài đăng không hợp lệ (Tối đa 50 kí tự và tối thiểu 10 kí tự) !");
+        boolean namePostIsNull = namePost == null;
+        boolean namePostIsEmptyOrBlank = !namePostIsNull && (namePost.isEmpty() || namePost.trim().isEmpty());
+        boolean namePostInvalidMin = !namePostIsNull && namePost.length() < 10;
+        boolean namePostInvalidMax = !namePostIsNull && namePost.length() > 50;
+
+        Pattern pattern = Pattern.compile("[^aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9/ ]");
+        Matcher matcher = pattern.matcher(namePost);
+        boolean namePostInvalidCharacters = matcher.find();
+
+        if (namePostIsNull) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận tên bài đăng (null)");
+            return baseResponseCreatePost;
+        }
+
+        if (namePostIsEmptyOrBlank) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Tên bài đăng không được để trống");
+            return baseResponseCreatePost;
+        }
+
+        if (namePostInvalidMax || namePostInvalidMin) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Tên bài đăng không hợp lệ (Tối đa 50 kí tự và tối thiểu 10 kí tự)");
+            return baseResponseCreatePost;
+        }
+
+        if (namePostInvalidCharacters) {
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Tên bài viết chứa các kí tự đặc biệt (chỉ cho phép chữ cái, chữ số , dấu cách và dấu /)");
             return baseResponseCreatePost;
         }
 
