@@ -1,7 +1,6 @@
 package com.c0722g1repobe.repository.post;
 
 import com.c0722g1repobe.entity.post.District;
-import com.c0722g1repobe.entity.post.Wards;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
