@@ -8,5 +8,6 @@ public interface IDistrictService {
     List<District> findNameDistrictAndIdDistrictQuery();
 
     String findNameByIdNativeQuery(Long idDistrict);
+    List<District> findListDistrict(Long idCity);
 
 }

@@ -247,6 +247,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      *
      * @param name
      */
-    @Query(value = "select * from role where role.name = :name")
+    @Query(value = "select * from role where role.name = :name", nativeQuery = true)
     Role getRoleByName(@Param("name") RoleName name);
 }
