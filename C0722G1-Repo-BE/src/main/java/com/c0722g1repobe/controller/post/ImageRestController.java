@@ -1,7 +1,6 @@
 package com.c0722g1repobe.controller.post;
 
 import com.c0722g1repobe.dto.post.ImageDto;
-import com.c0722g1repobe.entity.post.Image;
 import com.c0722g1repobe.service.post.IImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
