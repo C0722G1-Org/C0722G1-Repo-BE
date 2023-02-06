@@ -22,4 +22,14 @@ public interface IWardsRepository extends JpaRepository<Wards, Long> {
 
     @Query(value = "select w.name_wards from sprint_1.wards as w where w.id_wards = :idWards", nativeQuery = true)
     String findNameByIdNativeQuery(@Param("idWards") Long idWards);
+    /**
+     * Create by: NgocLV
+     * Date created: 02/02/2023
+     * Function: find all wards list have the same district
+     *
+     */
+
+    @Query(value = "select * from sprint_1.wards w where w.district_id_district = :districtSearch ",
+            nativeQuery = true)
+    List<Wards> findListWards(@Param("districtSearch") Long districtSearch);
 }

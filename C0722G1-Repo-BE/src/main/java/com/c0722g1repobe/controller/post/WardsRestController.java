@@ -5,12 +5,10 @@ import com.c0722g1repobe.service.post.IWardsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -37,5 +35,28 @@ public class WardsRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(wardsList, HttpStatus.OK);
+    }
+    /**
+     * Create by: NgocLV
+     * Date created: 02/02/2023
+     * Function: list wards
+     *
+     * @return HttpStatus.OK if json list wards
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<Wards>> listDistrict(@RequestParam() Optional<Long> idDistrict){
+        Long idDistrictValue = idDistrict.orElse(0l);
+        List<Wards> listWards = null;
+        if(idDistrictValue != 0l) {
+            listWards = wardsService.findListWards(idDistrictValue);
+        }
+        else {
+            return new ResponseEntity<List<Wards>>(HttpStatus.NO_CONTENT);
+        }
+
+        if (listWards.isEmpty()) {
+            return new ResponseEntity<List<Wards>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Wards>>(listWards, HttpStatus.OK);
     }
 }
