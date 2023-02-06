@@ -1,7 +1,10 @@
 package com.c0722g1repobe.entity.post;
 
+
 import com.c0722g1repobe.entity.customer.Customer;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.fasterxml.jackson.annotation.JsonBackReference;
