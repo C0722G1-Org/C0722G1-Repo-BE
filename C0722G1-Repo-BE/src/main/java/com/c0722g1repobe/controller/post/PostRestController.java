@@ -29,8 +29,8 @@ public class PostRestController {
      */
 
     @GetMapping("search-page")
-    public ResponseEntity<?> getAllAndSearch(@PageableDefault(value = 4) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
-        Page<Post> postList = postService.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
+    public ResponseEntity<?> getAllAndSearch(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
+        Page<Post> postList = postService.getAllAndSearch(nameDemandTypeSearch, idAccount, pageable);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

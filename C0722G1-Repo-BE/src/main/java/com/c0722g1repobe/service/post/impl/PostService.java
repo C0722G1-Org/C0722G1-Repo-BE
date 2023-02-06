@@ -22,7 +22,7 @@ public class PostService implements IPostService {
      */
 
     @Override
-    public Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
-        return iPostRepository.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
+    public Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idAccount, Pageable pageable) {
+        return iPostRepository.getAllAndSearch(nameDemandTypeSearch, idAccount, pageable);
     }
 }

@@ -25,6 +25,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             " join demand_type on post.id_post = demand_type.id_demand_type" +
             " join land_type on post.id_post = land_type.id_land_type" +
             " join customer on post.customer_id_customer = customer.id_customer" +
-            " where demand_type.name_demand_type like :nameDemandTypeSearch and customer.id_customer = :idCustomer", nativeQuery = true)
-    Page<Post> getAllAndSearch(@Param("nameDemandTypeSearch") String nameDemandTypeSearch, @Param("idCustomer") String idCustomer, Pageable pageable);
+            " join account on customer.account_id_account = account.id_account" +
+            " where demand_type.name_demand_type like :nameDemandTypeSearch and account.id_account = :idAccount", nativeQuery = true)
+    Page<Post> getAllAndSearch(@Param("nameDemandTypeSearch") String nameDemandTypeSearch, @Param("idAccount") String idAccount, Pageable pageable);
 }
