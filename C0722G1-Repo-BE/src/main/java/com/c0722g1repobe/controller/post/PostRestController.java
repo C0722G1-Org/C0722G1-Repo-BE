@@ -130,36 +130,6 @@ public class PostRestController {
     }
 
     /**
-     * Create by: SangNP
-     * Date created: 31/01/2023
-     * Function: show list post
-     *
-     * @param area       It's okay not to have
-     * @param price      It's okay not to have
-     * @param landType It's okay not to have
-     * @param direction  It's okay not to have
-     * @param city       It's okay not to have
-     * @param pageable   It's okay not to have
-     * @return if have content it will return Page<Post> with HttpStatus.OK else it will return status HttpStatus.NO_CONTENT
-     */
-    @GetMapping("/list")
-    public ResponseEntity<Page<PostListViewDto>> getAllPost(@RequestParam(defaultValue = "") String area,
-                                                            @RequestParam(defaultValue = "") String price,
-                                                            @RequestParam(defaultValue = "") String landType,
-                                                            @RequestParam(defaultValue = "") String direction,
-                                                            @RequestParam(defaultValue = "") String city,
-                                                            @PageableDefault(size = 8) Pageable pageable) {
-        if (area != null && price != null && landType != null && direction != null && city != null) {
-            Page<PostListViewDto> postList = postService.findAll(area, price, landType, direction, city, pageable);
-            if (postList != null && postList.hasContent()) {
-                return new ResponseEntity<>(postList, HttpStatus.OK);
-            }
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-    /**
      * Create by: NgocLV
      * Date created: 31/01/2023
      * Function: show list or search  Post
