@@ -133,14 +133,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * Crated date: 31/01/2023
      * Function: create to employee
      *
-     * @param codeEmployee
-     * @param nameEmployee
-     * @param emailEmployee
-     * @param genderEmployee
-     * @param phoneEmployee
-     * @param addressEmployee
-     * @param division
-     * @param account
+     * @param employee
      */
     @Transactional
     @Modifying
@@ -154,27 +147,18 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " address_employee," +
             " account_id_account," +
             " division_id_division) " +
-            "VALUES" +
-            " (:codeEmployee," +
-            " :nameEmployee," +
-            " :emailEmployee," +
-            " :dateOfBirth" +
-            " :genderEmployee," +
-            " :phoneEmployee," +
-            " :addressEmployee," +
-            " :idAccount," +
-            " :idDivision)",
+            " (:#{#employee.codeEmployee}," +
+            " :#{#employee.nameEmployee}," +
+            " :#{#employee.emailEmployee}," +
+            " :#{#employee.dateOfBirth}" +
+            " :#{#employee.genderEmployee}," +
+            " :#{#employee.phoneEmployee}," +
+            " :#{#employee.addressEmployee}," +
+            " :#{#employee.idAccount}," +
+            " :#{#employee.idDivision})",
             nativeQuery = true)
     void saveEmployee(
-            @Param("codeEmployee") String codeEmployee,
-            @Param("nameEmployee") String nameEmployee,
-            @Param("emailEmployee") String emailEmployee,
-            @Param("dateOfBirth") String dateOfBirth,
-            @Param("genderEmployee") boolean genderEmployee,
-            @Param("phoneEmployee") String phoneEmployee,
-            @Param("addressEmployee") String addressEmployee,
-            @Param("idAccount") Account account,
-            @Param("idDivision") Division division
+            @Param("employee") Employee employee
     );
 
     /**
@@ -183,35 +167,24 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * Function: update to employee
      *
      * @param id
-     * @param nameEmployee
-     * @param emailEmployee
-     * @param genderEmployee
-     * @param phoneEmployee
-     * @param addressEmployee
-     * @param division
+     * @param employee
      */
     @Transactional
     @Modifying
     @Query(value = "UPDATE employee" +
             " SET " +
-            " name_employee = :nameEmployee," +
-            " email_employee = :emailEmployee," +
-            " gender_employee = :genderEmployee," +
-            " phone_employee = :phoneEmployee," +
-            " address_employee = :addressEmployee, " +
-            " date_of_birth = :dateOfBirth," +
-            " division_id_division = :idDivision" +
+            " name_employee = :#{#employee.nameEmployee}," +
+            " email_employee = :#{#employee.emailEmployee}," +
+            " gender_employee = :#{#employee.genderEmployee}," +
+            " phone_employee = :#{#employee.phoneEmployee}," +
+            " address_employee = :#{#employee.addressEmployee}, " +
+            " date_of_birth = :#{#employee.dateOfBirth}," +
+            " division_id_division = :#{#employee.idDivision}" +
             " WHERE id_employee= :id",
             nativeQuery = true)
     void updateEmployee(
             @Param("id") Long id,
-            @Param("nameEmployee") String nameEmployee,
-            @Param("emailEmployee") String emailEmployee,
-            @Param("genderEmployee") boolean genderEmployee,
-            @Param("phoneEmployee") String phoneEmployee,
-            @Param("addressEmployee") String addressEmployee,
-            @Param("dateOfBirth") String dateOfBirth,
-            @Param("idDivision") Division division
+            @Param("employee") Employee employee
     );
 
     /**

@@ -117,7 +117,6 @@ public class EmployeeController {
         Set<Role> roles = new HashSet<>();
         Role role = new Role();
         Role employeeRole = employeeService.getRoleByName(role.getName());
-//                .orElseThrow(() -> new RuntimeException("Role not found"));
         roles.add(employeeRole);
         account.setRoles(roles);
         employeeService.saveAccount(account);
@@ -148,7 +147,23 @@ public class EmployeeController {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
         employeeService.updateEmployee(employee, id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: get employee by id
+     *
+     * @param id
+     */
+    @GetMapping("{id}")
+    public ResponseEntity<Employee> findId(@PathVariable("id") Long id) {
+        Optional<Employee> employee = employeeService.findById(id);
+        if (!employee.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employee.get(), HttpStatus.OK);
     }
 
     /**
