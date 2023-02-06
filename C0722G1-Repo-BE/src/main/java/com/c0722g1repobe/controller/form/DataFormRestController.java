@@ -21,30 +21,31 @@ public class DataFormRestController {
     @Autowired
     private IDataFormService iDataFormService;
     /**
-     * create by : KhanhLB
-     * Data create: 31/01/2023
-     * Method use: searchByContent(contentDataForm,pageable.withPage(page)) of iDataFormService to get list data from database
-     * Use ResponseEntity to handling response, datatype: Page<DataForm>
-     * Parameter:  contentDataForm,page
-     * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
-     * If the list returned is a list with data, then return http status code: HttpStatus.OK and Page<DataForm>
-     * */
+     * Create by: KhanhLB
+     * Date created: 31/01/2023
+     * Function: show list or search  dataForm
+     * @param contentDataForm
+     * @param page
+     * @return HttpStatus.OK if connect to database return json list dataForm or HttpStatus.BAD_REQUEST if list dataForm is empty
+     */
     @GetMapping("")
-    public ResponseEntity<Page<DataForm>>searchByContent(@RequestParam(defaultValue = "")String contentDataForm,@RequestParam(defaultValue = "0") int page){
+    public ResponseEntity<Page<DataForm>>searchByContent(@RequestParam(defaultValue = "",required = false)String contentDataForm,@RequestParam(defaultValue = "0",required = false) int page){
         Pageable pageable = Pageable.ofSize(5);
         Page<DataForm>dataFormPage=iDataFormService.searchByContent(contentDataForm,pageable.withPage(page));
         dataFormPage.hasNext();
         if(dataFormPage.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(dataFormPage,HttpStatus.OK);
     }
-    /**Method use: searchByContent(contentDataForm,pageable.withPage(page)) of iDataFormService to get list data from database
-     * Use ResponseEntity to handling response, datatype: Page<DataForm>
-     * Parameter:  contentDataForm,page
-     * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
-     * If the list returned is a list with data, then return http status code: HttpStatus.OK and Page<DataForm>
-     * Author: KhanhLB*/
+    /**
+     * Create by: KhanhLB
+     * Date created: 31/01/2023
+     * Function: save dataForm
+     * @param dataFormDto
+     * @param bindingResult
+     * @return HttpStatus.CREATED when the data is saved to the database, HttpStatus.NOT_MODIFIED when an error occurs
+     */
     @PostMapping("/save")
     public ResponseEntity<?> createDataForm(@Valid @RequestBody DataFormDto dataFormDto, BindingResult bindingResult) {
         new DataFormDto().validate(dataFormDto, bindingResult);

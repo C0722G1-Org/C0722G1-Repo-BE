@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -111,7 +112,7 @@ public class EmployeeController {
         Account account = new Account();
         account.setName(employee.getNameEmployee());
         account.setUsernameAccount(employee.getAccount().getUsernameAccount());
-        account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));
+//        account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));
         account.setEmail(employee.getEmailEmployee());
         Set<Role> roles = new HashSet<>();
         Role role = new Role();
@@ -148,5 +149,21 @@ public class EmployeeController {
         BeanUtils.copyProperties(employeeDto, employee);
         employeeService.updateEmployee(employee, id);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    /**
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: get employee by id
+     *
+     * @param id
+     */
+    @GetMapping("{id}")
+    public ResponseEntity<Employee> findId(@PathVariable("id") Long id) {
+        Optional<Employee> employee = employeeService.findById(id);
+        if (!employee.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employee.get(), HttpStatus.OK);
     }
 }
