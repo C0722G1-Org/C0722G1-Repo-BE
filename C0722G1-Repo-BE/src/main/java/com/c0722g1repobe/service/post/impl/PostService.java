@@ -14,6 +14,7 @@ import com.c0722g1repobe.entity.post.*;
 import com.c0722g1repobe.repository.post.IAddressRepository;
 import com.c0722g1repobe.repository.post.IImageRepository;
 import com.c0722g1repobe.repository.post.IPostRepository;
+import com.c0722g1repobe.service.post.IImageService;
 import com.c0722g1repobe.service.post.IPostService;
 import com.c0722g1repobe.validation.post.IValidateCreatePost;
 import org.springframework.beans.factory.annotation.Autowired;
