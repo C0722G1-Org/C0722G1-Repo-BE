@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, Long> {
+
     /**
      * Created by VanNTC
      * Date created 31/12/2023
@@ -42,15 +43,15 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
      * Function save account
      */
     @Query(value = "insert into account(username_account, encrypt_password) values (:username, :password)", nativeQuery = true)
-    void saveAccount(@Param("username") String username, @Param("password") String password);
+    public void saveAccount(@Param("username") String username, @Param("password") String password);
 
-    /** Create by: PhuongLTH,
+    /**
+     * Create by: PhuongLTH,
      * Date created: 31/01/2023,
      * Function: findByUsername,existsByUsername,existsByEmail
      * @param usernameAccount,email
      * @return HttpStatus.OK if have usernameAccount and email in database or HttpStatus.NOT_FOUND if id not found in database
      */
-
     @Query(value = "select id_account, email, encrypt_password, name, username_account,flag_delete from account where flag_delete = false and username_account = :username_account",
             countQuery = "select id_account, email, encrypt_password, name, username_account,flag_delete from account where flag_delete = false and username_account = :username_account",
             nativeQuery = true)
@@ -60,20 +61,18 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
      * Create by: PhuongLTH,
      * Date created: 31/01/2023,
      * Function: existsByUsername
-     *
      * @param usernameAccount,email
      * @return HttpStatus.OK if have usernameAccount and email in database or HttpStatus.NOT_FOUND if id not found in database
      */
     @Query(value = "select username_account from account where username_account = :username_account",
             countQuery = "select username_account from account where username_account = :username_account",
             nativeQuery = true)
-    Boolean existsByUsername(@Param("username_account") String usernameAccount);
+    Boolean existsByUsername(@Param("username_account")String usernameAccount);
 
     /**
      * Create by: PhuongLTH,
      * Date created: 31/01/2023,
      * Function: findByUsername,existsByUsername,existsByEmail
-     *
      * @param email
      * @return HttpStatus.OK if have usernameAccount and email in database or HttpStatus.NOT_FOUND if id not found in database
      */

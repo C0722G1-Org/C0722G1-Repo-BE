@@ -2,16 +2,16 @@ package com.c0722g1repobe.dto.account;
 
 public class AccountDto {
     private Long idAccount;
-    private String currentPassword;
+    private String encryptPassword;
     private String newPassword;
     private String confirmPassword;
 
     public AccountDto() {
     }
 
-    public AccountDto(Long idAccount, String currentPassword, String newPassword, String confirmPassword) {
+    public AccountDto(Long idAccount, String encryptPassword, String newPassword, String confirmPassword) {
         this.idAccount = idAccount;
-        this.currentPassword = currentPassword;
+        this.encryptPassword = encryptPassword;
         this.newPassword = newPassword;
         this.confirmPassword = confirmPassword;
     }
@@ -24,12 +24,12 @@ public class AccountDto {
         this.idAccount = idAccount;
     }
 
-    public String getCurrentPassword() {
-        return currentPassword;
+    public String getEncryptPassword() {
+        return encryptPassword;
     }
 
-    public void setCurrentPassword(String currentPassword) {
-        this.currentPassword = currentPassword;
+    public void setEncryptPassword(String encryptPassword) {
+        this.encryptPassword = encryptPassword;
     }
 
     public String getNewPassword() {
@@ -48,3 +48,14 @@ public class AccountDto {
         this.confirmPassword = confirmPassword;
     }
 }
+
+
+
+
+
+
+
+
+
+
+

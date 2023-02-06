@@ -1,6 +1,5 @@
 package com.c0722g1repobe.service.account;
 
-import com.c0722g1repobe.dto.account.AccountDto;
 import com.c0722g1repobe.entity.account.Account;
 
 
@@ -30,7 +29,6 @@ public interface IAccountService {
     Account findByIdAccount(Long idAccount);
 
     void updatePassword(Account account);
-
     /**
  * Create by: PhuongLTH
  * Date created : 01/02/2023
@@ -60,4 +58,12 @@ Boolean existsByUsername(String username);
  * @return
  */
 Boolean existsByEmail(String email);
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    Account save(Account users);
+
 }

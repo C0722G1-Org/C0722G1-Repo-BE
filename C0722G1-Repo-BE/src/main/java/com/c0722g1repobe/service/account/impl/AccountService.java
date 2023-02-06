@@ -13,7 +13,6 @@ public class AccountService implements IAccountService {
     @Autowired
     private IAccountRepository accountRepository;
 
-
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
@@ -26,7 +25,6 @@ public class AccountService implements IAccountService {
     public Account createAccount(Account account) {
         return accountRepository.save(account);
     }
-
     /**
      * Create by: VanNTC
      * Date created: 31/01/2023
@@ -78,5 +76,15 @@ public class AccountService implements IAccountService {
     @Override
     public Boolean existsByEmail(String email) {
         return accountRepository.existsByEmail(email);
+    }
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    @Override
+    public Account save(Account account) {
+        return accountRepository.save(account);
     }
 }

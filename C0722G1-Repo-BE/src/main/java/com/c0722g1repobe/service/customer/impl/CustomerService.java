@@ -12,7 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class CustomerService implements ICustomerService {
@@ -113,17 +115,32 @@ public class CustomerService implements ICustomerService {
      * date:31/01/2023
      * method of using save customer
      */
-
     @Override
-    public void saveCustomerByAccount(Customer customer) {
-
-        customerRepository.saveCustomer(customer);
-
+    public String ramdomCodeCustomer() {
+        Random generator = new Random();
+        Integer codeCustomer = generator.nextInt((9999 - 0) + 1) + 0;
+        String codeCustomerString = "MKH" + codeCustomer.toString();
+        return codeCustomerString;
     }
 
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
     @Override
     public void saveCustomer(Customer customer) {
         customerRepository.save(customer);
+    }
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    @Override
+    public List<String> findAllCheckMailCustomerAnhNameAccount() {
+        return customerRepository.findAllCheckMailCustomerAnhNameAccount();
     }
 
 }

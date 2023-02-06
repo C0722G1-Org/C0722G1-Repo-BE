@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,7 +24,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      *
      * @param idCustomer
      */
-    @Query(value = "select * from customer where id_customer = :idCustomer and flag_delete = 0", nativeQuery = true)
+    @Query(value = "select * from customer where id_customer = :idCustomer ", nativeQuery = true)
     Customer findCustomer(@Param("idCustomer") Long idCustomer);
 
     /**
@@ -39,7 +40,9 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             "c.email_customer=?2, c.address_customer=?3,c.date_of_birth=?4, " +
             "c.id_card_customer=?5, c.gender_customer=?6, c.approval_customer=?7, " +
             "c.phone_customer1=?8, c.phone_customer2=?9 where id_customer =?10", nativeQuery = true)
-    void updateCustomer(String nameCustomer, String emailCustomer, String addressCustomer, String dateOfBirth, String idCardCustomer, Integer genderCustomer, int approvalCustomer, String phoneCustomer1, String phoneCustomer2, Long idCustomer);
+    void updateCustomer(String nameCustomer, String emailCustomer, String addressCustomer, String dateOfBirth,
+                        String idCardCustomer, Integer genderCustomer, int approvalCustomer, String phoneCustomer1,
+                        String phoneCustomer2, Long idCustomer);
 
 //    /**
 //     * Create by: HuyNV
@@ -97,8 +100,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 //                        @Param("dateOfBirth") String dateOfBirth,
 //                        @Param("flagDeleted") boolean flagDeleted,
 //                        @Param("approval") boolean approval,
-//                        @Param("idAccount")Account idAccount);
-
     /**
      * Create by: HocHH
      * Date created: 31/01/2023
@@ -153,5 +154,19 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "call sign_up(:#{#c.account.usernameAccount},:#{#c.account.encryptPassword},:#{#c.nameCustomer} ,:#{#c.dateOfBirthCustomer},:#{#c.genderCustomer},:#{#c.idCardCustomer}," +
             ":#{#c.emailCustomer},:#{#c.addressCustomer}:#{#c.phoneCustomer1}:#{#c.phoneCustomer2})", nativeQuery = true)
     void saveCustomer(@Param("c") Customer customer);
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+
+    @Query(value = "SELECT\n" +
+            " a.email,\n" +
+            " a.username_account\n" +
+            "FROM \n" +
+            "account as a where a.flag_delete=false", nativeQuery = true)
+    List<String> findAllCheckMailCustomerAnhNameAccount();
+
 
 }

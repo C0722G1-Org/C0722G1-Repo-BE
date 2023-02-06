@@ -1,5 +1,8 @@
 package com.c0722g1repobe.dto.post;
 
+import java.util.List;
+import java.util.Set;
+
 public interface PostListViewDto {
     Long getIdPost();
     String getNamePost();
@@ -7,7 +10,7 @@ public interface PostListViewDto {
     Double getArea();
     String getDistrict();
     String getCity();
-    String getImageListURL();
+    List<String> url();
     String getDateCreation();
 
 }

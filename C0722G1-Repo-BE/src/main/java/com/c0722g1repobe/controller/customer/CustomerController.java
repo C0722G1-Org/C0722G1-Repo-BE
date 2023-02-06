@@ -1,11 +1,17 @@
 package com.c0722g1repobe.controller.customer;
 
+import com.c0722g1repobe.dto.account.response.ResponseMessage;
 import com.c0722g1repobe.dto.customer.CustomerDto;
 import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.account.Account;
+import com.c0722g1repobe.entity.account.Role;
+import com.c0722g1repobe.entity.account.RoleName;
 import com.c0722g1repobe.entity.customer.Customer;
+import com.c0722g1repobe.jwt.jwt.JwtProvider;
+import com.c0722g1repobe.service.account.impl.RoleService;
 import com.c0722g1repobe.service.customer.ICustomerService;
 import com.c0722g1repobe.service.account.impl.AccountService;
+import com.c0722g1repobe.service.customer.impl.CustomerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,10 +19,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import javax.validation.Valid;
 
 @RestController
@@ -29,12 +40,67 @@ public class CustomerController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    AccountService userService;
+    @Autowired
+    RoleService roleService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JwtProvider jwtProvider;
+
+
     /**
      * creator: Trịnh Minh Đức
      * date:31/01/2023
      * @param customerDto
      * method of using save customer
      */
+
+
+    @PostMapping(value = "/signup")
+    public ResponseEntity<?> register(@Valid @RequestBody CustomerDto customerDto,
+                                      BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldErrors(),
+                    HttpStatus.BAD_REQUEST);
+        }
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(customerDto, customer);
+        customer.setCodeCustomer(customerService.ramdomCodeCustomer());
+        Account account = new Account();
+        account.setName(customer.getNameCustomer());
+        account.setUsernameAccount(customer.getAccount().getUsernameAccount());
+        account.setEncryptPassword(passwordEncoder.encode(customer.getAccount().getEncryptPassword()));
+        account.setEmail(customer.getEmailCustomer());
+        Set<Role> roles = new HashSet<>();
+        Role customerRole = roleService.findByName(RoleName.CUSTOMER).orElseThrow(() -> new RuntimeException("Role not found"));
+        roles.add(customerRole);
+        account.setRoles(roles);
+        accountService.save(account);
+        customer.setAccount(account);
+        customerService.saveCustomer(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    @GetMapping("/ListMailCustomerAnhNameAccount")
+    public ResponseEntity<List<String>> showList() {
+        List<String> listAll = customerService.findAllCheckMailCustomerAnhNameAccount();
+        if (listAll.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(listAll, HttpStatus.OK);
+    }
+
+
+
 
     /**
      * Create by: HuyNV
@@ -52,8 +118,10 @@ public class CustomerController {
         Account account = new Account();
         BeanUtils.copyProperties(customerDto, account);
 
-
+        customerDto.setEmailCustomer(customerDto.getUsernameAccount());
         account.setEncryptPassword((customerDto.getEncryptPassword()));
+        account.setUsernameAccount((customerDto.getUsernameAccount()));
+        account.setName(customerDto.getNameAccount());
         Account account1 = accountService.createAccount(account);
         BeanUtils.copyProperties(customerDto, customer);
 
@@ -75,7 +143,7 @@ public class CustomerController {
      * @return
      */
     @GetMapping("detail/{idCustomer}")
-    public ResponseEntity<Customer> detailCustomer(@PathVariable Long idCustomer) {
+    public ResponseEntity<Customer>detailCustomer(@PathVariable Long idCustomer){
         Customer customer = customerService.findById(idCustomer);
         try {
             if (customer == null || customer.isFlagDelete()) {
@@ -114,7 +182,7 @@ public class CustomerController {
      * @param id
      * @return HttpStatus.OK if have id in database and confirm success, or HttpStatus.NO_CONTENT if id not found in database.
      */
-    @DeleteMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Customer> confirmCustomer(@PathVariable("id") Long id) {
         Optional<Customer> customer = customerService.findByIdCustomer(id);
         if (!customer.isPresent()) {
@@ -130,25 +198,21 @@ public class CustomerController {
      * Function: get Customer by idCustomer
      *
      * @param idCustomer
-     * @return HttpStatus.OK
+     * @return  HttpStatus.OK
      */
     @GetMapping("/{idCustomer}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long idCustomer) {
         Customer customer = this.customerService.findCustomer(idCustomer);
-        if (customer != null) {
-            return new ResponseEntity<>(customer, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-
-    /**
+    
+       /**
      * Create by: VanNTC
      * Date created: 31/01/2023
      * Function: update Customer
      *
-     * @param
-     * @return HttpStatus.OK
+     * @param customerDto
+     * @return  HttpStatus.OK
      */
     @PatchMapping("/update-customer")
     public ResponseEntity<CustomerDto> updateCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult bindingResult) {

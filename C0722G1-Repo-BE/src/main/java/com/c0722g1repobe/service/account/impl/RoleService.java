@@ -39,4 +39,7 @@ public class RoleService implements IRoleService {
     public List<Role> findAll() {
         return roleRepository.findAllRole();
     }
+
+
+
 }
