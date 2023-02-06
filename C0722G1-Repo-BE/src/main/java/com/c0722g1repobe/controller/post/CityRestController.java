@@ -30,7 +30,7 @@ public class CityRestController {
     public ResponseEntity<List<City>> listCity(){
        List<City> listCity = cityService.listCity();
         if (listCity.isEmpty()) {
-        return new ResponseEntity<List<City>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        return new ResponseEntity<List<City>>(HttpStatus.NO_CONTENT);
     }
         return new ResponseEntity<List<City>>(listCity, HttpStatus.OK);
     }

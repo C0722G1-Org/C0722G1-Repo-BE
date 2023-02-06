@@ -187,7 +187,7 @@ public class PostRestController {
         String districtSearchValue = districtSearch.orElse("");
         String wardsSearchValue = wardsSearch.orElse("");
 
-        if (demandTypeSearchValue != "" || landTypeSearchValue != "" || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue != "" || districtSearchValue != "" || wardsSearchValue != "") {
+        if (demandTypeSearchValue.equals("") || landTypeSearchValue.equals("") || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue.equals("") || districtSearchValue.equals("") || wardsSearchValue.equals("")) {
             listPostDtos = postService.searchAllPost(demandTypeSearchValue, landTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, citySearchValue, districtSearchValue, wardsSearchValue, pageable);
         } else {
             listPostDtos = postService.findAllPost(pageable);
@@ -210,7 +210,6 @@ public class PostRestController {
     public ResponseEntity<Post> deletePost(@PathVariable("id") Long id) {
         Post currentPost = postService.findPost(id);
         if (currentPost == null) {
-            System.out.println("Post with id " + id + " not found");
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
         }
         postService.deletePost(id);
