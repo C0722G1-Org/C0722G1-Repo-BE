@@ -1,6 +1,8 @@
 package com.c0722g1repobe.controller.employee;
 
+
 import com.c0722g1repobe.dto.employee.EmployeeInfo;
+
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
 import org.springframework.data.domain.Page;
@@ -109,6 +111,7 @@ public class EmployeeController {
         Account account = new Account();
         account.setName(employee.getNameEmployee());
         account.setUsernameAccount(employee.getAccount().getUsernameAccount());
+        account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));
         account.setEmail(employee.getEmailEmployee());
         Set<Role> roles = new HashSet<>();
         Role role = new Role();
@@ -144,38 +147,6 @@ public class EmployeeController {
         BeanUtils.copyProperties(employeeDto, employee);
         employeeService.updateEmployee(employee, id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    /**
-     * Create by: LongPT
-     * Crated date: 31/01/2023
-     * Function: get employee by id
-     *
-     * @param id
-     */
-    @GetMapping("{id}")
-    public ResponseEntity<Employee> findId(@PathVariable("id") Long id) {
-        Optional<Employee> employee = employeeService.findById(id);
-        if (!employee.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(employee.get(), HttpStatus.OK);
-    }
-
-    /**
-     * Create by: LongPT
-     * Crated date: 31/01/2023
-     * Function: get employee by id
-     *
-     * @param id
-     */
-    @GetMapping("{id}")
-    public ResponseEntity<Employee> findId(@PathVariable("id") Long id) {
-        Optional<Employee> employee = employeeService.findById(id);
-        if (!employee.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(employee.get(), HttpStatus.OK);
     }
 
     /**

@@ -133,14 +133,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * Crated date: 31/01/2023
      * Function: create to employee
      *
-     * @param codeEmployee
-     * @param nameEmployee
-     * @param emailEmployee
-     * @param genderEmployee
-     * @param phoneEmployee
-     * @param addressEmployee
-     * @param division
-     * @param account
+     * @param employee
      */
     @Transactional
     @Modifying
@@ -154,7 +147,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " address_employee," +
             " account_id_account," +
             " division_id_division) " +
-            "VALUES" +
             " (:#{#employee.codeEmployee}," +
             " :#{#employee.nameEmployee}," +
             " :#{#employee.emailEmployee}," +
@@ -175,12 +167,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * Function: update to employee
      *
      * @param id
-     * @param nameEmployee
-     * @param emailEmployee
-     * @param genderEmployee
-     * @param phoneEmployee
-     * @param addressEmployee
-     * @param division
+     * @param employee
      */
     @Transactional
     @Modifying
