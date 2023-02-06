@@ -46,12 +46,14 @@ public interface IPostService {
      * Author: DatTQ*/
     List<PostDtoViewList> searchYearAndMonth(String year, String month);
 
-//    BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto);
-//
-//    PostDto addDefaultValue(CreatePostDto createPostDto);
-//
-//    void savePost(PostDto postDto);
-
+    /**
+     * Create by: BaoDP
+     * Date Create: 01/02/2023
+     * Description: if createPostDto is valid then save Post before send BaseResponseCreatePost to Front-end project for handle http status code .
+     *
+     * @param createPostDto : an object of class CreatePostDto
+     * @return an object of class BaseResponseCreatePost
+     */
     BaseResponseCreatePost getResponseCreatePost(CreatePostDto createPostDto);
 
     /**
