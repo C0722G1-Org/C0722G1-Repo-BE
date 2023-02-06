@@ -36,9 +36,18 @@ public class PostRestController {
      * @param pageable
      * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
      */
-    @GetMapping("search-page")
-    public ResponseEntity<?> getAllAndSearch(@PageableDefault(value = 4) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
-        Page<Post> postList = postService.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
+
+    @GetMapping("search-page-admin")
+    public ResponseEntity<?> getAllAndSearchWithRoleAdmin(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
+        Page<Post> postList = postService.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
+        if (postList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(postList, HttpStatus.OK);
+    }
+    @GetMapping("search-page-customer")
+    public ResponseEntity<?> getAllAndSearchWithRoleCustomer(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
+        Page<Post> postList = postService.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

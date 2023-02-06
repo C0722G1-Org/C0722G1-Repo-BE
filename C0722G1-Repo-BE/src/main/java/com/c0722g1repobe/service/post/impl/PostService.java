@@ -154,11 +154,24 @@ public class PostService implements IPostService {
      * Date Created: 31/01/2023
      *
      * @param pageable
-     * @return page post customer from post repository
+     * @return page post customer from post repository with role admin
+     */
+
+    @Override
+    public Page<Post> getAllAndSearchWithRoleAdmin(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
+        return postRepository.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
+    }
+
+    /**
+     * Created by: UyDD
+     * Date Created: 31/01/2023
+     *
+     * @param pageable
+     * @return page post customer from post repository with role customer
      */
     @Override
-    public Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
-        return postRepository.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
+    public Page<Post> getAllAndSearchWithRoleCustomer(String nameDemandTypeSearch, String idAccount, Pageable pageable) {
+        return postRepository.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
     }
 
     /**
