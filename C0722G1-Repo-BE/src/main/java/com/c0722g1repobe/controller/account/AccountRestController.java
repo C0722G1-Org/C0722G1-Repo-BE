@@ -92,31 +92,6 @@ public class AccountRestController {
         customerService.saveCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-//
-//    @PostMapping(value = "/signup")
-//    public ResponseEntity<?> register(@Valid @RequestBody CustomerDto customerDto,
-//                                      BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(bindingResult.getFieldErrors(),
-//                    HttpStatus.BAD_REQUEST);
-//        }
-//        Customer customer = new Customer();
-//        BeanUtils.copyProperties(customerDto, customer);
-//        customer.setCodeCustomer(customerService.ramdomCodeCustomer());
-//        Account account = new Account();
-//        account.setName(customer.getNameCustomer());
-//        account.setUsernameAccount(customer.getAccount().getUsernameAccount());
-//        account.setEncryptPassword(passwordEncoder.encode(customer.getAccount().getEncryptPassword()));
-//        account.setEmail(customer.getEmailCustomer());
-//        Set<Role> roles = new HashSet<>();
-//        Role customerRole = roleService.findByNameAccount(RoleName.CUSTOMER).orElse(new Role()) ;
-//        roles.add(customerRole);
-//        account.setRoles(roles);
-//        accountService.save(account);
-//        customer.setAccount(account);
-//        customerService.saveCustomer(customer);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 
     /**
      * creator: Trịnh Minh Đức
