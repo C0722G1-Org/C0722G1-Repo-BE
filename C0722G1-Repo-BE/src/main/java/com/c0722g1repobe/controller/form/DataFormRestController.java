@@ -47,10 +47,9 @@ public class DataFormRestController {
      * @return HttpStatus.CREATED when the data is saved to the database, HttpStatus.NOT_MODIFIED when an error occurs
      */
     @PostMapping("/save")
-    public ResponseEntity<?> createDataForm(@Valid @RequestBody DataFormDto dataFormDto, BindingResult bindingResult) {
-        new DataFormDto().validate(dataFormDto, bindingResult);
+    public ResponseEntity<DataFormDto> createDataForm(@Valid @RequestBody DataFormDto dataFormDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>((DataFormDto) bindingResult.getAllErrors(), HttpStatus.NOT_MODIFIED);
         }
         DataForm dataForm = new DataForm();
         BeanUtils.copyProperties(dataFormDto, dataForm);
@@ -101,7 +100,6 @@ public class DataFormRestController {
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<DataForm> update(@PathVariable("id") long id, @Valid @RequestBody DataFormDto dataFormDto, BindingResult bindingResult){
         DataForm dataForm = iDataFormService.findByIdDataForm(id);
-        new DataFormDto().validate(dataFormDto,bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity(bindingResult.getAllErrors(), HttpStatus.NOT_MODIFIED);
         }

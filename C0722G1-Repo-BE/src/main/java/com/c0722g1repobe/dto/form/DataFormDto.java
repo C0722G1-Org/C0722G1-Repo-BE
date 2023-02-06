@@ -5,13 +5,18 @@ import org.springframework.validation.Validator;
 
 import javax.validation.constraints.NotBlank;
 
-public class DataFormDto implements Validator {
+public class DataFormDto {
     @NotBlank
     private String contentDataForm;
     @NotBlank
     private String urlDataForm;
 
     public DataFormDto() {
+    }
+
+    public DataFormDto(String contentDataForm, String urlDataForm) {
+        this.contentDataForm = contentDataForm;
+        this.urlDataForm = urlDataForm;
     }
 
     public String getContentDataForm() {
@@ -30,13 +35,4 @@ public class DataFormDto implements Validator {
         this.urlDataForm = urlDataForm;
     }
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return false;
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-
-    }
 }
