@@ -38,7 +38,6 @@ public class PostService implements IPostService {
 
     @Autowired
     private IImageRepository imageRepository;
-
     /**
      * Call method getAll() of IPostRepository
      * Author: DatTQ

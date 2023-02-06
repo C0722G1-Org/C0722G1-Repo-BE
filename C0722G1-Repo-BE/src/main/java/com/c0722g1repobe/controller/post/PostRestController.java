@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,7 +80,8 @@ public class PostRestController {
             postDtoViewListList = postService.searchYear(String.valueOf(year));
         }
         if (month != -1 && year == -1) {
-            month = new Date().getMonth() + 1;
+            LocalDate date=LocalDate.now();
+            month = date.getMonthValue();
             year = LocalDate.now().getYear();
             postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
         }
@@ -157,7 +157,7 @@ public class PostRestController {
         String districtSearchValue = districtSearch.orElse("");
         String wardsSearchValue = wardsSearch.orElse("");
 
-        if (demandTypeSearchValue != "" || landTypeSearchValue != "" || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue != "" || districtSearchValue != "" || wardsSearchValue != "") {
+        if (demandTypeSearchValue.equals("") || landTypeSearchValue.equals("") || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue.equals("") || districtSearchValue.equals("") || wardsSearchValue.equals("")) {
             listPostDtos = postService.searchAllPost(demandTypeSearchValue, landTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, citySearchValue, districtSearchValue, wardsSearchValue, pageable);
         } else {
             listPostDtos = postService.findAllPost(pageable);
@@ -180,7 +180,6 @@ public class PostRestController {
     public ResponseEntity<Post> deletePost(@PathVariable("id") Long id) {
         Post currentPost = postService.findPost(id);
         if (currentPost == null) {
-            System.out.println("Post with id " + id + " not found");
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
         }
         postService.deletePost(id);
