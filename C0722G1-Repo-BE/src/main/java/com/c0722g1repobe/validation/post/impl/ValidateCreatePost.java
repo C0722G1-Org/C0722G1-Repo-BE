@@ -500,12 +500,10 @@ public class ValidateCreatePost implements IValidateCreatePost {
      * @return baseResponseCreatePost after validate imageListURL
      */
     private BaseResponseCreatePost validateImageListURL() {
-        String imageListURL = baseResponseCreatePost.getCreatePostDto().getImageListURL();
+        String[] imageListURL = baseResponseCreatePost.getCreatePostDto().getImageListURL();
 
         boolean imageListURLIsNull = imageListURL == null;
-        boolean imageListURLIsEmptyOrBlank = !imageListURLIsNull && (imageListURL.isEmpty() || imageListURL.trim().isEmpty());
-        boolean imageListURLInvalidMin = !imageListURLIsNull && imageListURL.length() < 5;
-        boolean imageListURLInvalidMax = !imageListURLIsNull && imageListURL.length() > 255;
+        boolean imageListURLIsEmpty = !imageListURLIsNull && imageListURL.length == 0;
 
 
         if (imageListURLIsNull) {
@@ -513,14 +511,31 @@ public class ValidateCreatePost implements IValidateCreatePost {
             return baseResponseCreatePost;
         }
 
-        if (imageListURLIsEmptyOrBlank) {
+        if (imageListURLIsEmpty) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Vui lòng đính kèm hình ảnh");
             return baseResponseCreatePost;
         }
 
-        if (imageListURLInvalidMax || imageListURLInvalidMin) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hình ảnh của bài đăng (Error URL)");
-            return baseResponseCreatePost;
+        for (String imageURL : imageListURL) {
+            boolean imageURLIsNull = imageURL == null;
+            boolean imageURLIsEmpty = !imageURLIsNull && imageURL.length() == 0;
+            boolean imageURLInvalidMin = !imageURLIsNull && imageURL.length() < 5;
+            boolean imageURLInvalidMax = !imageURLIsNull && imageURL.length() > 255;
+
+            if (imageURLIsNull) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hình ảnh của bài đăng (null URL)");
+                return baseResponseCreatePost;
+            }
+
+            if (imageURLIsEmpty) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hình ảnh của bài đăng (empty URL)");
+                return baseResponseCreatePost;
+            }
+
+            if (imageURLInvalidMin || imageURLInvalidMax) {
+                setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận hình ảnh của bài đăng (Size of URL)");
+                return baseResponseCreatePost;
+            }
         }
 
         return baseResponseCreatePost;

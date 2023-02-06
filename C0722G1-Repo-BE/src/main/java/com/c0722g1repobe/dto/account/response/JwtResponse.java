@@ -1,8 +1,11 @@
 package com.c0722g1repobe.dto.account.response;
 
+import com.c0722g1repobe.entity.account.Role;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.List;
 
 public class JwtResponse {
     private Long idAccount;

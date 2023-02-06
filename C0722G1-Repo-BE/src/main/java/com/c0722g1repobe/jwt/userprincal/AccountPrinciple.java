@@ -2,7 +2,10 @@ package com.c0722g1repobe.jwt.userprincal;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
+import com.c0722g1repobe.jwt.jwt.JwtTokenFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,7 +52,6 @@ public class AccountPrinciple implements UserDetails {
     }
 
     public static AccountPrinciple build(Account account) {
-        System.out.println(account.getRoles());
         List<GrantedAuthority> authorities = account.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
         return new AccountPrinciple(
                 account.getIdAccount(),
