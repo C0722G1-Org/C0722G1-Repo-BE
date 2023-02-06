@@ -28,6 +28,13 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             " join `account` on customer.account_id_account = `account`.id_account" +
             " where demand_type.name_demand_type like %:nameDemandTypeSearch% and `account`.id_account = :idAccount", nativeQuery = true)
     Page<Post> getAllAndSearchWithRoleCustomer(@Param("nameDemandTypeSearch") String nameDemandTypeSearch, @Param("idAccount") String idAccount, Pageable pageable);
+    /**
+     * Created by: UyDD
+     * Date Created: 31/01/2023
+     *
+     * @param pageable
+     * @return list post customer from database
+     */
     @Query(value = "select * from `post`" +
             " join `direction` on post.direction_id_direction = `direction`.id_direction" +
             " join status_post on post.status_post_id_status_post = status_post.id_status_post" +

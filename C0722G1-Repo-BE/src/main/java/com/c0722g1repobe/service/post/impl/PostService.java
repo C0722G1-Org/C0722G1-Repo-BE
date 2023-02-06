@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostService implements IPostService {
     @Autowired
-    IPostRepository iPostRepository;
+    IPostRepository PostRepository;
 
     /**
      * Created by: UyDD
@@ -23,7 +23,7 @@ public class PostService implements IPostService {
 
     @Override
     public Page<Post> getAllAndSearchWithRoleAdmin(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
-        return iPostRepository.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
+        return PostRepository.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
     }
 
     /**
@@ -35,6 +35,6 @@ public class PostService implements IPostService {
      */
     @Override
     public Page<Post> getAllAndSearchWithRoleCustomer(String nameDemandTypeSearch, String idAccount, Pageable pageable) {
-        return iPostRepository.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
+        return PostRepository.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
     }
 }
