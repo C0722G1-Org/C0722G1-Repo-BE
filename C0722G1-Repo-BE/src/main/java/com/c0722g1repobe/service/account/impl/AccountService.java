@@ -28,27 +28,18 @@ public class AccountService implements IAccountService {
     /**
      * Create by: VanNTC
      * Date created: 31/01/2023
-     * Function: find account by id
+     * Function:update account
      *
-     * @param idAccount
+     * @param
      */
     @Override
     public Account findByIdAccount(Long idAccount) {
         return accountRepository.findByIdAccount(idAccount);
     }
 
-    /**
-     * Create by: VanNTC
-     * Date created: 31/01/2023
-     * Function:update account
-     *
-     * @param account
-     */
     @Override
     public void updatePassword(Account account) {
-        Long idAccount = account.getIdAccount();
-        String encryptPassword = account.getEncryptPassword();
-        accountRepository.updatePassword(idAccount, encryptPassword);
+        accountRepository.updatePassword(account.getName(),account.getUsernameAccount(),account.getEmail(), account.getEncryptPassword(),account.getIdAccount());
     }
 
     /**
@@ -85,5 +76,15 @@ public class AccountService implements IAccountService {
     @Override
     public Boolean existsByEmail(String email) {
         return accountRepository.existsByEmail(email);
+    }
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    @Override
+    public Account save(Account account) {
+        return accountRepository.save(account);
     }
 }

@@ -2,6 +2,8 @@ package com.c0722g1repobe.dto.post.create_post;
 
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @Setter
 @AllArgsConstructor
@@ -18,5 +20,5 @@ public class CreatePostDto {
     private Double price;
     private Double area;
     private String note;
-    private String imageListURL;
+    private String[] imageListURL;
 }

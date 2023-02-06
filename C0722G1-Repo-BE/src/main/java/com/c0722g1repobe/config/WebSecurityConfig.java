@@ -33,10 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtTokenFilter();
     }
 
-    @Autowired
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(accountDetailService).passwordEncoder(passwordEncoder());
-    }
+//    @Autowired
+//    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+//        authenticationManagerBuilder.userDetailsService(accountDetailService).passwordEncoder(passwordEncoder());
+//    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/public/**")
                 .permitAll()
-//                .antMatchers("/api/customer/**").hasAnyRole("CUSTOMER","EMPLOYEE","ADMIN")
+//                .antMatchers("/api/customer/**","/api/post/**").hasAnyRole("CUSTOMER","EMPLOYEE","ADMIN")
 //                .antMatchers("/api/employees/**").hasAnyRole("EMPLOYEE","ADMIN")
                 .anyRequest()
                 .authenticated()

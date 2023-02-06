@@ -10,4 +10,5 @@ public interface IWardsService {
     List<Wards> findNameWardsAndIdWardsQuery();
 
     String findNameByIdNativeQuery(Long idWards);
+    List<Wards> findListWards(Long idDistrict);
 }

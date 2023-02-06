@@ -12,13 +12,26 @@ import org.springframework.stereotype.Service;
 public class DataFormService implements IDataFormService {
     @Autowired
     private IDataFormRepository iDataFormRepository;
-    /*Call method Page<DataForm>searchByContent(); of IDataFormRepository
-  Parameter: contentDataForm,pageable
-  Author: KhanhLB */
+    /**
+     * Create by: KhanhLB
+     * Date created: 31/01/2023
+     * Function: show list dataForm
+     *
+     * @param contentDataForm,pageable
+     * @return json list dataForm
+     */
     @Override
     public Page<DataForm> searchByContent(String contentDataForm, Pageable pageable) {
         return iDataFormRepository.searchByContent(contentDataForm,pageable);
     }
+    /**
+     * Create by: KhanhLB
+     * Date created: 31/01/2023
+     * Function: save dataForm
+     *
+     * @param contentDataForm,urlDataForm
+     * @return json list dataForm
+     */
     @Override
     public void saveDataForm(String contentDataForm, String urlDataForm) {
         iDataFormRepository.saveDataForm(contentDataForm,urlDataForm);
