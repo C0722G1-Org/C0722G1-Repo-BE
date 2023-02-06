@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -136,5 +138,35 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      */
     @Query(value = "select * from customer where id_customer = :id", nativeQuery = true)
     Optional<Customer> findByIdCustomer(Long id);
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    @Modifying
+    @Query(value = "update account set encrypt_password = :password,email = :email,name = :name where username_account = :accountname and flag_deleted =0", nativeQuery = true)
+    void setPassword(@Param("accountname") String accountname, @Param("password") String password, @Param("name") String name, @Param("email") String email);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "call sign_up(:#{#c.account.usernameAccount},:#{#c.account.encryptPassword},:#{#c.nameCustomer} ,:#{#c.dateOfBirthCustomer},:#{#c.genderCustomer},:#{#c.idCardCustomer}," +
+            ":#{#c.emailCustomer},:#{#c.addressCustomer}:#{#c.phoneCustomer1}:#{#c.phoneCustomer2})", nativeQuery = true)
+    void saveCustomer(@Param("c") Customer customer);
+
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+
+    @Query(value = "SELECT\n" +
+            " a.email,\n" +
+            " a.username_account\n" +
+            "FROM \n" +
+            "account as a where a.flag_delete=false", nativeQuery = true)
+    List<String> findAllCheckMailCustomerAnhNameAccount();
+
 
 }
