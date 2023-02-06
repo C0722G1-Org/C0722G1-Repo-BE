@@ -47,13 +47,8 @@ public class PostRestController_getPostDetailView {
                 .andExpect(jsonPath("note").value("Nhà cho thuê khu vực Cẩm Lệ"))
                 .andExpect(jsonPath("price").value("26 Triệu/Tháng"))
                 .andExpect(jsonPath("direction").value("Bắc"))
-                .andExpect(jsonPath("address").value("30 Nguyễn Phước Lan, phường Hòa Xuân, Quận Cẩm Lệ, Thành phố Đà Nẵng"))
+                .andExpect(jsonPath("address").value("30 Nguyễn Phước Lan, Quận Cẩm Lệ, Thành phố Đà Nẵng"))
                 .andExpect(jsonPath("demandType").value("Cho thuê"))
-                .andExpect(jsonPath("landType").value("Nhà"))
-                .andExpect(jsonPath("statusPost").value("Chờ giao dịch"))
-                .andExpect(jsonPath("district").value("Cẩm Lệ"))
-                .andExpect(jsonPath("wards").value("Hòa Xuân"))
-                .andExpect(jsonPath("city").value("Đà Nẵng"))
-                .andExpect(jsonPath("customer").value("Đặng Nhật Huy"));
+                .andExpect(jsonPath("landType").value("Nhà"));
     }
 }

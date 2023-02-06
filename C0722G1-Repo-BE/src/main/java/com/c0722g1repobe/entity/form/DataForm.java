@@ -18,5 +18,6 @@ public class DataForm {
     private Long idDataForm;
     private String contentDataForm;
     private boolean flagDelete = false;
+    @Column(length = 100000000)
     private String urlDataForm;
 }

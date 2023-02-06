@@ -1,5 +1,10 @@
+
+
 package com.c0722g1repobe.service.post.impl;
 
+
+import com.c0722g1repobe.dto.post.PostDetailDto;
+import com.c0722g1repobe.dto.post.PostDto;
 import com.c0722g1repobe.dto.post.PostDtoViewList;
 import com.c0722g1repobe.dto.post.PostListViewDto;
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
@@ -7,6 +12,7 @@ import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.entity.post.*;
 import com.c0722g1repobe.repository.post.IAddressRepository;
+import com.c0722g1repobe.repository.post.IImageRepository;
 import com.c0722g1repobe.repository.post.IPostRepository;
 import com.c0722g1repobe.service.post.IPostService;
 import com.c0722g1repobe.validation.post.IValidateCreatePost;
@@ -29,39 +35,35 @@ public class PostService implements IPostService {
     @Autowired
     private IPostRepository postRepository;
 
-    /*Call method getAll() of IPostRepository
-     * Author: DatTQ*/
+    @Autowired
+    private IImageRepository imageRepository;
+    /**
+     * Call method getAll() of IPostRepository
+     * Author: DatTQ
+     */
     @Override
     public List<PostDtoViewList> getAll() {
         return postRepository.getAll();
     }
 
-    /*Call method searchYear(String year) of IPostRepository
-      Parameter: String year
-      Author: DatTQ */
+    /**
+     * Call method searchYear(String year) of IPostRepository
+     * Parameter: String year
+     * Author: DatTQ
+     */
     @Override
     public List<PostDtoViewList> searchYear(String year) {
         return postRepository.searchYear(year);
     }
 
-    /*Call method searchYear(String year, String month) of IPostRepository
-     Parameter: String year, String month
-     Author: DatTQ */
+    /**
+     * Call method searchYear(String year, String month) of IPostRepository
+     * Parameter: String year, String month
+     * Author: DatTQ
+     */
     @Override
     public List<PostDtoViewList> searchYearAndMonth(String year, String month) {
         return postRepository.searchYearAndMonth(year, month);
-    }
-
-    /**
-     * Create by: BaoDP
-     * Date Create: 01/02/2023
-     * Description: call method validateCreatePost from class ValidateCreatePost.
-     *
-     * @param createPostDto : an object of class CreatePostDto
-     * @return an object of class BaseResponseCreatePost
-     */
-    private BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto) {
-        return validateCreatePost.validateCreatePost(createPostDto);
     }
 
     /**
@@ -90,7 +92,6 @@ public class PostService implements IPostService {
                 .address(Address.builder().idAddress(idAddress).build())
                 .demandType(DemandType.builder().idDemandType(createPostDto.getIdDemand()).build())
                 .direction(Direction.builder().idDirection(createPostDto.getIdDirection()).build())
-                .imageListURL(createPostDto.getImageListURL())
                 .landType(LandType.builder().idLandType(createPostDto.getIdLandType()).build())
                 .statusPost(StatusPost.builder().idStatusPost(defaultIdStatus).build())
                 .customer(Customer.builder().idCustomer(createPostDto.getIdCustomer()).build())
@@ -104,8 +105,20 @@ public class PostService implements IPostService {
      *
      * @param post : an object of class PostDto
      */
-    private void savePost(Post post) {
-        postRepository.savePost(post);
+    private Long savePost(Post post) {
+        return postRepository.savePost(post);
+    }
+
+    /**
+     * Create by: BaoDP
+     * Date Create: 01/02/2023
+     * Description: call method validateCreatePost from class ValidateCreatePost.
+     *
+     * @param createPostDto : an object of class CreatePostDto
+     * @return an object of class BaseResponseCreatePost
+     */
+    private BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto) {
+        return validateCreatePost.validateCreatePost(createPostDto);
     }
 
     /**
@@ -124,7 +137,11 @@ public class PostService implements IPostService {
         boolean validCreatePostDto = baseResponseCreatePost.getCode() == validCode;
         if (validCreatePostDto) {
             Post post = addDefaultValue(createPostDto);
-            savePost(post);
+            Long idPost = savePost(post);
+            String[] imageListURL = createPostDto.getImageListURL();
+            for (String image : imageListURL) {
+                imageRepository.saveImage(image, idPost);
+            }
             // gửi notification ở đoạn này
         }
 
@@ -136,11 +153,11 @@ public class PostService implements IPostService {
      * Date Created: 31/01/2023
      *
      * @param pageable
-     * @return page post from post repository
+     * @return page post customer from post repository
      */
     @Override
-    public Page<Post> findAllPostByUserNameAccount(Pageable pageable, String userNameAccount) {
-        return postRepository.findAllPostByUserNameAccount(pageable, userNameAccount);
+    public Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
+        return postRepository.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
     }
 
     /**
@@ -150,47 +167,100 @@ public class PostService implements IPostService {
      *
      * @param area
      * @param price
-     * @param demandType
+     * @param landType
      * @param direction
      * @param city
      * @param pageable
      * @return an Page<PostListViewDto> or null if not found
      */
     @Override
-    public Page<PostListViewDto> findAll(String area, String price, String demandType, String direction, String
+    public Page<PostListViewDto> findAll(String area, String price, String landType, String direction, String
             city, Pageable pageable) {
         if (area.equals("") && price.equals("")) {
-            return postRepository.findAllWithDemandTypeDirectionCity(demandType, direction, city, pageable);
+            return postRepository.findAllWithDemandTypeDirectionCity(landType, direction, city, pageable);
         }
         if (!area.equals("") && price.equals("")) {
             String[] arr = area.split("-");
             if (arr.length == 2) {
-                Double areaMin = Double.parseDouble(arr[0]);
-                Double areaMax = Double.parseDouble(arr[1]);
-                return postRepository.findAllWithDemandTypeDirectionCityArea(demandType, direction, city, areaMin, areaMax, pageable);
+                try {
+                    Double areaMin = Double.parseDouble(arr[0]);
+                    Double areaMax = Double.parseDouble(arr[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityArea(landType, direction, city, areaMin, areaMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
             }
         }
         if (area.equals("") && !price.equals("")) {
             String[] arr = price.split("-");
             if (arr.length == 2) {
-                Double priceMin = Double.parseDouble(arr[0]);
-                Double priceMax = Double.parseDouble(arr[1]);
-                return postRepository.findAllWithDemandTypeDirectionCityPrice(demandType, direction, city, priceMin, priceMax, pageable);
+                try {
+                    Double priceMin = Double.parseDouble(arr[0]);
+                    Double priceMax = Double.parseDouble(arr[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityPrice(landType, direction, city, priceMin, priceMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
             }
         }
         if (!area.equals("") && !price.equals("")) {
             String[] arrOfArea = area.split("-");
             String[] arrOfPrice = price.split("-");
             if (arrOfArea.length == 2 && arrOfPrice.length == 2) {
-                Double areaMin = Double.parseDouble(arrOfArea[0]);
-                Double areaMax = Double.parseDouble(arrOfArea[1]);
-                Double priceMin = Double.parseDouble(arrOfPrice[0]);
-                Double priceMax = Double.parseDouble(arrOfPrice[1]);
-                return postRepository.findAllWithDemandTypeDirectionCityAreaPrice(demandType, direction, city, areaMin, areaMax, priceMin, priceMax, pageable);
+                try {
+                    Double areaMin = Double.parseDouble(arrOfArea[0]);
+                    Double areaMax = Double.parseDouble(arrOfArea[1]);
+                    Double priceMin = Double.parseDouble(arrOfPrice[0]);
+                    Double priceMax = Double.parseDouble(arrOfPrice[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityAreaPrice(landType, direction, city, areaMin, areaMax, priceMin, priceMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
             }
         }
+        postRepository.findAll();
         return null;
     }
+
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: delete post .
+     *
+     * @param idPost
+     * @return delete post or null if not found
+     */
+    @Override
+    public void deletePost(Long idPost) {
+        postRepository.deletePost(idPost);
+    }
+
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: find post .
+     *
+     * @param id
+     * @return post or null if not found
+     */
+    @Override
+    public Post findPost(Long id) {
+        return postRepository.findPost(id);
+    }
+
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: find list post .
+     *
+     * @param pageable
+     * @return list post or null if not found
+     */
+    @Override
+    public Page<PostDto> findAllPost(Pageable pageable) {
+        return postRepository.findAllPost(pageable);
+    }
+
 
     /**
      * Method uses:
@@ -204,8 +274,55 @@ public class PostService implements IPostService {
      * @return a Post object that can be showed on Post detail screen
      */
     @Override
-    public Post findPostById(Long id) {
+    public PostDetailDto findPostById(Long id) {
         return postRepository.findPostById(id);
     }
 
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: approval post .
+     *
+     * @param id
+     * @return approval post  or null if not found
+     */
+    @Override
+    public void approvalPost(Long id) {
+        postRepository.approvalPost(id);
+    }
+
+    /**
+     * Create by: NgocLV
+     * Date Create: 01/02/2023
+     * Description: approval post .
+     *
+     * @param demandTypeSearch
+     * @param lendTypeSearch
+     * @param minPriceSearch
+     * @param maxPriceSearch
+     * @param citySearch
+     * @param districtSearch
+     * @param wardsSearch
+     * @return list post  or null if not found
+     */
+    @Override
+    public Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Double minPriceSearch, Double maxPriceSearch, String citySearch, String districtSearch, String wardsSearch, Pageable pageable) {
+        return postRepository.searchAllPost(demandTypeSearch, lendTypeSearch, minPriceSearch, maxPriceSearch, citySearch, districtSearch, wardsSearch, pageable);
+    }
+
+    /**
+     * Method uses:
+     * Set post's status to succeed when post's owner click on transaction succeed confirmation button
+     * Created by: HuyDN
+     * Created date: 04/02/2023
+     * Catching NullPointerException
+     *
+     * @param id: a Post' id
+     * @return HttpStatus
+     */
+    @Override
+    public void succeedConfirm(Long id) {
+        postRepository.succeedConfirm(id);
+    }
 }
+

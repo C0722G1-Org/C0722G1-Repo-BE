@@ -2,6 +2,9 @@ package com.c0722g1repobe.controller.employee;
 
 
 import com.c0722g1repobe.dto.employee.EmployeeInfo;
+
+import com.c0722g1repobe.entity.account.Account;
+import com.c0722g1repobe.entity.account.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,11 +15,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+
 
 @RestController
 @RequestMapping("/api/employees")
@@ -24,6 +32,9 @@ import java.util.Optional;
 public class EmployeeController {
     @Autowired
     private IEmployeeService employeeService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Create by: NhanUQ
@@ -74,8 +85,12 @@ public class EmployeeController {
         if (!employee.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        employeeService.deleteEmployee(employee.get().getIdEmployee());
-        return new ResponseEntity<>(HttpStatus.OK);
+        boolean flagDelete = employeeService.isDeleteEmployee(employee.get().getIdEmployee());
+        if (flagDelete) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
@@ -94,6 +109,19 @@ public class EmployeeController {
         }
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
+        Account account = new Account();
+        account.setName(employee.getNameEmployee());
+        account.setUsernameAccount(employee.getAccount().getUsernameAccount());
+//        account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));
+        account.setEmail(employee.getEmailEmployee());
+        Set<Role> roles = new HashSet<>();
+        Role role = new Role();
+        Role employeeRole = employeeService.getRoleByName(role.getName());
+//                .orElseThrow(() -> new RuntimeException("Role not found"));
+        roles.add(employeeRole);
+        account.setRoles(roles);
+        employeeService.saveAccount(account);
+        employee.setAccount(account);
         employeeService.saveEmployee(employee);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -121,5 +149,21 @@ public class EmployeeController {
         BeanUtils.copyProperties(employeeDto, employee);
         employeeService.updateEmployee(employee, id);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    /**
+     * Create by: LongPT
+     * Crated date: 31/01/2023
+     * Function: get employee by id
+     *
+     * @param id
+     */
+    @GetMapping("{id}")
+    public ResponseEntity<Employee> findId(@PathVariable("id") Long id) {
+        Optional<Employee> employee = employeeService.findById(id);
+        if (!employee.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employee.get(), HttpStatus.OK);
     }
 }
