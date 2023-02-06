@@ -5,18 +5,17 @@ import com.c0722g1repobe.repository.form.IDataFormRepository;
 import com.c0722g1repobe.service.form.IDataFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class DataFormService implements IDataFormService {
+    @Override
+    public Page<DataForm> searchByContent(String contentDataForm, Pageable pageable) {
+        return iDataFormRepository.searchByContent(contentDataForm,pageable);
+    }
     @Autowired
     private IDataFormRepository iDataFormRepository;
-
-    @Override
-    public List<DataForm> findAllDataForm() {
-        return iDataFormRepository.findAllDataForm();
-    }
 
     @Override
     public void deleteByIdDataForm(long id) {
@@ -31,7 +30,7 @@ public class DataFormService implements IDataFormService {
 
     @Override
     public void updateDataForm(DataForm dataForm) {
-        iDataFormRepository.updateDataForm(dataForm.getCodeDataForm(), dataForm.getContentDataForm(), dataForm.getDetailForm().getUrlDetailForm(), dataForm.getIdDataForm());
+        iDataFormRepository.updateDataForm( dataForm.getContentDataForm(), dataForm.getUrlDataForm(), dataForm.getIdDataForm());
     }
 
 
