@@ -58,7 +58,7 @@ public class NotificationRestController_findListNotificationByListId {
      */
     @Test
     public void findListNotificationByListId_31() throws Exception {
-        List<Integer> listIds = Arrays.asList(20, 21);
+        List<Long> listIds = Arrays.asList(20L, 21L);
         ResponseEntity<List<NotificationDeleteDto>> responseEntity
                 = this.notificationRestController.findByListId(listIds);
         Assertions.assertEquals(204, responseEntity.getStatusCodeValue());
@@ -73,7 +73,7 @@ public class NotificationRestController_findListNotificationByListId {
      */
     @Test
     public void findListNotificationByListId_32() throws Exception {
-        List<Integer> listIds = Arrays.asList(1, 2);
+        List<Long> listIds = Arrays.asList(1L, 2L);
         ResponseEntity<List<NotificationDeleteDto>> responseEntity
                 = this.notificationRestController.findByListId(listIds);
         Assertions.assertEquals(200, responseEntity.getStatusCodeValue());

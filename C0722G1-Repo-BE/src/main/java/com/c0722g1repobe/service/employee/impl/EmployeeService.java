@@ -70,10 +70,16 @@ public class EmployeeService implements IEmployeeService {
      * Function: delete employee
      *
      * @param id
+     * @return true if delete success or false if id not exist
      */
     @Override
-    public void deleteEmployee(Long id) {
+    public boolean isDeleteEmployee(Long id) {
+        Optional<Employee> employee = employeeRepository.getByIdEmployee(id);
+        if (!employee.isPresent()) {
+            return false;
+        }
         employeeRepository.deleteEmployee(id);
+        return true;
     }
 
     /**
@@ -97,16 +103,7 @@ public class EmployeeService implements IEmployeeService {
      */
     @Override
     public void saveEmployee(Employee employee) {
-        employeeRepository.saveEmployee(
-                employee.getCodeEmployee(),
-                employee.getNameEmployee(),
-                employee.getEmailEmployee(),
-                employee.getDateOfBirth(),
-                employee.isGenderEmployee(),
-                employee.getPhoneEmployee(),
-                employee.getAddressEmployee(),
-                employeeRepository.getIdAccount(employee.getAccount().getUsernameAccount()),
-                employee.getDivision());
+        employeeRepository.saveEmployee(employee);
     }
 
     /**
@@ -119,15 +116,7 @@ public class EmployeeService implements IEmployeeService {
      */
     @Override
     public void updateEmployee(Employee employee, Long id) {
-        employeeRepository.updateEmployee(
-                id,
-                employee.getNameEmployee(),
-                employee.getEmailEmployee(),
-                employee.isGenderEmployee(),
-                employee.getPhoneEmployee(),
-                employee.getAddressEmployee(),
-                employee.getDateOfBirth(),
-                employee.getDivision());
+        employeeRepository.updateEmployee(id, employee);
 
     }
     /**

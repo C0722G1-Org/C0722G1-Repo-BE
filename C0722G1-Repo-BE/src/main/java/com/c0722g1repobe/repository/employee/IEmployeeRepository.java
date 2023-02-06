@@ -155,26 +155,18 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " account_id_account," +
             " division_id_division) " +
             "VALUES" +
-            " (:codeEmployee," +
-            " :nameEmployee," +
-            " :emailEmployee," +
-            " :dateOfBirth" +
-            " :genderEmployee," +
-            " :phoneEmployee," +
-            " :addressEmployee," +
-            " :idAccount," +
-            " :idDivision)",
+            " (:#{#employee.codeEmployee}," +
+            " :#{#employee.nameEmployee}," +
+            " :#{#employee.emailEmployee}," +
+            " :#{#employee.dateOfBirth}" +
+            " :#{#employee.genderEmployee}," +
+            " :#{#employee.phoneEmployee}," +
+            " :#{#employee.addressEmployee}," +
+            " :#{#employee.idAccount}," +
+            " :#{#employee.idDivision})",
             nativeQuery = true)
     void saveEmployee(
-            @Param("codeEmployee") String codeEmployee,
-            @Param("nameEmployee") String nameEmployee,
-            @Param("emailEmployee") String emailEmployee,
-            @Param("dateOfBirth") String dateOfBirth,
-            @Param("genderEmployee") boolean genderEmployee,
-            @Param("phoneEmployee") String phoneEmployee,
-            @Param("addressEmployee") String addressEmployee,
-            @Param("idAccount") Account account,
-            @Param("idDivision") Division division
+            @Param("employee") Employee employee
     );
 
     /**
@@ -194,24 +186,18 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     @Modifying
     @Query(value = "UPDATE employee" +
             " SET " +
-            " name_employee = :nameEmployee," +
-            " email_employee = :emailEmployee," +
-            " gender_employee = :genderEmployee," +
-            " phone_employee = :phoneEmployee," +
-            " address_employee = :addressEmployee, " +
-            " date_of_birth = :dateOfBirth," +
-            " division_id_division = :idDivision" +
+            " name_employee = :#{#employee.nameEmployee}," +
+            " email_employee = :#{#employee.emailEmployee}," +
+            " gender_employee = :#{#employee.genderEmployee}," +
+            " phone_employee = :#{#employee.phoneEmployee}," +
+            " address_employee = :#{#employee.addressEmployee}, " +
+            " date_of_birth = :#{#employee.dateOfBirth}," +
+            " division_id_division = :#{#employee.idDivision}" +
             " WHERE id_employee= :id",
             nativeQuery = true)
     void updateEmployee(
             @Param("id") Long id,
-            @Param("nameEmployee") String nameEmployee,
-            @Param("emailEmployee") String emailEmployee,
-            @Param("genderEmployee") boolean genderEmployee,
-            @Param("phoneEmployee") String phoneEmployee,
-            @Param("addressEmployee") String addressEmployee,
-            @Param("dateOfBirth") String dateOfBirth,
-            @Param("idDivision") Division division
+            @Param("employee") Employee employee
     );
 
     /**
@@ -247,6 +233,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      *
      * @param name
      */
-    @Query(value = "select * from role where role.name = :name")
+    @Query(value = "select * from role where role.name = :name", nativeQuery = true)
     Role getRoleByName(@Param("name") RoleName name);
 }
