@@ -6,6 +6,8 @@ import com.c0722g1repobe.dto.notification.NotificationSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
+import java.util.Optional;
+
 import com.c0722g1repobe.entity.notification.Notification;
 
 public interface INotificationService {
@@ -55,7 +57,7 @@ public interface INotificationService {
      *
      * @return notification
      */
-    void createUser(Notification notification);
+    void createNotification(Notification notification);
 
     /**
      * Create by: AnhTDQ
@@ -66,5 +68,5 @@ public interface INotificationService {
      * @return notification
      */
 
-    Notification findNotificationById(long id);
+    Optional<Notification> findNotificationById(Long id);
 }

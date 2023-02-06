@@ -3,9 +3,14 @@ package com.c0722g1repobe.dto.post;
 import java.time.LocalDate;
 
 public interface PostDetailDto {
+
+    Long getIdPost();
+
     String getNamePost();
 
     String getNote();
+
+    Double getArea();
 
     Double getPrice();
 
@@ -30,5 +35,13 @@ public interface PostDetailDto {
     String getNameCustomer();
 
     String getEmailCustomer();
+
+    String getPhoneCustomer1();
+
+    int getGenderCustomer();
+
+    Long getIdCustomer();
+
+    Long getIdDemandType();
 
 }

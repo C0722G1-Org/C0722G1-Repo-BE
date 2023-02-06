@@ -90,6 +90,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * @return a Post object that can be showed on Post detail screen
      */
     @Query(value = "select post.name_post               namePost,\n" +
+            "       post.id_post,\n" +
             "       post.area,\n" +
             "       post.note,\n" +
             "       post.price,\n" +
@@ -97,13 +98,17 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       direction.name_direction     nameDirection,\n" +
             "       status_post.name_status_post nameStatusPost,\n" +
             "       address.number_address       numberAddress,\n" +
+            "       demand_type.id_demand_type idDemandType,\n" +
             "       demand_type.name_demand_type nameDemandType,\n" +
-            "       land_type.name_land_type           nameLandType,\n" +
+            "       land_type.name_land_type     nameLandType,\n" +
             "       wards.name_wards             nameWards,\n" +
             "       district.name_district       nameDistrict,\n" +
             "       city.name_city               nameCity,\n" +
+            "       customer.id_customer       idCustomer,\n" +
             "       customer.name_customer       nameCustomer,\n" +
-            "       customer.email_customer      emailCustomer\n" +
+            "       customer.email_customer      emailCustomer,\n" +
+            "       customer.gender_customer     genderCustomer,\n" +
+            "       customer.phone_customer1     phoneCustomer1\n" +
             "from post\n" +
             "         join direction on post.direction_id_direction = direction.id_direction\n" +
             "         join status_post on post.status_post_id_status_post = status_post.id_status_post\n" +
@@ -119,6 +124,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "  and post.approval = true"
             , nativeQuery = true,
             countQuery = "select post.name_post               namePost,\n" +
+                    "       post.id_post,\n" +
                     "       post.area,\n" +
                     "       post.note,\n" +
                     "       post.price,\n" +
@@ -126,13 +132,17 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       direction.name_direction     nameDirection,\n" +
                     "       status_post.name_status_post nameStatusPost,\n" +
                     "       address.number_address       numberAddress,\n" +
+                    "       demand_type.id_demand_type idDemandType,\n" +
                     "       demand_type.name_demand_type nameDemandType,\n" +
                     "       land_type.name_land_type           nameLandType,\n" +
                     "       wards.name_wards             nameWards,\n" +
                     "       district.name_district       nameDistrict,\n" +
                     "       city.name_city               nameCity,\n" +
+                    "       customer.id_customer       idCustomer,\n" +
                     "       customer.name_customer       nameCustomer,\n" +
-                    "       customer.email_customer      emailCustomer\n" +
+                    "       customer.email_customer      emailCustomer,\n" +
+                    "       customer.gender_customer     genderCustomer,\n" +
+                    "       customer.phone_customer1     phoneCustomer1\n" +
                     "from post\n" +
                     "         join direction on post.direction_id_direction = direction.id_direction\n" +
                     "         join status_post on post.status_post_id_status_post = status_post.id_status_post\n" +

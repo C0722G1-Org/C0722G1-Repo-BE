@@ -12,7 +12,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -72,10 +75,10 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
     @Modifying
     @Query(value = "insert into notification (title,posting_date,content,flag_delete)" +
             " value ( :title , :posting_date , :content, :flag_delete )", nativeQuery = true)
-    void saveNotification(@Param("title") String title,
-                          @Param("posting_date") String posting_date,
-                          @Param("content") String content,
-                          @Param("flag_delete") Boolean flag_delete);
+    void createNotification(@Param("title") String title,
+                            @Param("posting_date") LocalDate posting_date,
+                            @Param("content") String content,
+                            @Param("flag_delete") Boolean flag_delete);
 
 
     /**
@@ -83,16 +86,29 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
      * Date created: 31/01/2023
      * Function: update Notification
      *
-     * @param   title,  posting_date,  content,  flag_delete , id_notification
+     * @param title, posting_date,  content,  flag_delete , id_notification
      * @return Optional<Notification>
      */
 
     @Modifying
-    @Query(value = "update notification set title = :title ,posting_date = :posting_date , content = :content , flag_delete = :flag_delete " +
-            " where  (id_notification = :id )", nativeQuery = true)
-    void updateNotification(@Param("title") String title ,
-                            @Param("posting_date") String posting_date ,
-                            @Param("content") String content ,
-                            @Param("flag_delete") Boolean flag_delete);
+    @Query(value = "update notification set title = ?1 ,posting_date = ?2 , content = ?3 , flag_delete = ?4 " +
+            " where  (id_notification = ?7 )", nativeQuery = true)
+    void updateNotification( String title,
+                             LocalDate posting_date,
+                             String content,
+                             Boolean flag_delete,
+                             Long id);
+
+    /**
+     * Create by: AnhTDQ
+     * Date created: 31/01/2023
+     * Function: find notification by id
+     *
+     * @param    id
+     * @return Optional<Notification>
+     */
+    @Modifying
+    @Query(value = " select * from notification where id_notification = :id ", nativeQuery = true)
+    Optional<Notification> findNotificationByIdById(@Param("id") Long id);
 
 }

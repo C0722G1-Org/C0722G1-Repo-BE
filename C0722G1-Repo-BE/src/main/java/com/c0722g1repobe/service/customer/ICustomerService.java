@@ -88,7 +88,7 @@ public interface ICustomerService {
     String ramdomCodeCustomer();
     void saveCustomer(Customer customer);
 
-    List<String> findAllCheckMailCustomerAnhNameAccount();
+    List<Customer> findAllCheckMailCustomerAnhNameAccount();
 
 
 }

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NotificationService implements INotificationService {
@@ -58,18 +59,38 @@ public class NotificationService implements INotificationService {
         notificationRepository.removeByListId(idList);
     }
 
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to update notification
+     *
+     * @return notification
+     */
     @Override
     public void updateNotification(Notification notification) {
-
+        notificationRepository.save(notification);
     }
-
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to create notification
+     *
+     * @return notification
+     */
     @Override
-    public void createUser(Notification notification) {
-
+    public void createNotification(Notification notification) {
+        notificationRepository.save(notification);
     }
 
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to find notification by id
+     *
+     * @return notification
+     */
     @Override
-    public Notification findNotificationById(long id) {
-        return null;
-    }
+    public Optional<Notification> findNotificationById(Long id) {
+        return notificationRepository.findById(id);
+}
 }

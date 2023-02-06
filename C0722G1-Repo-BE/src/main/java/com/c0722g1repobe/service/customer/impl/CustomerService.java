@@ -139,8 +139,8 @@ public class CustomerService implements ICustomerService {
      * method of using save customer
      */
     @Override
-    public List<String> findAllCheckMailCustomerAnhNameAccount() {
-        return customerRepository.findAllCheckMailCustomerAnhNameAccount();
+    public List<Customer> findAllCheckMailCustomerAnhNameAccount() {
+        return customerRepository.findAll();
     }
 
 }
