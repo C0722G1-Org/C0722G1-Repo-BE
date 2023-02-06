@@ -13,5 +13,6 @@ public interface IPostService {
      * @return page post customer
      */
 
-    Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idAccount, Pageable pageable);
+    Page<Post> getAllAndSearchWithRoleAdmin(String nameDemandTypeSearch, String idCustomer, Pageable pageable);
+    Page<Post> getAllAndSearchWithRoleCustomer(String nameDemandTypeSearch, String idAccount, Pageable pageable);
 }
