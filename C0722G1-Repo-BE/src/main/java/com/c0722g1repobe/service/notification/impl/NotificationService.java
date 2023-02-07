@@ -24,6 +24,7 @@ public class NotificationService implements INotificationService {
      * Create by: DatLA
      * Date created: 31/01/2023
      * Function: to get notification in page
+     *
      * @param notificationSearchDto
      * @param pageable
      * @return notifications list with pagination
@@ -40,7 +41,7 @@ public class NotificationService implements INotificationService {
      * Function: to find notifications list by list of ids
      *
      * @param idList
-     * @return notification list
+     * @return List<NotificationDeleteDto>
      */
     @Override
     public List<NotificationDeleteDto> findByListId(List<Long> idList) {
@@ -62,24 +63,25 @@ public class NotificationService implements INotificationService {
     /**
      * Create by: AnhTDQ
      * Date created: 01/02/2023
-     * Function: to update notification
+     * Function: to create notification
      *
-     * @return notification
+     * @param notification
      */
     @Override
-    public void updateNotification(Notification notification) {
-        notificationRepository.save(notification);
+    public void pushNotificationToDatabase(Notification notification) {
+        notificationRepository.pushNotificationToDatabase(notification);
     }
+
     /**
      * Create by: AnhTDQ
      * Date created: 01/02/2023
-     * Function: to create notification
+     * Function: to update notification
      *
-     * @return notification
+     * @param notification, id.
      */
     @Override
-    public void createNotification(Notification notification) {
-        notificationRepository.save(notification);
+    public void updateNotificationTo(Notification notification, Long id) {
+        notificationRepository.updateNotification(notification, id);
     }
 
     /**
@@ -87,10 +89,10 @@ public class NotificationService implements INotificationService {
      * Date created: 01/02/2023
      * Function: to find notification by id
      *
-     * @return notification
+     * @return Optional<Notification>
      */
     @Override
     public Optional<Notification> findNotificationById(Long id) {
-        return notificationRepository.findById(id);
-}
+        return notificationRepository.findNotificationById(id);
+    }
 }

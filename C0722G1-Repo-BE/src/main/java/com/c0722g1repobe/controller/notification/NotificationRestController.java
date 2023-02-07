@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class NotificationRestController {
     @PostMapping("/search")
     public ResponseEntity<Page<NotificationAllPropertyDto>> searchNotifications(@RequestBody NotificationSearchDto notificationSearchDto,
                                                                                 @PageableDefault(value = 5) Pageable pageable) {
-        if (notificationSearchDto == null) {
+        if (notificationSearchDto == null || ObjectUtils.isEmpty(notificationSearchDto)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Page<NotificationAllPropertyDto> notificationPage = notificationService.searchNotifications(notificationSearchDto, pageable);
@@ -47,6 +48,7 @@ public class NotificationRestController {
         }
         return new ResponseEntity<>(notificationPage, HttpStatus.OK);
     }
+
 
     /**
      * Create by: DatLA
@@ -105,30 +107,8 @@ public class NotificationRestController {
         notification.setPostingDate(notificationDto.getPostingDate());
         notification.setContent(notificationDto.getContent());
         notification.setFlagDelete(notificationDto.isFlagDelete());
-        notificationService.createNotification(notification);
+        notificationService.pushNotificationToDatabase(notification);
         return new ResponseEntity<>(notification, HttpStatus.CREATED);
-
-    }
-    /**
-     * Created by: AnhTDQ,
-     * Date created: 03/02/2023
-     * Function: update notification
-     */
-    @PatchMapping("/update/{id}")
-    public ResponseEntity<?> updateNotification(@Valid @RequestBody NotificationDto notificationDto, BindingResult bindingResult,
-                                                @PathVariable Long id) {
-
-        new NotificationDto().validate(notificationDto, bindingResult);
-        if (bindingResult.hasErrors()){
-            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.NOT_MODIFIED);
-        }
-        Notification notification = notificationService.findNotificationById(id).get();
-        notification.setIdNotification(id);
-        notification.setContent(notificationDto.getContent());
-        notification.setPostingDate(notificationDto.getPostingDate());
-        notification.setTitle(notificationDto.getTitle());
-        notificationService.updateNotification(notification);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -143,5 +123,21 @@ public class NotificationRestController {
             return new ResponseEntity<>(notification.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<?> updateNotification(@Valid @RequestBody NotificationDto notificationDto, BindingResult bindingResult,
+                                                @PathVariable Long id) {
+        new NotificationDto().validate(notificationDto, bindingResult);
+        if (bindingResult.hasErrors()){
+            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.NOT_MODIFIED);
+        }
+        Notification notification = notificationService.findNotificationById(id).get();
+        notification.setIdNotification(id);
+        notification.setContent(notificationDto.getContent());
+        notification.setPostingDate(notificationDto.getPostingDate());
+        notification.setTitle(notificationDto.getTitle());
+        notificationService.updateNotificationTo(notification, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
