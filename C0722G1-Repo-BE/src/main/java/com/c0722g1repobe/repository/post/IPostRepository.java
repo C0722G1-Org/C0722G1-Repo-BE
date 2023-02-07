@@ -166,11 +166,10 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             ":#{#post.direction.idDirection}," +
             ":#{#post.landType.idLandType}," +
             ":#{#post.customer.idCustomer}," +
-            ":#{#post.statusPost.idStatusPost});" +
-            "SELECT LAST_INSERT_ID()",
+            ":#{#post.statusPost.idStatusPost})",
             nativeQuery = true)
     @Transactional
-    Long savePost(@Param("post") Post post);
+    void savePost(@Param("post") Post post);
 
     /**
      * Create by : SangNP
@@ -578,4 +577,14 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
     @Query(value = "update post set post.status_post_id_status_post = 1 where post.id_post = :id", nativeQuery = true)
     @Transactional
     void succeedConfirm(@Param("id") Long id);
+
+    /**
+     * Create by: BaoDP
+     * Date created: 07/02/2023
+     * Description: get last id of post created
+     *
+     * @return last id of post created
+     */
+    @Query(value = "SELECT LAST_INSERT_ID()",nativeQuery = true)
+    Long getLastInsertId();
 }

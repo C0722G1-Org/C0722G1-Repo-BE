@@ -106,8 +106,8 @@ public class PostService implements IPostService {
      *
      * @param post : an object of class PostDto
      */
-    private Long savePost(Post post) {
-        return postRepository.savePost(post);
+    private void savePost(Post post) {
+         postRepository.savePost(post);
     }
 
     /**
@@ -138,12 +138,12 @@ public class PostService implements IPostService {
         boolean validCreatePostDto = baseResponseCreatePost.getCode() == validCode;
         if (validCreatePostDto) {
             Post post = addDefaultValue(createPostDto);
-            Long idPost = savePost(post);
+            savePost(post);
+            Long idPost = postRepository.getLastInsertId();
             String[] imageListURL = createPostDto.getImageListURL();
             for (String image : imageListURL) {
                 imageRepository.saveImage(image, idPost);
             }
-            // gửi notification ở đoạn này
         }
 
         return baseResponseCreatePost;

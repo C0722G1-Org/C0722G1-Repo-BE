@@ -126,7 +126,7 @@ public class PostRestController {
     @PostMapping("/create")
     public ResponseEntity<BaseResponseCreatePost> create(@RequestBody CreatePostDto createPostDto) {
         BaseResponseCreatePost baseResponseCreatePost = postService.getResponseCreatePost(createPostDto);
-        return new ResponseEntity<>(baseResponseCreatePost, HttpStatus.valueOf(baseResponseCreatePost.getCode()));
+        return new ResponseEntity<>(baseResponseCreatePost, HttpStatus.OK);
     }
 
     /**
