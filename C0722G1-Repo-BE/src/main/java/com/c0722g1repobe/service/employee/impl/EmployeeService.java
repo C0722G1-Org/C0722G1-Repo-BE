@@ -103,7 +103,8 @@ public class EmployeeService implements IEmployeeService {
      */
     @Override
     public void saveEmployee(Employee employee) {
-        employeeRepository.saveEmployee(employee);
+//        employeeRepository.saveEmployee(employee);
+        employeeRepository.save(employee);
     }
 
     /**

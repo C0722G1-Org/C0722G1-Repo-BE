@@ -24,7 +24,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      *
      * @param idCustomer
      */
-    @Query(value = "select * from customer where id_customer = :idCustomer ", nativeQuery = true)
+    @Query(value = "select * from customer where id_customer = :idCustomer and flag_delete = false ", nativeQuery = true)
     Customer findCustomer(@Param("idCustomer") Long idCustomer);
 
     /**

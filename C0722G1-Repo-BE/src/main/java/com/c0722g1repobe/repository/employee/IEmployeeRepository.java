@@ -198,7 +198,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      */
     @Query(value = "SELECT * " +
             " FROM employee" +
-            " WHERE id_employee = :id",
+            " WHERE flag_deleted = false and id_employee = :id",
             nativeQuery = true)
     Optional<Employee> getByIdEmployee(@Param("id") Long id);
 
