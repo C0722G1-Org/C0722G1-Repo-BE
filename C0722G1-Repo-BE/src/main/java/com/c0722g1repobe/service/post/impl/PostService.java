@@ -3,10 +3,7 @@
 package com.c0722g1repobe.service.post.impl;
 
 
-import com.c0722g1repobe.dto.post.PostDetailDto;
-import com.c0722g1repobe.dto.post.PostDto;
-import com.c0722g1repobe.dto.post.PostDtoViewList;
-import com.c0722g1repobe.dto.post.PostListViewDto;
+import com.c0722g1repobe.dto.post.*;
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.entity.customer.Customer;
@@ -147,6 +144,18 @@ public class PostService implements IPostService {
         }
 
         return baseResponseCreatePost;
+    }
+
+    /**
+     * Created by: BaoDP
+     * Date Created: 03/022023
+     *
+     * @param idAccount
+     * @return page post customer
+     */
+    @Override
+    public CustomerGetIdAndCodCustomer getIdCustomerAndCodeCustomer(Long idAccount) {
+        return postRepository.getIdCustomerAndCodeCustomer(idAccount);
     }
 
     /**

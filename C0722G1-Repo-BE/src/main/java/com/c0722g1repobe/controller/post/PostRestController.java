@@ -254,4 +254,17 @@ public class PostRestController {
         postService.succeedConfirm(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    /**
+     * Created by: BaoDP
+     * Date Created: 03/022023
+     *
+     * @param idAccount
+     * @return page post customer
+     */
+    @PostMapping("/customer/login")
+    public ResponseEntity<CustomerGetIdAndCodCustomer> getIdAndCodCustomer(@RequestBody Long idAccount) {
+        CustomerGetIdAndCodCustomer customerGetIdAndCodCustomer = postService.getIdCustomerAndCodeCustomer(idAccount);
+        return new ResponseEntity<>(customerGetIdAndCodCustomer,HttpStatus.OK);
+    }
+
 }

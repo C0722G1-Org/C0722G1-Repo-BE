@@ -1,17 +1,14 @@
 package com.c0722g1repobe.repository.post;
 
 
-import com.c0722g1repobe.dto.post.PostDetailDto;
+import com.c0722g1repobe.dto.post.*;
 import com.c0722g1repobe.entity.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.c0722g1repobe.dto.post.PostDtoViewList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import com.c0722g1repobe.dto.post.PostListViewDto;
-import com.c0722g1repobe.dto.post.PostDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +16,17 @@ import java.util.List;
 
 @Repository
 public interface IPostRepository extends JpaRepository<Post, Long> {
+
+    /**
+     * Created by: BaoDP
+     * Date Created: 03/022023
+     *
+     * @param idAccount
+     * @return page post customer
+     */
+    @Query(value = "select c.id_customer as idCustomer, c.code_customer as codeCustomer  from customer c where c.flag_delete = false and c.account_id_account= :idAccount", nativeQuery = true)
+    CustomerGetIdAndCodCustomer getIdCustomerAndCodeCustomer(@Param("idAccount") Long idAccount);
+
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
