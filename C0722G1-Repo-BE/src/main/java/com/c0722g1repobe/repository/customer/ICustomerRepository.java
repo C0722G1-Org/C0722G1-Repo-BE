@@ -24,7 +24,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      *
      * @param idCustomer
      */
-    @Query(value = "select * from customer where id_customer = :idCustomer ", nativeQuery = true)
+    @Query(value = "select * from customer where id_customer = :idCustomer and flag_delete = false ", nativeQuery = true)
     Customer findCustomer(@Param("idCustomer") Long idCustomer);
 
     /**
@@ -40,9 +40,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             "c.email_customer=?2, c.address_customer=?3,c.date_of_birth=?4, " +
             "c.id_card_customer=?5, c.gender_customer=?6, c.approval_customer=?7, " +
             "c.phone_customer1=?8, c.phone_customer2=?9 where id_customer =?10", nativeQuery = true)
-    void updateCustomer(String nameCustomer, String emailCustomer, String addressCustomer, String dateOfBirth,
-                        String idCardCustomer, Integer genderCustomer, int approvalCustomer, String phoneCustomer1,
-                        String phoneCustomer2, Long idCustomer);
+    void updateCustomer(String nameCustomer, String emailCustomer, String addressCustomer, String dateOfBirth, String idCardCustomer, Integer genderCustomer, int approvalCustomer, String phoneCustomer1, String phoneCustomer2, Long idCustomer);
 
 //    /**
 //     * Create by: HuyNV
@@ -100,6 +98,8 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 //                        @Param("dateOfBirth") String dateOfBirth,
 //                        @Param("flagDeleted") boolean flagDeleted,
 //                        @Param("approval") boolean approval,
+//                        @Param("idAccount")Account idAccount);
+
     /**
      * Create by: HocHH
      * Date created: 31/01/2023

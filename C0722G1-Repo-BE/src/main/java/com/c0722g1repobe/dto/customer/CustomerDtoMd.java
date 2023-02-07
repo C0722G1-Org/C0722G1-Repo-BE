@@ -1,11 +1,10 @@
 package com.c0722g1repobe.dto.customer;
 
+import com.c0722g1repobe.entity.account.Account;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
-public class CustomerDto implements Validator {
-
+public class CustomerDtoMd implements Validator {
     private Long idCustomer;
 
     private String nameCustomer;
@@ -36,36 +35,37 @@ public class CustomerDto implements Validator {
 
     private String nameAccount;
 
-    public String getNameAccount() {
-        return nameAccount;
+    private Account account;
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
     }
 
-    public void setNameAccount(String nameAccount) {
-        this.nameAccount = nameAccount;
+    @Override
+    public void validate(Object target, Errors errors) {
+
     }
 
-    public String getUsernameAccount() {
-        return usernameAccount;
+    public CustomerDtoMd() {
     }
 
-    public void setUsernameAccount(String usernameAccount) {
-        this.usernameAccount = usernameAccount;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
+    public CustomerDtoMd(Long idCustomer, String nameCustomer, String phoneCustomer1, String dateOfBirth, String phoneCustomer2, String emailCustomer, String addressCustomer, String idCardCustomer, String codeCustomer, Integer genderCustomer, boolean flagDelete, int approvalCustomer, String usernameAccount, String encryptPassword, String nameAccount, Account account) {
+        this.idCustomer = idCustomer;
+        this.nameCustomer = nameCustomer;
+        this.phoneCustomer1 = phoneCustomer1;
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getDateOfBirthCustomer() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirthCustomer(String dateOfBirthCustomer) {
-        this.dateOfBirth = dateOfBirthCustomer;
+        this.phoneCustomer2 = phoneCustomer2;
+        this.emailCustomer = emailCustomer;
+        this.addressCustomer = addressCustomer;
+        this.idCardCustomer = idCardCustomer;
+        this.codeCustomer = codeCustomer;
+        this.genderCustomer = genderCustomer;
+        this.flagDelete = flagDelete;
+        this.approvalCustomer = approvalCustomer;
+        this.usernameAccount = usernameAccount;
+        this.encryptPassword = encryptPassword;
+        this.nameAccount = nameAccount;
+        this.account = account;
     }
 
     public Long getIdCustomer() {
@@ -90,6 +90,14 @@ public class CustomerDto implements Validator {
 
     public void setPhoneCustomer1(String phoneCustomer1) {
         this.phoneCustomer1 = phoneCustomer1;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getPhoneCustomer2() {
@@ -156,6 +164,14 @@ public class CustomerDto implements Validator {
         this.approvalCustomer = approvalCustomer;
     }
 
+    public String getUsernameAccount() {
+        return usernameAccount;
+    }
+
+    public void setUsernameAccount(String usernameAccount) {
+        this.usernameAccount = usernameAccount;
+    }
+
     public String getEncryptPassword() {
         return encryptPassword;
     }
@@ -164,13 +180,20 @@ public class CustomerDto implements Validator {
         this.encryptPassword = encryptPassword;
     }
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return false;
+    public String getNameAccount() {
+        return nameAccount;
     }
 
-    @Override
-    public void validate(Object target, Errors errors) {
-
+    public void setNameAccount(String nameAccount) {
+        this.nameAccount = nameAccount;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
 }

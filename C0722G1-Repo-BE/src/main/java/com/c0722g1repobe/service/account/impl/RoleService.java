@@ -40,6 +40,14 @@ public class RoleService implements IRoleService {
         return roleRepository.findAllRole();
     }
 
-
+    /**
+     * creator: Trịnh Minh Đức
+     * date:31/01/2023
+     * method of using save customer
+     */
+    @Override
+    public Optional<Role> findByNameAccount(RoleName roleName) {
+        return roleRepository.findByName(roleName);
+    }
 
 }

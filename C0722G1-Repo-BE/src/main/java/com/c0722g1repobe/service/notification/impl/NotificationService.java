@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NotificationService implements INotificationService {
@@ -23,6 +24,7 @@ public class NotificationService implements INotificationService {
      * Create by: DatLA
      * Date created: 31/01/2023
      * Function: to get notification in page
+     *
      * @param notificationSearchDto
      * @param pageable
      * @return notifications list with pagination
@@ -39,7 +41,7 @@ public class NotificationService implements INotificationService {
      * Function: to find notifications list by list of ids
      *
      * @param idList
-     * @return notification list
+     * @return List<NotificationDeleteDto>
      */
     @Override
     public List<NotificationDeleteDto> findByListId(List<Long> idList) {
@@ -58,18 +60,39 @@ public class NotificationService implements INotificationService {
         notificationRepository.removeByListId(idList);
     }
 
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to create notification
+     *
+     * @param notification
+     */
     @Override
-    public void updateNotification(Notification notification) {
-
+    public void pushNotificationToDatabase(Notification notification) {
+        notificationRepository.pushNotificationToDatabase(notification);
     }
 
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to update notification
+     *
+     * @param notification, id.
+     */
     @Override
-    public void createUser(Notification notification) {
-
+    public void updateNotificationTo(Notification notification, Long id) {
+        notificationRepository.updateNotification(notification, id);
     }
 
+    /**
+     * Create by: AnhTDQ
+     * Date created: 01/02/2023
+     * Function: to find notification by id
+     *
+     * @return Optional<Notification>
+     */
     @Override
-    public Notification findNotificationById(long id) {
-        return null;
+    public Optional<Notification> findNotificationById(Long id) {
+        return notificationRepository.findNotificationById(id);
     }
 }

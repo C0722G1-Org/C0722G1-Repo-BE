@@ -1,4 +1,4 @@
-package com.c0722g1repobe.controller.post;
+package com.c0722g1repobe.controller.post.public_rest;
 
 import com.c0722g1repobe.entity.post.City;
 import com.c0722g1repobe.service.post.ICityService;
@@ -14,9 +14,9 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("api/city")
+@RequestMapping("api/public/city")
 @CrossOrigin("*")
-public class CityRestController {
+public class CityPublicRestController {
     @Autowired
     ICityService cityService;
     /**
@@ -30,7 +30,7 @@ public class CityRestController {
     public ResponseEntity<List<City>> listCity(){
        List<City> listCity = cityService.listCity();
         if (listCity.isEmpty()) {
-        return new ResponseEntity<List<City>>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<List<City>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
     }
         return new ResponseEntity<List<City>>(listCity, HttpStatus.OK);
     }
