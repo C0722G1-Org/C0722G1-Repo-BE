@@ -17,7 +17,7 @@ public interface IWardsRepository extends JpaRepository<Wards, Long> {
      * Author: DatTQ
      * Date create: 03/02/2023
      */
-    @Query(value = "select w.id_wards, w.name_wards from sprint_1.wards as w", nativeQuery = true)
+    @Query(value = "select w.id_wards, w.name_wards,w.district_id_district from sprint_1.wards as w", nativeQuery = true)
     List<Wards> findNameWardsAndIdWardsQuery();
 
     @Query(value = "select w.name_wards from sprint_1.wards as w where w.id_wards = :idWards", nativeQuery = true)
