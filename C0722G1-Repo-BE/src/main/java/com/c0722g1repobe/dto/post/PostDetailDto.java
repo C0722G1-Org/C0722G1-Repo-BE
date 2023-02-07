@@ -44,4 +44,8 @@ public interface PostDetailDto {
 
     Long getIdDemandType();
 
+    boolean isApproval();
+
+    boolean isFlagDeleted();
+
 }

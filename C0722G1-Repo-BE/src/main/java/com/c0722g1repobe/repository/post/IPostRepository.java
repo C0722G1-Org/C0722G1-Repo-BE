@@ -91,9 +91,11 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      */
     @Query(value = "select post.name_post               namePost,\n" +
             "       post.id_post,\n" +
+            "       post.flag_deleted flagDeleted,\n" +
             "       post.area,\n" +
             "       post.note,\n" +
             "       post.price,\n" +
+            "       post.approval,\n" +
             "       post.date_creation           dateCreation,\n" +
             "       direction.name_direction     nameDirection,\n" +
             "       status_post.name_status_post nameStatusPost,\n" +
@@ -120,14 +122,15 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         join city on district.city_id_city = city.id_city\n" +
             "         join land_type on post.land_type_id_land_type = land_type.id_land_type\n" +
             "where post.id_post = :id\n" +
-            "  and post.flag_deleted = false\n" +
-            "  and post.approval = true"
+            "  and post.flag_deleted = false\n"
             , nativeQuery = true,
             countQuery = "select post.name_post               namePost,\n" +
                     "       post.id_post,\n" +
+                    "       post.flag_deleted flagDeleted,\n" +
                     "       post.area,\n" +
                     "       post.note,\n" +
                     "       post.price,\n" +
+                    "       post.approval,\n" +
                     "       post.date_creation           dateCreation,\n" +
                     "       direction.name_direction     nameDirection,\n" +
                     "       status_post.name_status_post nameStatusPost,\n" +
@@ -154,8 +157,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         join city on district.city_id_city = city.id_city\n" +
                     "         join land_type on post.land_type_id_land_type = land_type.id_land_type\n" +
                     "where post.id_post = :id\n" +
-                    "  and post.flag_deleted = false\n" +
-                    "  and post.approval = true")
+                    "  and post.flag_deleted = false\n")
     PostDetailDto findPostById(@Param("id") Long id);
 
     /**
@@ -232,7 +234,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "  AND sp.id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
-            "  AND c2.name_city LIKE CONCAT('%', :city, '%')",
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%') ORDER BY p.id_post desc",
             nativeQuery = true,
             countQuery = "SELECT p.id_post as idPost,\n" +
                     "       p.name_post as namePost,\n" +
@@ -256,7 +258,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "  AND sp.id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
-                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')")
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%') ORDER BY p.id_post desc")
     Page<PostListViewDto> findAllWithDemandTypeDirectionCity(@Param("landType") String landType,
                                                              @Param("direction") String direction,
                                                              @Param("city") String city, Pageable pageable);
@@ -295,7 +297,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
-            "  AND p.area BETWEEN :minArea AND :maxArea",
+            "  AND p.area BETWEEN :minArea AND :maxArea ORDER BY p.id_post desc",
             nativeQuery = true,
             countQuery = "SELECT p.id_post as idPost,\n" +
                     "       p.name_post as namePost,\n" +
@@ -318,7 +320,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
-                    "  AND p.area BETWEEN :minArea AND :maxArea")
+                    "  AND p.area BETWEEN :minArea AND :maxArea ORDER BY p.id_post desc")
     Page<PostListViewDto> findAllWithDemandTypeDirectionCityArea(@Param("landType") String landType,
                                                                  @Param("direction") String direction,
                                                                  @Param("city") String city,
@@ -359,7 +361,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
-            "  AND p.price BETWEEN :priceMin AND :priceMax",
+            "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc",
             nativeQuery = true,
             countQuery = "SELECT p.id_post as idPost,\n" +
                     "       p.name_post as namePost,\n" +
@@ -382,7 +384,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
-                    "  AND p.price BETWEEN :priceMin AND :priceMax")
+                    "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc")
     Page<PostListViewDto> findAllWithDemandTypeDirectionCityPrice(@Param("landType") String landType,
                                                                   @Param("direction") String direction,
                                                                   @Param("city") String city,
@@ -427,7 +429,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
             "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
             "  AND p.area BETWEEN :minArea AND :maxArea\n" +
-            "  AND p.price BETWEEN :priceMin AND :priceMax",
+            "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc",
             nativeQuery = true,
             countQuery = "SELECT p.id_post as idPost,\n" +
                     "       p.name_post as namePost,\n" +
@@ -453,7 +455,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
                     "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
                     "  AND p.area BETWEEN :minArea AND :maxArea\n" +
-                    "  AND p.price BETWEEN :priceMin AND :priceMax")
+                    "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc")
     Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaPrice(@Param("landType") String landType,
                                                                       @Param("direction") String direction,
                                                                       @Param("city") String city,
@@ -518,7 +520,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "and (p.price between :minPriceSearch and :maxPriceSearch) " +
             "and ct.id_city like concat('%', :citySearch, '%')  " +
             "and ds.id_district like concat('%', :districtSearch, '%') " +
-            "and w.id_wards like concat('%', :wardsSearch, '%')) order by p.date_creation desc",
+            "and w.id_wards like concat('%', :wardsSearch, '%')) order by p.approval asc, p.date_creation desc",
             countQuery = "select p.id_post as idPost, c.code_customer as codeCustomer," +
                     " d.name_demand_type as demandType, l.name_land_type as landType," +
                     " ct.name_city as city , ds.name_district as district, w.name_wards as wards, p.area as area, p.note as note," +
@@ -536,7 +538,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "and (p.price between :minPriceSearch and :maxPriceSearch) " +
                     "and ct.id_city like concat('%', :citySearch, '%')  " +
                     "and ds.id_district like concat('%', :districtSearch, '%') " +
-                    "and w.id_wards like concat('%', :wardsSearch, '%')) order by p.date_creation desc",
+                    "and w.id_wards like concat('%', :wardsSearch, '%')) order by p.approval asc, p.date_creation desc",
             nativeQuery = true)
     Page<PostDto> searchAllPost(@Param("demandTypeSearch") String demandTypeSearch, @Param("lendTypeSearch") String lendTypeSearch, @Param("minPriceSearch") Double minPriceSearch, @Param("maxPriceSearch") Double maxPriceSearch, @Param("citySearch") String citySearch,
                                 @Param("districtSearch") String districtSearch,@Param("wardsSearch") String wardsSearch, Pageable pageable);
@@ -561,7 +563,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "left join address as a on a.id_address = p.address_id_address " +
             "left join wards as w on a.wards_id_wards = w.id_wards " +
             "left join district as ds on w.district_id_district = ds.id_district " +
-            "left join city as ct on ds.city_id_city = ct.id_city  where p.flag_deleted = false order by p.date_creation desc",
+            "left join city as ct on ds.city_id_city = ct.id_city  where p.flag_deleted = false order by p.approval asc, p.date_creation desc",
             countQuery = "select p.id_post as idPost, c.code_customer as codeCustomer, " +
                     "d.name_demand_type as demandType, l.name_land_type as landType, " +
                     "ct.name_city as city , ds.name_district as district, w.name_wards as wards, p.area as area, p.note as note, " +
@@ -572,7 +574,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "left join address as a on a.id_address = p.address_id_address " +
                     "left join wards as w on a.wards_id_wards = w.id_wards " +
                     "left join district as ds on w.district_id_district = ds.id_district " +
-                    "left join city as ct on ds.city_id_city = ct.id_city  where p.flag_deleted = false order by p.date_creation desc",
+                    "left join city as ct on ds.city_id_city = ct.id_city  where p.flag_deleted = false order by p.approval asc, p.date_creation desc",
             nativeQuery = true)
     Page<PostDto> findAllPost(Pageable pageable);
 
