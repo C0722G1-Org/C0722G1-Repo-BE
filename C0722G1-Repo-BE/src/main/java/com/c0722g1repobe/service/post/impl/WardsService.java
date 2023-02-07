@@ -35,4 +35,15 @@ public class WardsService implements IWardsService {
     public String findNameByIdNativeQuery(Long idWards) {
         return wardsRepository.findNameByIdNativeQuery(idWards);
     }
+    /**
+     * Create by: NgocLV
+     * Date Create: 03/02/2023
+     * Description: find list wards .
+     *
+     * @return  list wards or null if not found
+     */
+    @Override
+    public List<Wards> findListWards(Long idDistrict) {
+        return wardsRepository.findListWards(idDistrict);
+    }
 }

@@ -33,10 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtTokenFilter();
     }
 
-    @Autowired
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(accountDetailService).passwordEncoder(passwordEncoder());
-    }
+//    @Autowired
+//    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+//        authenticationManagerBuilder.userDetailsService(accountDetailService).passwordEncoder(passwordEncoder());
+//    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -54,19 +54,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.cors().and().csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/public/**")
+                .antMatchers("/**")
                 .permitAll()
-//                .antMatchers("/api/customer/**").hasAnyRole("CUSTOMER","EMPLOYEE","ADMIN")
+//                .antMatchers("/api/customer/**","/api/post/**").hasAnyRole("CUSTOMER","EMPLOYEE","ADMIN")
 //                .antMatchers("/api/employees/**").hasAnyRole("EMPLOYEE","ADMIN")
                 .anyRequest()
                 .authenticated()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtEntryPoint)
+//                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(jwtEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        httpSecurity.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//        httpSecurity.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

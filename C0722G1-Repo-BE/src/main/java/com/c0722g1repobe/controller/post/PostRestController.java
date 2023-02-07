@@ -1,8 +1,6 @@
 package com.c0722g1repobe.controller.post;
 
-import com.c0722g1repobe.dto.post.PostDto;
-import com.c0722g1repobe.dto.post.PostDtoViewList;
-import com.c0722g1repobe.dto.post.PostListViewDto;
+import com.c0722g1repobe.dto.post.*;
 import com.c0722g1repobe.entity.post.Post;
 import com.c0722g1repobe.dto.post.PostDto;
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,20 +36,25 @@ public class PostRestController {
      * @param pageable
      * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
      */
-    @GetMapping("/{userNameAccount}")
-    public ResponseEntity<List<Post>> getPostListByUserNameAccount(@PageableDefault(size = 5) Pageable pageable, @PathVariable String userNameAccount) {
-        Page<Post> postList = postService.findAllPostByUserNameAccount(pageable, userNameAccount);
+
+    @GetMapping("search-page-admin")
+    public ResponseEntity<?> getAllAndSearchWithRoleAdmin(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
+        Page<Post> postList = postService.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(postList.getContent(), HttpStatus.OK);
+        return new ResponseEntity<>(postList, HttpStatus.OK);
+    }
+    @GetMapping("search-page-customer")
+    public ResponseEntity<?> getAllAndSearchWithRoleCustomer(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
+        Page<Post> postList = postService.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
+        if (postList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(postList, HttpStatus.OK);
     }
 
-    /*DI IPostService to use IPostService's methods;
-     Author: DatTQ
-     */
-
-    /*Method use: displayList(), call getAll() of IPostService to get list data from database
+    /**Method use: displayList(), call getAll() of IPostService to get list data from database
      * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
      * Parameter: NO
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
@@ -62,13 +64,12 @@ public class PostRestController {
     public ResponseEntity<List<PostDtoViewList>> displayList() {
         List<PostDtoViewList> postDtoViewListList = postService.getAll();
         if (postDtoViewListList.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     }
 
-    /*Method use: search(), call searchYear() and searchYearAndMonth() of IPostService to get list data from database
+    /**Method use: search(), call searchYear() and searchYearAndMonth() of IPostService to get list data from database
      * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
      * Parameter: Integer year (defaultValue = "-1"), Integer month (defaultValue = "-1")
      * If parameter month is == -1, List<PostDtoViewList> = method searchYear of IPostService
@@ -81,12 +82,15 @@ public class PostRestController {
     @GetMapping("/charts-search")
     public ResponseEntity<List<PostDtoViewList>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
         List<PostDtoViewList> postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
-        ;
+        if (month == -1 && year == -1) {
+            postDtoViewListList = postService.getAll();
+        }
         if (month == -1) {
             postDtoViewListList = postService.searchYear(String.valueOf(year));
         }
         if (month != -1 && year == -1) {
-            month = new Date().getMonth() + 1;
+            LocalDate date=LocalDate.now();
+            month = date.getMonthValue();
             year = LocalDate.now().getYear();
             postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
         }
@@ -111,17 +115,13 @@ public class PostRestController {
      * @return a Post object that can be showed on Post detail screen
      */
     @GetMapping("/detail")
-    public ResponseEntity<Post> findPostById(@RequestParam Long id) {
+    public ResponseEntity<PostDetailDto> findPostById(@RequestParam Long id) {
 
-        Post post = postService.findPostById(id);
-        try {
-            if (post == null || post.isFlagDeleted()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (NullPointerException e) {
-            e.getStackTrace();
+        PostDetailDto postDetailDto = postService.findPostById(id);
+        if (postDetailDto == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(post, HttpStatus.OK);
+        return new ResponseEntity<>(postDetailDto, HttpStatus.OK);
     }
 
     /**
@@ -133,40 +133,9 @@ public class PostRestController {
      * @return ResponseEntity with BaseResponseCreatePost and HttpStatus is code of BaseResponseCreatePost
      */
     @PostMapping("/create")
-    @ResponseBody
     public ResponseEntity<BaseResponseCreatePost> create(@RequestBody CreatePostDto createPostDto) {
         BaseResponseCreatePost baseResponseCreatePost = postService.getResponseCreatePost(createPostDto);
         return new ResponseEntity<>(baseResponseCreatePost, HttpStatus.valueOf(baseResponseCreatePost.getCode()));
-    }
-
-    /**
-     * Create by: SangNP
-     * Date created: 31/01/2023
-     * Function: show list post
-     *
-     * @param area       It's okay not to have
-     * @param price      It's okay not to have
-     * @param demandType It's okay not to have
-     * @param direction  It's okay not to have
-     * @param city       It's okay not to have
-     * @param pageable   It's okay not to have
-     * @return if have content it will return Page<Post> with HttpStatus.OK else it will return status HttpStatus.NO_CONTENT
-     */
-    @GetMapping("/list")
-    public ResponseEntity<Page<PostListViewDto>> getAllPost(@RequestParam(defaultValue = "") String area,
-                                                            @RequestParam(defaultValue = "") String price,
-                                                            @RequestParam(defaultValue = "") String demandType,
-                                                            @RequestParam(defaultValue = "") String direction,
-                                                            @RequestParam(defaultValue = "") String city,
-                                                            Pageable pageable) {
-        if (area != null && price != null && demandType != null && direction != null && city != null) {
-            Page<PostListViewDto> postList = postService.findAll(area, price, demandType, direction, city, pageable);
-            if (postList != null && postList.hasContent()) {
-                return new ResponseEntity<>(postList, HttpStatus.OK);
-            }
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -175,33 +144,37 @@ public class PostRestController {
      * Function: show list or search  Post
      *
      * @param demandTypeSearch
-     * @param lendTypeSearch
+     * @param landTypeSearch
      * @param pageable
      * @return HttpStatus.OK if json list Post
      */
     @GetMapping("")
     public ResponseEntity<Page<PostDto>> listAllPosts(@RequestParam() Optional<String> demandTypeSearch,
-                                                      @RequestParam() Optional<String> lendTypeSearch,
+                                                      @RequestParam() Optional<String> landTypeSearch,
                                                       @RequestParam() Optional<Double> minPriceSearch,
                                                       @RequestParam() Optional<Double> maxPriceSearch,
-                                                      @RequestParam() Optional<String> positionSearch,
+                                                      @RequestParam() Optional<String> citySearch,
+                                                      @RequestParam() Optional<String> districtSearch,
+                                                      @RequestParam() Optional<String> wardsSearch,
                                                       @PageableDefault(page = 0, size = 5) Pageable pageable) {
         Page<PostDto> listPostDtos;
         String demandTypeSearchValue = demandTypeSearch.orElse("");
-        String lendTypeSearchValue = lendTypeSearch.orElse("");
+        String landTypeSearchValue = landTypeSearch.orElse("");
         Double minPriceSearchValue = minPriceSearch.orElse(0.0);
         Double maxPriceSearchValue = maxPriceSearch.orElse(99999999999999999.0);
-        String positionSearchValue = positionSearch.orElse("");
+        String citySearchValue = citySearch.orElse("");
+        String districtSearchValue = districtSearch.orElse("");
+        String wardsSearchValue = wardsSearch.orElse("");
 
-        if (demandTypeSearchValue != "" || lendTypeSearchValue != "" || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || positionSearchValue != "") {
-            listPostDtos = postService.searchAllPost(demandTypeSearchValue, lendTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, positionSearchValue, pageable);
+        if (demandTypeSearchValue.equals("") || landTypeSearchValue.equals("") || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue.equals("") || districtSearchValue.equals("") || wardsSearchValue.equals("")) {
+            listPostDtos = postService.searchAllPost(demandTypeSearchValue, landTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, citySearchValue, districtSearchValue, wardsSearchValue, pageable);
         } else {
             listPostDtos = postService.findAllPost(pageable);
         }
         if (listPostDtos.isEmpty()) {
-            return new ResponseEntity<Page<PostDto>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<Page<PostDto>>(listPostDtos, HttpStatus.OK);
+        return new ResponseEntity<>(listPostDtos, HttpStatus.OK);
     }
 
     /**
@@ -216,7 +189,6 @@ public class PostRestController {
     public ResponseEntity<Post> deletePost(@PathVariable("id") Long id) {
         Post currentPost = postService.findPost(id);
         if (currentPost == null) {
-            System.out.println("Post with id " + id + " not found");
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
         }
         postService.deletePost(id);
@@ -231,7 +203,7 @@ public class PostRestController {
      * @param id
      * @return HttpStatus.OK if have id in database, approval success or HttpStatus.NOT_FOUND if id not found in database
      */
-    @DeleteMapping("/approval/{id}")
+    @PatchMapping("/approval/{id}")
     public ResponseEntity<Post> approvalPost(@PathVariable("id") Long id) {
         Post currentPost = postService.findPost(id);
         if (currentPost == null) {
@@ -239,5 +211,25 @@ public class PostRestController {
         }
         postService.approvalPost(id);
         return new ResponseEntity<Post>(currentPost, HttpStatus.OK);
+    }
+
+    /**
+     * Method uses:
+     * Set post's status to succeed when post's owner click on transaction succeed confirmation button
+     * Created by: HuyDN
+     * Created date: 04/02/2023
+     * Catching NullPointerException
+     *
+     * @param id: a Post' id
+     * @return HttpStatus
+     */
+    @PatchMapping("/confirm")
+    public ResponseEntity<HttpStatus> succeedConfirm(@RequestParam Long id) {
+        PostDetailDto postDetailDto = postService.findPostById(id);
+        if (postDetailDto == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        postService.succeedConfirm(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,11 +1,12 @@
 package com.c0722g1repobe.entity.post;
 
+
 import com.c0722g1repobe.entity.customer.Customer;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import com.c0722g1repobe.entity.customer.Customer;
-import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -31,7 +33,9 @@ public class Post {
     private Double area;
     private String note;
     private Double price;
-    private String imageListURL;
+    @OneToMany(mappedBy = "post")
+    @JsonBackReference
+    private Set<Image> imageSet;
     private boolean flagDeleted = false;
     private boolean approval;
     private LocalDate dateCreation = LocalDate.now();

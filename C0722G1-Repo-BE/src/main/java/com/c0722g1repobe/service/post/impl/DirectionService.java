@@ -17,4 +17,5 @@ public class DirectionService implements IDirectionService {
     public List<Direction> findAll() {
         return directionRepository.findAllNativeQuery();
     }
+
 }
