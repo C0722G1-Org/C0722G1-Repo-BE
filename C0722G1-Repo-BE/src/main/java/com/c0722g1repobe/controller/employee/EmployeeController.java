@@ -5,6 +5,8 @@ import com.c0722g1repobe.dto.employee.EmployeeInfo;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
+import com.c0722g1repobe.entity.account.RoleName;
+import com.c0722g1repobe.service.account.impl.RoleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,6 +36,9 @@ public class EmployeeController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleService roleService;
 
     /**
      * Create by: NhanUQ
@@ -114,8 +119,7 @@ public class EmployeeController {
         account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));
         account.setEmail(employee.getEmailEmployee());
         Set<Role> roles = new HashSet<>();
-        Role role = new Role();
-        Role employeeRole = employeeService.getRoleByName(role.getName());
+        Role employeeRole = roleService.findByNameAccount(RoleName.EMPLOYEE).orElseThrow(() -> new RuntimeException("Role not found"));
         roles.add(employeeRole);
         account.setRoles(roles);
         employeeService.saveAccount(account);
