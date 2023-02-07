@@ -1,5 +1,6 @@
 package com.c0722g1repobe.controller.post;
 
+import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.entity.post.Post;
 import com.c0722g1repobe.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,16 @@ public class PostRestController {
      */
 
     @GetMapping("search-page-admin")
-    public ResponseEntity<Page<Post>> getAllAndSearchWithRoleAdmin(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
+    public ResponseEntity<Page<Post>> getAllAndSearchWithRoleAdmin(@PageableDefault(value = 4) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
         Page<Post> postList = postService.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
+
     @GetMapping("search-page-customer")
-    public ResponseEntity<Page<Post>> getAllAndSearchWithRoleCustomer(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
+    public ResponseEntity<Page<Post>> getAllAndSearchWithRoleCustomer(@PageableDefault(value = 4) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
         Page<Post> postList = postService.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

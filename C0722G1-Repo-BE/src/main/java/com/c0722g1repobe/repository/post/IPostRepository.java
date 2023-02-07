@@ -1,5 +1,6 @@
 package com.c0722g1repobe.repository.post;
 
+import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.entity.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             " join `account` on customer.account_id_account = `account`.id_account" +
             " where demand_type.name_demand_type like %:nameDemandTypeSearch% and `account`.id_account = :idAccount", nativeQuery = true)
     Page<Post> getAllAndSearchWithRoleCustomer(@Param("nameDemandTypeSearch") String nameDemandTypeSearch, @Param("idAccount") String idAccount, Pageable pageable);
+
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
@@ -44,5 +46,4 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             " join `customer` on post.customer_id_customer = `customer`.id_customer" +
             " where demand_type.name_demand_type like %:nameDemandTypeSearch% and `customer`.id_customer = :idCustomer", nativeQuery = true)
     Page<Post> getAllAndSearchWithRoleAdmin(@Param("nameDemandTypeSearch") String nameDemandTypeSearch, @Param("idCustomer") String idCustomer, Pageable pageable);
-
 }

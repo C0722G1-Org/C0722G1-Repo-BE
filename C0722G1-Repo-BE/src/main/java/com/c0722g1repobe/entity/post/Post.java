@@ -1,5 +1,6 @@
 package com.c0722g1repobe.entity.post;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,6 +49,6 @@ public class Post {
     @ManyToOne
     private LandType landType;
     @ManyToOne
-    @JsonBackReference
+    @JsonManagedReference
     private Customer customer;
 }

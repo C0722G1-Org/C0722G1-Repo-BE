@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.post.impl;
 
+import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.entity.post.Post;
 import com.c0722g1repobe.repository.post.IPostRepository;
 import com.c0722g1repobe.service.post.IPostService;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostService implements IPostService {
     @Autowired
-    IPostRepository PostRepository;
+    IPostRepository postRepository;
 
     /**
      * Created by: UyDD
@@ -23,7 +24,7 @@ public class PostService implements IPostService {
 
     @Override
     public Page<Post> getAllAndSearchWithRoleAdmin(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
-        return PostRepository.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
+        return postRepository.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
     }
 
     /**
@@ -35,6 +36,7 @@ public class PostService implements IPostService {
      */
     @Override
     public Page<Post> getAllAndSearchWithRoleCustomer(String nameDemandTypeSearch, String idAccount, Pageable pageable) {
-        return PostRepository.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
+        return postRepository.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.post;
 
+import com.c0722g1repobe.entity.customer.Customer;
 import com.c0722g1repobe.entity.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
