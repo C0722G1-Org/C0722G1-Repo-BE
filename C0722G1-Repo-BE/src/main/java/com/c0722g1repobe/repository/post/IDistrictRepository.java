@@ -16,7 +16,7 @@ public interface IDistrictRepository extends JpaRepository<District, Long> {
      * Author: DatTQ
      * Date create: 03/02/2023
      */
-    @Query(value = "select d.id_district, d.name_district from sprint_1.district as d", nativeQuery = true)
+    @Query(value = "select d.id_district, d.name_district,d.city_id_city from sprint_1.district as d", nativeQuery = true)
     List<District> findNameDistrictAndIdDistrictQuery();
 
     /**
