@@ -1,20 +1,22 @@
 package com.c0722g1repobe.service.post;
 
-import com.c0722g1repobe.dto.post.PostDetailDto;
-import com.c0722g1repobe.dto.post.PostDtoViewList;
+import com.c0722g1repobe.dto.post.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
+import com.c0722g1repobe.entity.customer.Customer;
 import org.springframework.data.repository.query.Param;
-import com.c0722g1repobe.dto.post.PostDto;
-import com.c0722g1repobe.dto.post.PostListViewDto;
 import com.c0722g1repobe.entity.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IPostService {
+
+    CustomerGetIdAndCodCustomer getIdCustomerAndCodeCustomer(@Param("idAccount") Long idAccount);
+
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023

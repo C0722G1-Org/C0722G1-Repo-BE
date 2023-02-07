@@ -3,10 +3,7 @@
 package com.c0722g1repobe.service.post.impl;
 
 
-import com.c0722g1repobe.dto.post.PostDetailDto;
-import com.c0722g1repobe.dto.post.PostDto;
-import com.c0722g1repobe.dto.post.PostDtoViewList;
-import com.c0722g1repobe.dto.post.PostListViewDto;
+import com.c0722g1repobe.dto.post.*;
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import com.c0722g1repobe.entity.customer.Customer;
@@ -22,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import com.c0722g1repobe.entity.post.Post;
 import org.springframework.data.domain.Page;
@@ -147,6 +145,12 @@ public class PostService implements IPostService {
         }
 
         return baseResponseCreatePost;
+    }
+
+
+    @Override
+    public CustomerGetIdAndCodCustomer getIdCustomerAndCodeCustomer(Long idAccount) {
+        return postRepository.getIdCustomerAndCodeCustomer(idAccount);
     }
 
     /**

@@ -46,12 +46,14 @@ public class PostRestController {
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
 
-    /**Method use: displayList(), call getAll() of IPostService to get list data from database
+    /**
+     * Method use: displayList(), call getAll() of IPostService to get list data from database
      * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
      * Parameter: NO
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
      * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDtoViewList>
-     * Author: DatTQ ; Date create: 31/01/2022 */
+     * Author: DatTQ ; Date create: 31/01/2022
+     */
     @GetMapping("/charts")
     public ResponseEntity<List<PostDtoViewList>> displayList() {
         List<PostDtoViewList> postDtoViewListList = postService.getAll();
@@ -61,16 +63,18 @@ public class PostRestController {
         return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     }
 
-    /**Method use: search(), call searchYear() and searchYearAndMonth() of IPostService to get list data from database
+    /**
+     * Method use: search(), call searchYear() and searchYearAndMonth() of IPostService to get list data from database
      * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
      * Parameter: Integer year (defaultValue = "-1"), Integer month (defaultValue = "-1")
      * If parameter month is == -1, List<PostDtoViewList> = method searchYear of IPostService
      * If parameter year is != -1 and month != -1 => List<PostDtoViewList> = method searchYearAndMonth of IPostService
      * If parameter year is == -1 and month != -1 => assign 2 parameters year and month = current year and current month
-                => List<PostDtoViewList> = method searchYearAndMonth of IPostService
+     * => List<PostDtoViewList> = method searchYearAndMonth of IPostService
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
      * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDtoViewList>
-     * Author: DatTQ ; Date create: 31/01/2022 */
+     * Author: DatTQ ; Date create: 31/01/2022
+     */
     @GetMapping("/charts-search")
     public ResponseEntity<List<PostDtoViewList>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
         List<PostDtoViewList> postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
@@ -134,12 +138,12 @@ public class PostRestController {
      * Date created: 31/01/2023
      * Function: show list post
      *
-     * @param area       It's okay not to have
-     * @param price      It's okay not to have
-     * @param landType It's okay not to have
-     * @param direction  It's okay not to have
-     * @param city       It's okay not to have
-     * @param pageable   It's okay not to have
+     * @param area      It's okay not to have
+     * @param price     It's okay not to have
+     * @param landType  It's okay not to have
+     * @param direction It's okay not to have
+     * @param city      It's okay not to have
+     * @param pageable  It's okay not to have
      * @return if have content it will return Page<Post> with HttpStatus.OK else it will return status HttpStatus.NO_CONTENT
      */
     @GetMapping("/list")
@@ -253,5 +257,11 @@ public class PostRestController {
         }
         postService.succeedConfirm(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/customer/login")
+    public ResponseEntity<CustomerGetIdAndCodCustomer> getIdAndCodCustomer(@RequestBody Long idAccount) {
+        CustomerGetIdAndCodCustomer customerGetIdAndCodCustomer = postService.getIdCustomerAndCodeCustomer(idAccount);
+        return new ResponseEntity<CustomerGetIdAndCodCustomer>(customerGetIdAndCodCustomer,HttpStatus.OK);
     }
 }
