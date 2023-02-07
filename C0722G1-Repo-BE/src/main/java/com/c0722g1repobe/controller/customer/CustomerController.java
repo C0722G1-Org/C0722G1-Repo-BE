@@ -100,9 +100,9 @@ public class CustomerController {
         Account account = new Account();
         BeanUtils.copyProperties(customerDto, account);
 
-        customerDto.setEmailCustomer(customerDto.getUsernameAccount());
+        customerDto.setEmailCustomer(customerDto.getEmailCustomer());
         account.setEncryptPassword(passwordEncoder.encode(customerDto.getEncryptPassword()));
-        account.setUsernameAccount((customerDto.getUsernameAccount()));
+        account.setUsernameAccount((customerDto.getEmailCustomer()));
         account.setName(customerDto.getNameAccount());
         Set<Role> roles = new HashSet<>();
         Role customerRole = roleService.findByNameAccount(RoleName.CUSTOMER).orElseThrow(() -> new RuntimeException("Role not found"));
