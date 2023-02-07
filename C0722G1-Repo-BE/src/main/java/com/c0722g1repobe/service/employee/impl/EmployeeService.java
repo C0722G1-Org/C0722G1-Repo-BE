@@ -103,16 +103,8 @@ public class EmployeeService implements IEmployeeService {
      */
     @Override
     public void saveEmployee(Employee employee) {
-        employeeRepository.saveEmployee(
-                employee.getCodeEmployee(),
-                employee.getNameEmployee(),
-                employee.getEmailEmployee(),
-                employee.getDateOfBirth(),
-                employee.isGenderEmployee(),
-                employee.getPhoneEmployee(),
-                employee.getAddressEmployee(),
-                employeeRepository.getIdAccount(employee.getAccount().getUsernameAccount()),
-                employee.getDivision());
+//        employeeRepository.saveEmployee(employee);
+        employeeRepository.save(employee);
     }
 
     /**
@@ -125,15 +117,7 @@ public class EmployeeService implements IEmployeeService {
      */
     @Override
     public void updateEmployee(Employee employee, Long id) {
-        employeeRepository.updateEmployee(
-                id,
-                employee.getNameEmployee(),
-                employee.getEmailEmployee(),
-                employee.isGenderEmployee(),
-                employee.getPhoneEmployee(),
-                employee.getAddressEmployee(),
-                employee.getDateOfBirth(),
-                employee.getDivision());
+        employeeRepository.updateEmployee(id, employee);
 
     }
     /**

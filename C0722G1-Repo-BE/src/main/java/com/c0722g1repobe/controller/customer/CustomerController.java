@@ -84,24 +84,6 @@ public class CustomerController {
         customerService.saveCustomer(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    /**
-     * creator: Trịnh Minh Đức
-     * date:31/01/2023
-     * method of using save customer
-     */
-    @GetMapping("/ListMailCustomerAnhNameAccount")
-    public ResponseEntity<List<String>> showList() {
-        List<String> listAll = customerService.findAllCheckMailCustomerAnhNameAccount();
-        if (listAll.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(listAll, HttpStatus.OK);
-    }
-
-
-
-
     /**
      * Create by: HuyNV
      * Date created : 01/02/2023
@@ -118,20 +100,21 @@ public class CustomerController {
         Account account = new Account();
         BeanUtils.copyProperties(customerDto, account);
 
-        customerDto.setEmailCustomer(customerDto.getUsernameAccount());
-        account.setEncryptPassword((customerDto.getEncryptPassword()));
-        account.setUsernameAccount((customerDto.getUsernameAccount()));
+        customerDto.setEmailCustomer(customerDto.getEmailCustomer());
+        account.setEncryptPassword(passwordEncoder.encode(customerDto.getEncryptPassword()));
+        account.setUsernameAccount((customerDto.getEmailCustomer()));
         account.setName(customerDto.getNameAccount());
+        Set<Role> roles = new HashSet<>();
+        Role customerRole = roleService.findByNameAccount(RoleName.CUSTOMER).orElseThrow(() -> new RuntimeException("Role not found"));
+        roles.add(customerRole);
+        account.setRoles(roles);
         Account account1 = accountService.createAccount(account);
         BeanUtils.copyProperties(customerDto, customer);
-
         customer.setAccount(account1);
 
         customerService.createCustomer(customer);
 
         return new ResponseEntity<>(HttpStatus.OK);
-
-
     }
 
     /**

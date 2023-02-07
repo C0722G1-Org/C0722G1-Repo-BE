@@ -1,6 +1,7 @@
 package com.c0722g1repobe.service.post.impl;
 
 import com.c0722g1repobe.dto.post.ImageDto;
+import com.c0722g1repobe.entity.post.Image;
 import com.c0722g1repobe.repository.post.IImageRepository;
 import com.c0722g1repobe.service.post.IImageService;
 import org.springframework.beans.factory.annotation.Autowired;

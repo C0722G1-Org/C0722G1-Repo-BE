@@ -12,7 +12,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -33,7 +36,7 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
             " AND nt.posting_date BETWEEN :#{#notificationSearchDto.startDate} AND NOW()" +
             " AND nt.`title` LIKE %:#{#notificationSearchDto.title}% " +
             " AND nt.`content` LIKE %:#{#notificationSearchDto.content}% " +
-            " ORDER BY nt.posting_date DESC "
+            " ORDER BY nt.posting_date DESC, nt.id_notification DESC "
             , nativeQuery = true)
     Page<NotificationAllPropertyDto> searchNotifications(@Param("notificationSearchDto") NotificationSearchDto notificationSearchDto,
                                                          Pageable pageable);
@@ -65,34 +68,34 @@ public interface INotificationRepository extends JpaRepository<Notification, Lon
      * Date created: 31/01/2023
      * Function: create new Notification
      *
-     * @param title, posting_date,  content,  flag_delete
-     * @return Optional<Notification>
+     * @param notification
      */
-
     @Modifying
-    @Query(value = "insert into notification (title,posting_date,content,flag_delete)" +
-            " value ( :title , :posting_date , :content, :flag_delete )", nativeQuery = true)
-    void saveNotification(@Param("title") String title,
-                          @Param("posting_date") String posting_date,
-                          @Param("content") String content,
-                          @Param("flag_delete") Boolean flag_delete);
+    @Query(value = "insert into `notification` (id_notification, title,posting_date,content,flag_delete)" +
+            " value (:#{#notification.idNotification}, :#{#notification.title} , :#{#notification.postingDate} , :#{#notification.content}, :#{#notification.flagDelete} )", nativeQuery = true)
+    void pushNotificationToDatabase(@Param("notification") Notification notification);
 
 
     /**
      * Create by: AnhTDQ
      * Date created: 31/01/2023
-     * Function: update Notification
+     * Function: find notification by id
      *
-     * @param   title,  posting_date,  content,  flag_delete , id_notification
+     * @param notification, id
+     */
+    @Modifying
+    @Query(value = "update `notification` set `title` = :#{#notification.title} ,posting_date = :#{#notification.postingDate} ,content = :#{#notification.content} , flag_delete = :#{#notification.flagDelete} " +
+            " where  (id_notification = :idUpdate)", nativeQuery = true)
+    void updateNotification(@Param("notification") Notification notification, @Param("idUpdate") Long id);
+
+    /**
+     * Create by: AnhTDQ
+     * Date created: 31/01/2023
+     * Function: find notification by id
+     *
+     * @param id
      * @return Optional<Notification>
      */
-
-    @Modifying
-    @Query(value = "update notification set title = :title ,posting_date = :posting_date , content = :content , flag_delete = :flag_delete " +
-            " where  (id_notification = :id )", nativeQuery = true)
-    void updateNotification(@Param("title") String title ,
-                            @Param("posting_date") String posting_date ,
-                            @Param("content") String content ,
-                            @Param("flag_delete") Boolean flag_delete);
-
+    @Query(value = "select nt.`id_notification`, nt.`title` as `title` ,nt.`posting_date`,nt.`content`, nt.`flag_delete` from `notification` as nt where id_notification = :id ", nativeQuery = true)
+    Optional<Notification> findNotificationById(@Param("id") Long id);
 }

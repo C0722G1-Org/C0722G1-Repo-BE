@@ -7,6 +7,11 @@ import java.time.LocalDate;
 
 public class NotificationDto implements Validator {
 
+    /**
+     * Created by: AnhTDQ,
+     * Date created: 03/02/2023
+     * Function: validator data
+     */
     private Long idNotification;
     private LocalDate postingDate;
     private String title;

@@ -50,7 +50,7 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
      * funcion: findByIdDataForm()
      * @param 'id'
      */
-    @Query(value = "SELECT * FROM data_form where id_data_form= :id",countQuery = "SELECT * FROM data_form where id_data_form= :id",nativeQuery = true)
+    @Query(value = "SELECT * FROM data_form where id_data_form= :id and flag_delete = fasle",countQuery = "SELECT * FROM data_form where id_data_form= :id and flag_delete = fasle",nativeQuery = true)
     DataForm findByIdDataForm(@Param("id") long id);
 
 
