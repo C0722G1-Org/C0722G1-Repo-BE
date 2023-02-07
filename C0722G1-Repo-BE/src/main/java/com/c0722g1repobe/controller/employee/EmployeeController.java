@@ -114,6 +114,7 @@ public class EmployeeController {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
         Account account = new Account();
+        BeanUtils.copyProperties(employeeDto, account);
         account.setName(employee.getNameEmployee());
         account.setUsernameAccount(employee.getAccount().getUsernameAccount());
         account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));

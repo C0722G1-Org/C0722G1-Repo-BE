@@ -154,4 +154,50 @@ public interface IPostService {
      * @return HttpStatus
      */
     void succeedConfirm(@Param("id") Long id);
+
+    /**
+     * Method uses:
+     * find all list posts for sell of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllSell(String area, String price, String landType, String direction, String city, Pageable pageable);
+    /**
+     * Method uses:
+     * find all list posts for buy of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllBuy(String area, String price, String landType, String direction, String city, Pageable pageable);
+    /**
+     * Method uses:
+     * find all list posts for rent of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllRent(String area, String price, String landType, String direction, String city, Pageable pageable);
 }

@@ -607,4 +607,829 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
     @Query(value = "update post set post.status_post_id_status_post = 1 where post.id_post = :id", nativeQuery = true)
     @Transactional
     void succeedConfirm(@Param("id") Long id);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for sell
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = true\n" +
+            "  AND dt.id_demand_type = 2\n" +
+            "  AND sp.id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%') ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = true\n" +
+                    "  AND dt.id_demand_type = 2\n" +
+                    "  AND sp.id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%') ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCitySell(@Param("landType") String landType,
+                                                             @Param("direction") String direction,
+                                                             @Param("city") String city, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for sell
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param minArea
+     * @param maxArea
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 2\n" +
+            "  AND p.status_post_id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.area BETWEEN :minArea AND :maxArea ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 2\n" +
+                    "  AND p.status_post_id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.area BETWEEN :minArea AND :maxArea ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaSell(@Param("landType") String landType,
+                                                                 @Param("direction") String direction,
+                                                                 @Param("city") String city,
+                                                                 @Param("minArea") Double minArea,
+                                                                 @Param("maxArea") Double maxArea, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for sell
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param priceMin
+     * @param priceMax
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 2\n" +
+            "  AND p.status_post_id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 2\n" +
+                    "  AND p.status_post_id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityPriceSell(@Param("landType") String landType,
+                                                                  @Param("direction") String direction,
+                                                                  @Param("city") String city,
+                                                                  @Param("priceMin") Double priceMin,
+                                                                  @Param("priceMax") Double priceMax, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for sell
+     * @param landType
+     * @param direction
+     * @param city
+     * @param minArea
+     * @param maxArea
+     * @param priceMin
+     * @param priceMax
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 2\n" +
+            "  AND sp.id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.area BETWEEN :minArea AND :maxArea\n" +
+            "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 2\n" +
+                    "  AND sp.id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.area BETWEEN :minArea AND :maxArea\n" +
+                    "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaPriceSell(@Param("landType") String landType,
+                                                                      @Param("direction") String direction,
+                                                                      @Param("city") String city,
+                                                                      @Param("minArea") Double minArea,
+                                                                      @Param("maxArea") Double maxArea,
+                                                                      @Param("priceMin") Double priceMin,
+                                                                      @Param("priceMax") Double priceMax, Pageable pageable);
+
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for Buy
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = true\n" +
+            "  AND dt.id_demand_type = 1\n" +
+            "  AND sp.id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%') ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = true\n" +
+                    "  AND dt.id_demand_type = 1\n" +
+                    "  AND sp.id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%') ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityBuy(@Param("landType") String landType,
+                                                                 @Param("direction") String direction,
+                                                                 @Param("city") String city, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for Buy
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param minArea
+     * @param maxArea
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 1\n" +
+            "  AND p.status_post_id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.area BETWEEN :minArea AND :maxArea ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 1\n" +
+                    "  AND p.status_post_id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.area BETWEEN :minArea AND :maxArea ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaBuy(@Param("landType") String landType,
+                                                                     @Param("direction") String direction,
+                                                                     @Param("city") String city,
+                                                                     @Param("minArea") Double minArea,
+                                                                     @Param("maxArea") Double maxArea, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for Buy
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param priceMin
+     * @param priceMax
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 1\n" +
+            "  AND p.status_post_id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 1\n" +
+                    "  AND p.status_post_id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityPriceBuy(@Param("landType") String landType,
+                                                                      @Param("direction") String direction,
+                                                                      @Param("city") String city,
+                                                                      @Param("priceMin") Double priceMin,
+                                                                      @Param("priceMax") Double priceMax, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for Buy
+     * @param landType
+     * @param direction
+     * @param city
+     * @param minArea
+     * @param maxArea
+     * @param priceMin
+     * @param priceMax
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 1\n" +
+            "  AND sp.id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.area BETWEEN :minArea AND :maxArea\n" +
+            "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 1\n" +
+                    "  AND sp.id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.area BETWEEN :minArea AND :maxArea\n" +
+                    "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaPriceBuy(@Param("landType") String landType,
+                                                                          @Param("direction") String direction,
+                                                                          @Param("city") String city,
+                                                                          @Param("minArea") Double minArea,
+                                                                          @Param("maxArea") Double maxArea,
+                                                                          @Param("priceMin") Double priceMin,
+                                                                          @Param("priceMax") Double priceMax, Pageable pageable);
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for Rent
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = true\n" +
+            "  AND dt.id_demand_type = 3\n" +
+            "  AND sp.id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%') ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = true\n" +
+                    "  AND dt.id_demand_type = 3\n" +
+                    "  AND sp.id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%') ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityRent(@Param("landType") String landType,
+                                                                @Param("direction") String direction,
+                                                                @Param("city") String city, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for Rent
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param minArea
+     * @param maxArea
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 3\n" +
+            "  AND p.status_post_id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.area BETWEEN :minArea AND :maxArea ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 3\n" +
+                    "  AND p.status_post_id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.area BETWEEN :minArea AND :maxArea ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaRent(@Param("landType") String landType,
+                                                                    @Param("direction") String direction,
+                                                                    @Param("city") String city,
+                                                                    @Param("minArea") Double minArea,
+                                                                    @Param("maxArea") Double maxArea, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for Rent
+     *
+     * @param landType
+     * @param direction
+     * @param city
+     * @param priceMin
+     * @param priceMax
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 3\n" +
+            "  AND p.status_post_id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 3\n" +
+                    "  AND p.status_post_id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityPriceRent(@Param("landType") String landType,
+                                                                     @Param("direction") String direction,
+                                                                     @Param("city") String city,
+                                                                     @Param("priceMin") Double priceMin,
+                                                                     @Param("priceMax") Double priceMax, Pageable pageable);
+
+    /**
+     * Create by : SangNP
+     * Date create: 01/02/2023
+     * Description: take post list homepage for Rent
+     * @param landType
+     * @param direction
+     * @param city
+     * @param minArea
+     * @param maxArea
+     * @param priceMin
+     * @param priceMax
+     * @param pageable
+     * @return Page<PostListViewDto>
+     */
+    @Query(value = "SELECT p.id_post as idPost,\n" +
+            "       p.name_post as namePost,\n" +
+            "       p.price,\n" +
+            "       p.area,\n" +
+            "       d2.name_district as district,\n" +
+            "       c2.name_city     as city,\n" +
+            "       p.date_creation as dateCreation\n" +
+            "FROM post p\n" +
+            "         JOIN address a on a.id_address = p.address_id_address\n" +
+            "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+            "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+            "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+            "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+            "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+            "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+            "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+            "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+            "WHERE p.flag_deleted = false\n" +
+            "  AND p.approval = 1\n" +
+            "  AND dt.id_demand_type = 3\n" +
+            "  AND sp.id_status_post = 2\n" +
+            "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+            "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+            "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+            "  AND p.area BETWEEN :minArea AND :maxArea\n" +
+            "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc",
+            nativeQuery = true,
+            countQuery = "SELECT p.id_post as idPost,\n" +
+                    "       p.name_post as namePost,\n" +
+                    "       p.price,\n" +
+                    "       p.area,\n" +
+                    "       d2.name_district as district,\n" +
+                    "       c2.name_city     as city,\n" +
+                    "       p.date_creation as dateCreation\n" +
+                    "FROM post p\n" +
+                    "         JOIN address a on a.id_address = p.address_id_address\n" +
+                    "         JOIN customer c on c.id_customer = p.customer_id_customer\n" +
+                    "         JOIN demand_type dt on dt.id_demand_type = p.demand_type_id_demand_type\n" +
+                    "         JOIN direction d on d.id_direction = p.direction_id_direction\n" +
+                    "         JOIN land_type lt on lt.id_land_type = p.land_type_id_land_type\n" +
+                    "         JOIN status_post sp on sp.id_status_post = p.status_post_id_status_post\n" +
+                    "         JOIN wards w on w.id_wards = a.wards_id_wards\n" +
+                    "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
+                    "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
+                    "WHERE p.flag_deleted = false\n" +
+                    "  AND p.approval = 1\n" +
+                    "  AND dt.id_demand_type = 3\n" +
+                    "  AND sp.id_status_post = 2\n" +
+                    "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
+                    "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
+                    "  AND c2.name_city LIKE CONCAT('%', :city, '%')\n" +
+                    "  AND p.area BETWEEN :minArea AND :maxArea\n" +
+                    "  AND p.price BETWEEN :priceMin AND :priceMax ORDER BY p.id_post desc")
+    Page<PostListViewDto> findAllWithDemandTypeDirectionCityAreaPriceRent(@Param("landType") String landType,
+                                                                         @Param("direction") String direction,
+                                                                         @Param("city") String city,
+                                                                         @Param("minArea") Double minArea,
+                                                                         @Param("maxArea") Double maxArea,
+                                                                         @Param("priceMin") Double priceMin,
+                                                                         @Param("priceMax") Double priceMax, Pageable pageable);
 }
