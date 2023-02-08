@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -21,7 +18,9 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNotification;
     private LocalDate postingDate;
+    @Column(columnDefinition = "varchar(60)")
     private String title;
+    @Column(columnDefinition = "varchar(450)")
     private String content;
     private boolean flagDelete = false;
 }

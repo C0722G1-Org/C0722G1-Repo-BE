@@ -45,6 +45,7 @@ public class PostRestController {
         }
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
+
     @GetMapping("search-page-customer")
     public ResponseEntity<?> getAllAndSearchWithRoleCustomer(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
         Page<Post> postList = postService.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
@@ -54,12 +55,14 @@ public class PostRestController {
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
 
-    /**Method use: displayList(), call getAll() of IPostService to get list data from database
+    /**
+     * Method use: displayList(), call getAll() of IPostService to get list data from database
      * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
      * Parameter: NO
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
      * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDtoViewList>
-     * Author: DatTQ ; Date create: 31/01/2022 */
+     * Author: DatTQ ; Date create: 31/01/2022
+     */
     @GetMapping("/charts")
     public ResponseEntity<List<PostDtoViewList>> displayList() {
         List<PostDtoViewList> postDtoViewListList = postService.getAll();
@@ -69,27 +72,29 @@ public class PostRestController {
         return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     }
 
-    /**Method use: search(), call searchYear() and searchYearAndMonth() of IPostService to get list data from database
+    /**
+     * Method use: search(), call searchYear() and searchYearAndMonth() of IPostService to get list data from database
      * Use ResponseEntity to handling response, datatype: List<PostDtoViewList>
      * Parameter: Integer year (defaultValue = "-1"), Integer month (defaultValue = "-1")
      * If parameter month is == -1, List<PostDtoViewList> = method searchYear of IPostService
      * If parameter year is != -1 and month != -1 => List<PostDtoViewList> = method searchYearAndMonth of IPostService
      * If parameter year is == -1 and month != -1 => assign 2 parameters year and month = current year and current month
-                => List<PostDtoViewList> = method searchYearAndMonth of IPostService
+     * => List<PostDtoViewList> = method searchYearAndMonth of IPostService
      * If the list returned is an empty list, return http status code : HttpStatus.NO_CONTENT
      * If the list returned is a list with data, then return http status code: HttpStatus.OK and List<PostDtoViewList>
-     * Author: DatTQ ; Date create: 31/01/2022 */
+     * Author: DatTQ ; Date create: 31/01/2022
+     */
     @GetMapping("/charts-search")
     public ResponseEntity<List<PostDtoViewList>> search(@RequestParam(defaultValue = "-1") Integer year, @RequestParam(defaultValue = "-1") Integer month) {
         List<PostDtoViewList> postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
         if (month == -1 && year == -1) {
             postDtoViewListList = postService.getAll();
         }
-        if (month == -1) {
+        if (month == -1 && year != -1) {
             postDtoViewListList = postService.searchYear(String.valueOf(year));
         }
         if (month != -1 && year == -1) {
-            LocalDate date=LocalDate.now();
+            LocalDate date = LocalDate.now();
             month = date.getMonthValue();
             year = LocalDate.now().getYear();
             postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
@@ -98,7 +103,7 @@ public class PostRestController {
             postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
         }
         if (postDtoViewListList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     }
@@ -135,7 +140,7 @@ public class PostRestController {
     @PostMapping("/create")
     public ResponseEntity<BaseResponseCreatePost> create(@RequestBody CreatePostDto createPostDto) {
         BaseResponseCreatePost baseResponseCreatePost = postService.getResponseCreatePost(createPostDto);
-        return new ResponseEntity<>(baseResponseCreatePost, HttpStatus.valueOf(baseResponseCreatePost.getCode()));
+        return new ResponseEntity<>(baseResponseCreatePost, HttpStatus.OK);
     }
 
     /**
@@ -156,6 +161,8 @@ public class PostRestController {
                                                       @RequestParam() Optional<String> citySearch,
                                                       @RequestParam() Optional<String> districtSearch,
                                                       @RequestParam() Optional<String> wardsSearch,
+                                                      @RequestParam() Optional<Double> minAreaSearch,
+                                                      @RequestParam() Optional<Double> maxAreaSearch,
                                                       @PageableDefault(page = 0, size = 5) Pageable pageable) {
         Page<PostDto> listPostDtos;
         String demandTypeSearchValue = demandTypeSearch.orElse("");
@@ -165,9 +172,11 @@ public class PostRestController {
         String citySearchValue = citySearch.orElse("");
         String districtSearchValue = districtSearch.orElse("");
         String wardsSearchValue = wardsSearch.orElse("");
+        Double minAreaSearchValue = minAreaSearch.orElse(0.0);
+        Double maxAreaSearchValue = maxAreaSearch.orElse(99999999999999999.0);
 
-        if (demandTypeSearchValue.equals("") || landTypeSearchValue.equals("") || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue.equals("") || districtSearchValue.equals("") || wardsSearchValue.equals("")) {
-            listPostDtos = postService.searchAllPost(demandTypeSearchValue, landTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, citySearchValue, districtSearchValue, wardsSearchValue, pageable);
+        if (demandTypeSearchValue.equals("") || landTypeSearchValue.equals("") || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue.equals("") || districtSearchValue.equals("") || wardsSearchValue.equals("") || minAreaSearchValue != 0.0 || maxAreaSearchValue != 99999999999999999.0) {
+            listPostDtos = postService.searchAllPost(demandTypeSearchValue, landTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, citySearchValue, districtSearchValue, wardsSearchValue, minAreaSearchValue, maxAreaSearchValue, pageable);
         } else {
             listPostDtos = postService.findAllPost(pageable);
         }
@@ -231,5 +240,18 @@ public class PostRestController {
         }
         postService.succeedConfirm(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Created by: BaoDP
+     * Date Created: 03/022023
+     *
+     * @param idAccount
+     * @return page post customer
+     */
+    @PostMapping("/customer/login")
+    public ResponseEntity<CustomerGetIdAndCodCustomer> getIdAndCodCustomer(@RequestBody Long idAccount) {
+        CustomerGetIdAndCodCustomer customerGetIdAndCodCustomer = postService.getIdCustomerAndCodeCustomer(idAccount);
+        return new ResponseEntity<>(customerGetIdAndCodCustomer,HttpStatus.OK);
     }
 }

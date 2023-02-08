@@ -149,6 +149,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " address_employee," +
             " account_id_account," +
             " division_id_division) " +
+            "VALUES " +
             " (:#{#employee.codeEmployee}," +
             " :#{#employee.nameEmployee}," +
             " :#{#employee.emailEmployee}," +

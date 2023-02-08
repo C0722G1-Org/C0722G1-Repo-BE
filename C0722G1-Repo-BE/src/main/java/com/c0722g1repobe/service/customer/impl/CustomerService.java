@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.customer.impl;
 
+import com.c0722g1repobe.dto.customer.ICustomerDtoMailAndUserName;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.repository.account.IAccountRepository;
 import com.c0722g1repobe.service.account.IAccountService;
@@ -86,6 +87,12 @@ public class CustomerService implements ICustomerService {
     public void confirmCustomer(Long id) {
         customerRepository.confirmCustomer(id);
     }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        customerRepository.deleteCustomer(id);
+    }
+
     /**
      * Create by: VanNTC
      * Date created: 31/01/2023
@@ -139,8 +146,8 @@ public class CustomerService implements ICustomerService {
      * method of using save customer
      */
     @Override
-    public List<Customer> findAllCheckMailCustomerAnhNameAccount() {
-        return customerRepository.findAll();
+    public List<ICustomerDtoMailAndUserName> findAllCheckMailCustomerAnhNameAccount() {
+        return customerRepository.findAllCheckMailCustomerAnhNameAccount();
     }
 
 }
