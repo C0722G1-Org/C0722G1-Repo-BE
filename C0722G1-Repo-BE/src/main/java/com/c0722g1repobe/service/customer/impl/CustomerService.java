@@ -87,6 +87,12 @@ public class CustomerService implements ICustomerService {
     public void confirmCustomer(Long id) {
         customerRepository.confirmCustomer(id);
     }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        customerRepository.deleteCustomer(id);
+    }
+
     /**
      * Create by: VanNTC
      * Date created: 31/01/2023

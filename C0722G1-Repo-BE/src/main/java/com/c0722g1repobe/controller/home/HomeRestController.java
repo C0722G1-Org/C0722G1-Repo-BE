@@ -226,4 +226,17 @@ public class HomeRestController {
         }
         return new ResponseEntity<>(postDetailDto, HttpStatus.OK);
     }
+
+    /**
+     * created by HuyDN
+     * HomeRestController
+     *
+     * @param id: number
+     * @return: new ResponseEntity
+     */
+    @GetMapping("/detail/account-id")
+    public ResponseEntity<Long> findAccountByCustomerId(@RequestParam Long id) {
+        Long idAccount = postService.getIdAccountByIdCustomer(id);
+        return new ResponseEntity<>(idAccount, HttpStatus.OK);
+    }
 }

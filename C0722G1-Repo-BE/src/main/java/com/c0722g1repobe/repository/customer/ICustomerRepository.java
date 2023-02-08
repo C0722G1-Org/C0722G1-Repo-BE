@@ -111,7 +111,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      * @return List customer have paging and search.
      */
 
-    @Query(value = "select * from customer where  name_customer like concat('%', :allSearch ,'%')  or address_customer like concat('%', :allSearch ,'%')  or code_customer  like concat('%', :allSearch ,'%')  and flag_delete = true ",
+    @Query(value = " select * from customer where ( name_customer like %:allSearch%  or address_customer like %:allSearch%  or code_customer  like %:allSearch% ) and flag_delete = false order by approval_customer asc ",
             nativeQuery = true)
     Page<ICustomerDto> searchCustomer(@Param("allSearch") String allSearch,
                                       Pageable pageable);
@@ -127,6 +127,11 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "update customer set approval_customer = 1 where id_customer = :id", nativeQuery = true)
     @Transactional
     void confirmCustomer(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = " update customer set flag_delete = true where id_customer = :id ", nativeQuery = true)
+    @Transactional
+    void deleteCustomer(@Param("id") Long id);
 
 
     /**

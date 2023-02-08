@@ -64,6 +64,15 @@ public interface ICustomerService {
     void confirmCustomer(Long id);
 
     /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: delete customer.
+     *
+     * @param id
+     */
+    void deleteCustomer(Long id);
+
+    /**
      * Create by: VanNTC
      * Date created: 31/01/2023
      * Function: find customer by id

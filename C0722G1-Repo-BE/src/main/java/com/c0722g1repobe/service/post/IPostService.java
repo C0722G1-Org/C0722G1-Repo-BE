@@ -122,7 +122,7 @@ public interface IPostService {
      * @return json list posts
      */
     Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Double minPriceSearch, Double maxPriceSearch,
-                                String citySearch, String districtSearch, String wardsSearch, Pageable pageable);
+                                String citySearch, String districtSearch, String wardsSearch, Double minAreSearch, Double maxAreSearch, Pageable pageable);
 
     /**
      * Create by: NgocLV
@@ -200,4 +200,12 @@ public interface IPostService {
      * @return Page<PostListViewDto> and null if not found
      */
     Page<PostListViewDto> findAllRent(String area, String price, String landType, String direction, String city, Pageable pageable);
+
+    /**
+     * created by HuyDN
+     *
+     * @param id: Long
+     * @return
+     */
+    Long getIdAccountByIdCustomer(@Param("id") Long id);
 }

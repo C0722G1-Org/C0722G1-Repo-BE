@@ -38,6 +38,7 @@ public class PostService implements IPostService {
 
     @Autowired
     private IImageRepository imageRepository;
+
     /**
      * Call method getAll() of IPostRepository
      * Author: DatTQ
@@ -321,8 +322,8 @@ public class PostService implements IPostService {
      * @return list post  or null if not found
      */
     @Override
-    public Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Double minPriceSearch, Double maxPriceSearch, String citySearch, String districtSearch, String wardsSearch, Pageable pageable) {
-        return postRepository.searchAllPost(demandTypeSearch, lendTypeSearch, minPriceSearch, maxPriceSearch, citySearch, districtSearch, wardsSearch, pageable);
+    public Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Double minPriceSearch, Double maxPriceSearch, String citySearch, String districtSearch, String wardsSearch, Double minAreSearch, Double maxAreSearch, Pageable pageable) {
+        return postRepository.searchAllPost(demandTypeSearch, lendTypeSearch, minPriceSearch, maxPriceSearch, citySearch, districtSearch, wardsSearch, minAreSearch, maxAreSearch, pageable);
     }
 
     /**
@@ -486,5 +487,11 @@ public class PostService implements IPostService {
             return null;
         }
     }
+
+    @Override
+    public Long getIdAccountByIdCustomer(Long id) {
+        return postRepository.getIdAccountByIdCustomer(id);
+    }
+
 }
 
