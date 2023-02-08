@@ -1,17 +1,14 @@
 package com.c0722g1repobe.repository.post;
 
 
-import com.c0722g1repobe.dto.post.PostDetailDto;
+import com.c0722g1repobe.dto.post.*;
 import com.c0722g1repobe.entity.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.c0722g1repobe.dto.post.PostDtoViewList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import com.c0722g1repobe.dto.post.PostListViewDto;
-import com.c0722g1repobe.dto.post.PostDto;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +16,17 @@ import java.util.List;
 
 @Repository
 public interface IPostRepository extends JpaRepository<Post, Long> {
+
+    /**
+     * Created by: BaoDP
+     * Date Created: 03/02/2023
+     *
+     * @param idAccount
+     * @return page post customer
+     */
+    @Query(value = "select c.id_customer as idCustomer, c.code_customer as codeCustomer  from customer c where c.flag_delete = false and c.account_id_account= :idAccount", nativeQuery = true)
+    CustomerGetIdAndCodCustomer getIdCustomerAndCodeCustomer(@Param("idAccount") Long idAccount);
+
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
@@ -35,8 +43,9 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             " join land_type on post.land_type_id_land_type = land_type.id_land_type" +
             " join `customer` on post.customer_id_customer = `customer`.id_customer" +
             " join `account` on customer.account_id_account = `account`.id_account" +
-            " where demand_type.name_demand_type like %:nameDemandTypeSearch% and `account`.id_account = :idAccount", nativeQuery = true)
+            " where demand_type.name_demand_type like :nameDemandTypeSearch and `account`.id_account = :idAccount", nativeQuery = true)
     Page<Post> getAllAndSearchWithRoleCustomer(@Param("nameDemandTypeSearch") String nameDemandTypeSearch, @Param("idAccount") String idAccount, Pageable pageable);
+
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
@@ -51,8 +60,9 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             " join demand_type on post.demand_type_id_demand_type = demand_type.id_demand_type" +
             " join land_type on post.land_type_id_land_type = land_type.id_land_type" +
             " join `customer` on post.customer_id_customer = `customer`.id_customer" +
-            " where demand_type.name_demand_type like %:nameDemandTypeSearch% and `customer`.id_customer = :idCustomer", nativeQuery = true)
+            " where demand_type.name_demand_type like :nameDemandTypeSearch and `customer`.id_customer = :idCustomer", nativeQuery = true)
     Page<Post> getAllAndSearchWithRoleAdmin(@Param("nameDemandTypeSearch") String nameDemandTypeSearch, @Param("idCustomer") String idCustomer, Pageable pageable);
+
     /* Method use: getAll()
      * Get List data of required attributes from the database of related tables(Post,Address,Wards,District,StatusPost)
      * Use interface PostDto
@@ -195,11 +205,10 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             ":#{#post.direction.idDirection}," +
             ":#{#post.landType.idLandType}," +
             ":#{#post.customer.idCustomer}," +
-            ":#{#post.statusPost.idStatusPost});" +
-            "SELECT LAST_INSERT_ID()",
+            ":#{#post.statusPost.idStatusPost})",
             nativeQuery = true)
     @Transactional
-    Long savePost(@Param("post") Post post);
+    void savePost(@Param("post") Post post);
 
     /**
      * Create by : SangNP
@@ -611,7 +620,16 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
     void succeedConfirm(@Param("id") Long id);
 
     /**
-     * Create by : SangNP
+     * Create by: BaoDP
+     * Date created: 07/02/2023
+     * Description: get last id of post created
+     *
+     * @return last id of post created
+     */
+    @Query(value = "SELECT LAST_INSERT_ID()",nativeQuery = true)
+    Long getLastInsertId();
+
+     /** Create by : SangNP
      * Date create: 01/02/2023
      * Description: take post list homepage for sell
      *
