@@ -55,7 +55,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
                     " WHERE e.flag_deleted = false ORDER BY e.id_employee DESC) " +
                     " as count_employee",
             nativeQuery = true)
-    Page<EmployeeInfo> getAllEmployee(Pageable pageable);
+            Page<EmployeeInfo> getAllEmployee(Pageable pageable);
 
     /**
      * Create by: NhanUQ
@@ -108,7 +108,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
                     " ORDER BY e.id_employee DESC) " +
                     " as count_employee",
             nativeQuery = true)
-    Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(
+            Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(
             @Param("codeSearch") String codeSearch,
             @Param("nameSearch") String nameSearch,
             @Param("emailSearch") String emailSearch,
