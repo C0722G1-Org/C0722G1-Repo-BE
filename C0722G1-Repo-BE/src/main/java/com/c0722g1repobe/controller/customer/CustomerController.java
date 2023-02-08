@@ -103,7 +103,8 @@ public class CustomerController {
         customerDto.setEmailCustomer(customerDto.getEmailCustomer());
         account.setEncryptPassword(passwordEncoder.encode(customerDto.getEncryptPassword()));
         account.setUsernameAccount((customerDto.getEmailCustomer()));
-        account.setName(customerDto.getNameAccount());
+        account.setEmail(customerDto.getEmailCustomer());
+        account.setName(customerDto.getNameCustomer());
         Set<Role> roles = new HashSet<>();
         Role customerRole = roleService.findByNameAccount(RoleName.CUSTOMER).orElseThrow(() -> new RuntimeException("Role not found"));
         roles.add(customerRole);

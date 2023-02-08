@@ -1,6 +1,7 @@
 package com.c0722g1repobe.repository.customer;
 
 import com.c0722g1repobe.dto.customer.ICustomerDto;
+import com.c0722g1repobe.dto.customer.ICustomerDtoMailAndUserName;
 import com.c0722g1repobe.entity.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -161,12 +162,13 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      * method of using save customer
      */
 
-    @Query(value = "SELECT\n" +
-            " a.email,\n" +
-            " a.username_account\n" +
-            "FROM \n" +
-            "account as a where a.flag_delete=false", nativeQuery = true)
-    List<String> findAllCheckMailCustomerAnhNameAccount();
-
+    @Query(value = "select\n" +
+            "email,\n" +
+            "username_account as usernameAccount\n" +
+            "from\n" +
+            "account\n" +
+            "where\n" +
+            "flag_delete = 0", nativeQuery = true)
+    List<ICustomerDtoMailAndUserName> findAllCheckMailCustomerAnhNameAccount();
 
 }

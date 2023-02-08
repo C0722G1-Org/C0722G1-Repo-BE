@@ -85,11 +85,11 @@ public class PostRestController {
         if (month == -1 && year == -1) {
             postDtoViewListList = postService.getAll();
         }
-        if (month == -1) {
+        if (month == -1 && year != -1) {
             postDtoViewListList = postService.searchYear(String.valueOf(year));
         }
         if (month != -1 && year == -1) {
-            LocalDate date=LocalDate.now();
+            LocalDate date = LocalDate.now();
             month = date.getMonthValue();
             year = LocalDate.now().getYear();
             postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
@@ -98,7 +98,7 @@ public class PostRestController {
             postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
         }
         if (postDtoViewListList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(postDtoViewListList, HttpStatus.OK);
     }

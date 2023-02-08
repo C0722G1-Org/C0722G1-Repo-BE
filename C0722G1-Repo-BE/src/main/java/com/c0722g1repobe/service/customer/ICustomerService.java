@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.customer;
 
+import com.c0722g1repobe.dto.customer.ICustomerDtoMailAndUserName;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
@@ -80,6 +81,7 @@ public interface ICustomerService {
      */
     void updateCustomer(Customer customer);
 
+
     /**
      * creator: Trịnh Minh Đức
      * date:31/01/2023
@@ -88,7 +90,7 @@ public interface ICustomerService {
     String ramdomCodeCustomer();
     void saveCustomer(Customer customer);
 
-    List<Customer> findAllCheckMailCustomerAnhNameAccount();
+    List<ICustomerDtoMailAndUserName> findAllCheckMailCustomerAnhNameAccount();
 
 
 }
