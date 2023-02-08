@@ -1460,8 +1460,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
      * @return: account
      */
 
-    @Query(value = "select account.id_account from account join customer on customer.account_id_account = account.id_account where customer.id_customer = :id",
+    @Query(value = "select customer.account_id_account from customer where customer.id_customer = :id",
             nativeQuery = true,
-            countQuery = "select account.id_account from account join customer on customer.account_id_account = account.id_account where customer.id_customer = :id")
+            countQuery = "select customer.account_id_account from customer where customer.id_customer = :id")
     Long getIdAccountByIdCustomer(@Param("id") Long id);
 }
