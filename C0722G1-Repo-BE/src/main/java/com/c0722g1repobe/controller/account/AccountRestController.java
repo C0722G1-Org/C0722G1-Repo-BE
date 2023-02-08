@@ -5,6 +5,7 @@ import com.c0722g1repobe.dto.account.AccountDto;
 import com.c0722g1repobe.dto.account.request.SignInForm;
 import com.c0722g1repobe.dto.account.response.JwtResponse;
 import com.c0722g1repobe.dto.customer.CustomerDtoMd;
+import com.c0722g1repobe.dto.customer.ICustomerDtoMailAndUserName;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
 import com.c0722g1repobe.entity.account.RoleName;
@@ -145,8 +146,8 @@ public class AccountRestController {
         customer.setCodeCustomer(customerService.ramdomCodeCustomer());
         Account account = new Account();
         account.setName(customerDtoMD.getNameCustomer());
-        account.setUsernameAccount(customerDtoMD.getAccount().getUsernameAccount());
-        account.setEncryptPassword(passwordEncoder.encode(customerDtoMD.getAccount().getEncryptPassword()));
+        account.setUsernameAccount(customerDtoMD.getUsernameAccount());
+        account.setEncryptPassword(passwordEncoder.encode(customerDtoMD.getEncryptPassword()));
         account.setEmail(customerDtoMD.getEmailCustomer());
         Set<Role> roles = new HashSet<>();
         Role customerRole = roleService.findByNameAccount(RoleName.CUSTOMER).orElse(new Role()) ;
@@ -158,14 +159,15 @@ public class AccountRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
     /**
      * creator: Trịnh Minh Đức
      * date:31/01/2023
      * method of using save customer
      */
     @GetMapping("/ListMailCustomerAnhNameAccount")
-    public ResponseEntity<List<Customer>> showList() {
-        List<Customer> listAll = customerService.findAllCheckMailCustomerAnhNameAccount();
+    public ResponseEntity<List<ICustomerDtoMailAndUserName>> showList() {
+        List<ICustomerDtoMailAndUserName> listAll = customerService.findAllCheckMailCustomerAnhNameAccount();
         if (listAll.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

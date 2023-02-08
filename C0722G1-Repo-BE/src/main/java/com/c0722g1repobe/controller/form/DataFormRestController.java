@@ -48,7 +48,6 @@ public class DataFormRestController {
      */
     @PostMapping("/save")
     public ResponseEntity<?> createDataForm(@Valid @RequestBody DataFormDto dataFormDto, BindingResult bindingResult) {
-        new DataFormDto().validate(dataFormDto, bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_MODIFIED);
         }
@@ -101,7 +100,6 @@ public class DataFormRestController {
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<DataForm> update(@PathVariable("id") long id, @Valid @RequestBody DataFormDto dataFormDto, BindingResult bindingResult){
         DataForm dataForm = iDataFormService.findByIdDataForm(id);
-        new DataFormDto().validate(dataFormDto,bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity(bindingResult.getAllErrors(), HttpStatus.NOT_MODIFIED);
         }

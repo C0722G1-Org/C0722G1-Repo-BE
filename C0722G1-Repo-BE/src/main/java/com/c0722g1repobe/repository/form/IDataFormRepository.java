@@ -50,7 +50,7 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
      * funcion: findByIdDataForm()
      * @param 'id'
      */
-    @Query(value = "SELECT * FROM data_form where id_data_form= :id and flag_delete = fasle",countQuery = "SELECT * FROM data_form where id_data_form= :id and flag_delete = fasle",nativeQuery = true)
+    @Query(value = "SELECT * FROM data_form where id_data_form= :id and flag_delete = false ",countQuery = "SELECT * FROM data_form where id_data_form= :id and flag_delete = false",nativeQuery = true)
     DataForm findByIdDataForm(@Param("id") long id);
 
 
@@ -64,6 +64,6 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
      */
     @Transactional
     @Modifying
-    @Query(value = "update data_form  set content_data_form = ':contentDataForm', url_data_form = ':urlDataForm' where id_data_form= :id",countQuery = "update data_form  set content_data_form = ':contentDataForm', url_data_form = ':urlDataForm' where id_data_form= :id",nativeQuery = true)
+    @Query(value = "update data_form  set content_data_form = :contentDataForm, url_data_form = :urlDataForm where id_data_form= :id",countQuery = "update data_form  set content_data_form = :contentDataForm, url_data_form = :urlDataForm where id_data_form= :id",nativeQuery = true)
     void updateDataForm(@Param("contentDataForm")String contentDataForm, @Param("urlDataForm")String urlDataForm, @Param("id") long id);
 }

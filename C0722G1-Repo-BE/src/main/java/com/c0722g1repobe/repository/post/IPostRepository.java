@@ -527,6 +527,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "and (d.name_demand_type like concat('%', :demandTypeSearch, '%') " +
             "and  l.name_land_type like concat('%', :lendTypeSearch, '%') " +
             "and (p.price between :minPriceSearch and :maxPriceSearch) " +
+            "and (p.area between :minAreaSearch and :maxAreaSearch) " +
             "and ct.id_city like concat('%', :citySearch, '%')  " +
             "and ds.id_district like concat('%', :districtSearch, '%') " +
             "and w.id_wards like concat('%', :wardsSearch, '%')) order by p.approval asc, p.date_creation desc",
@@ -545,12 +546,13 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "and (d.name_demand_type like concat('%', :demandTypeSearch, '%') " +
                     "and  l.name_land_type like concat('%', :lendTypeSearch, '%') " +
                     "and (p.price between :minPriceSearch and :maxPriceSearch) " +
+                    "and (p.area between :minAreaSearch and :maxAreaSearch) " +
                     "and ct.id_city like concat('%', :citySearch, '%')  " +
                     "and ds.id_district like concat('%', :districtSearch, '%') " +
                     "and w.id_wards like concat('%', :wardsSearch, '%')) order by p.approval asc, p.date_creation desc",
             nativeQuery = true)
     Page<PostDto> searchAllPost(@Param("demandTypeSearch") String demandTypeSearch, @Param("lendTypeSearch") String lendTypeSearch, @Param("minPriceSearch") Double minPriceSearch, @Param("maxPriceSearch") Double maxPriceSearch, @Param("citySearch") String citySearch,
-                                @Param("districtSearch") String districtSearch,@Param("wardsSearch") String wardsSearch, Pageable pageable);
+                                @Param("districtSearch") String districtSearch,@Param("wardsSearch") String wardsSearch, @Param("minAreaSearch") Double minAreaSearch,@Param("maxAreaSearch") Double maxAreaSearch, Pageable pageable);
 
     /**
      * Create by: NgocLV
@@ -1450,4 +1452,16 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                                                                          @Param("maxArea") Double maxArea,
                                                                          @Param("priceMin") Double priceMin,
                                                                          @Param("priceMax") Double priceMax, Pageable pageable);
+
+    /**
+     * createdBy: HuyDN
+     *
+     * @param id: number
+     * @return: account
+     */
+
+    @Query(value = "select account.id_account from account join customer on customer.account_id_account = account.id_account where customer.id_customer = :id",
+            nativeQuery = true,
+            countQuery = "select account.id_account from account join customer on customer.account_id_account = account.id_account where customer.id_customer = :id")
+    Long getIdAccountByIdCustomer(@Param("id") Long id);
 }
