@@ -21,6 +21,10 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private final IDirectionRepository directionRepository;
     private final IAddressRepository addressRepository;
 
+
+    private static final String REGEX_VIETNAMESE = "[^aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9/ ]";
+
+
     public ValidateCreatePost(BaseResponseCreatePost baseResponseCreatePost, CustomerRepository customerRepository, IDemandTypeRepository demandTypeRepository, ILandTypeRepository landTypeRepository, IWardsRepository wardsRepository, IDirectionRepository directionRepository, IAddressRepository addressRepository) {
         this.baseResponseCreatePost = baseResponseCreatePost;
         this.customerRepository = customerRepository;
@@ -335,7 +339,8 @@ public class ValidateCreatePost implements IValidateCreatePost {
         boolean numberAddressInvalidMin = !numberAddressIsNull && numberAddress.length() < 10;
         boolean numberAddressInvalidMax = !numberAddressIsNull && numberAddress.length() > 50;
 
-        Pattern pattern = Pattern.compile("[^aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9/ ]");
+        Pattern pattern = Pattern.compile(REGEX_VIETNAMESE);
+
         Matcher matcher = pattern.matcher(numberAddress);
         boolean numberAddressInvalidCharacters = matcher.find();
 
@@ -451,7 +456,8 @@ public class ValidateCreatePost implements IValidateCreatePost {
         boolean noteIsNull = note == null;
         boolean noteInvalidMax = !noteIsNull && note.length() > 500;
 
-        Pattern pattern = Pattern.compile("[^aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9/ ]");
+        Pattern pattern = Pattern.compile(REGEX_VIETNAMESE);
+
         Matcher matcher = pattern.matcher(note);
         boolean noteInvalidCharacters = matcher.find();
 
@@ -556,7 +562,8 @@ public class ValidateCreatePost implements IValidateCreatePost {
         boolean namePostInvalidMin = !namePostIsNull && namePost.length() < 10;
         boolean namePostInvalidMax = !namePostIsNull && namePost.length() > 50;
 
-        Pattern pattern = Pattern.compile("[^aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9/ ]");
+        Pattern pattern = Pattern.compile(REGEX_VIETNAMESE);
+
         Matcher matcher = pattern.matcher(namePost);
         boolean namePostInvalidCharacters = matcher.find();
 

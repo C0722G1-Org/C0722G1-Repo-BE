@@ -22,7 +22,9 @@ public interface IPostService {
      * @param pageable
      * @return page post customer
      */
-    Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idCustomer, Pageable pageable);
+
+    Page<Post> getAllAndSearchWithRoleAdmin(String nameDemandTypeSearch, String idCustomer, Pageable pageable);
+    Page<Post> getAllAndSearchWithRoleCustomer(String nameDemandTypeSearch, String idAccount, Pageable pageable);
 
     /*Method use: getAll()
      * Get List data of required attributes
@@ -46,12 +48,14 @@ public interface IPostService {
      * Author: DatTQ*/
     List<PostDtoViewList> searchYearAndMonth(String year, String month);
 
-//    BaseResponseCreatePost validateCreatePost(CreatePostDto createPostDto);
-//
-//    PostDto addDefaultValue(CreatePostDto createPostDto);
-//
-//    void savePost(PostDto postDto);
-
+    /**
+     * Create by: BaoDP
+     * Date Create: 01/02/2023
+     * Description: if createPostDto is valid then save Post before send BaseResponseCreatePost to Front-end project for handle http status code .
+     *
+     * @param createPostDto : an object of class CreatePostDto
+     * @return an object of class BaseResponseCreatePost
+     */
     BaseResponseCreatePost getResponseCreatePost(CreatePostDto createPostDto);
 
     /**
@@ -150,4 +154,50 @@ public interface IPostService {
      * @return HttpStatus
      */
     void succeedConfirm(@Param("id") Long id);
+
+    /**
+     * Method uses:
+     * find all list posts for sell of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllSell(String area, String price, String landType, String direction, String city, Pageable pageable);
+    /**
+     * Method uses:
+     * find all list posts for buy of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllBuy(String area, String price, String landType, String direction, String city, Pageable pageable);
+    /**
+     * Method uses:
+     * find all list posts for rent of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllRent(String area, String price, String landType, String direction, String city, Pageable pageable);
 }

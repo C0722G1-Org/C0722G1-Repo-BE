@@ -5,6 +5,8 @@ import com.c0722g1repobe.dto.employee.EmployeeInfo;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
+import com.c0722g1repobe.entity.account.RoleName;
+import com.c0722g1repobe.service.account.impl.RoleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,7 +17,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,9 @@ public class EmployeeController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleService roleService;
 
     /**
      * Create by: NhanUQ
@@ -110,20 +114,19 @@ public class EmployeeController {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
         Account account = new Account();
+        BeanUtils.copyProperties(employeeDto, account);
         account.setName(employee.getNameEmployee());
         account.setUsernameAccount(employee.getAccount().getUsernameAccount());
-//        account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));
+        account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));
         account.setEmail(employee.getEmailEmployee());
         Set<Role> roles = new HashSet<>();
-        Role role = new Role();
-        Role employeeRole = employeeService.getRoleByName(role.getName());
-//                .orElseThrow(() -> new RuntimeException("Role not found"));
+        Role employeeRole = roleService.findByNameAccount(RoleName.EMPLOYEE).orElseThrow(() -> new RuntimeException("Role not found"));
         roles.add(employeeRole);
         account.setRoles(roles);
         employeeService.saveAccount(account);
         employee.setAccount(account);
         employeeService.saveEmployee(employee);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -148,7 +151,7 @@ public class EmployeeController {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
         employeeService.updateEmployee(employee, id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**

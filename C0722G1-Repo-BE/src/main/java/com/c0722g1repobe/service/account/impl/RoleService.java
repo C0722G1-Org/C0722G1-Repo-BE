@@ -40,7 +40,6 @@ public class RoleService implements IRoleService {
         return roleRepository.findAllRole();
     }
 
-
     /**
      * creator: Trịnh Minh Đức
      * date:31/01/2023
@@ -50,6 +49,5 @@ public class RoleService implements IRoleService {
     public Optional<Role> findByNameAccount(RoleName roleName) {
         return roleRepository.findByName(roleName);
     }
-
 
 }

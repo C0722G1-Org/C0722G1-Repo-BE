@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +36,18 @@ public class PostRestController {
      * @param pageable
      * @return HttpStatus.NO_CONTENT if list post is empty or HttpStatus.OK if result have content
      */
-    @GetMapping("search-page")
-    public ResponseEntity<?> getAllAndSearch(@PageableDefault(value = 4) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
-        Page<Post> postList = postService.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
+
+    @GetMapping("search-page-admin")
+    public ResponseEntity<?> getAllAndSearchWithRoleAdmin(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
+        Page<Post> postList = postService.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
+        if (postList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(postList, HttpStatus.OK);
+    }
+    @GetMapping("search-page-customer")
+    public ResponseEntity<?> getAllAndSearchWithRoleCustomer(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
+        Page<Post> postList = postService.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -81,7 +89,8 @@ public class PostRestController {
             postDtoViewListList = postService.searchYear(String.valueOf(year));
         }
         if (month != -1 && year == -1) {
-            month = new Date().getMonth() + 1;
+            LocalDate date=LocalDate.now();
+            month = date.getMonthValue();
             year = LocalDate.now().getYear();
             postDtoViewListList = postService.searchYearAndMonth(String.valueOf(year), String.valueOf(month));
         }
@@ -130,36 +139,6 @@ public class PostRestController {
     }
 
     /**
-     * Create by: SangNP
-     * Date created: 31/01/2023
-     * Function: show list post
-     *
-     * @param area       It's okay not to have
-     * @param price      It's okay not to have
-     * @param landType It's okay not to have
-     * @param direction  It's okay not to have
-     * @param city       It's okay not to have
-     * @param pageable   It's okay not to have
-     * @return if have content it will return Page<Post> with HttpStatus.OK else it will return status HttpStatus.NO_CONTENT
-     */
-    @GetMapping("/list")
-    public ResponseEntity<Page<PostListViewDto>> getAllPost(@RequestParam(defaultValue = "") String area,
-                                                            @RequestParam(defaultValue = "") String price,
-                                                            @RequestParam(defaultValue = "") String landType,
-                                                            @RequestParam(defaultValue = "") String direction,
-                                                            @RequestParam(defaultValue = "") String city,
-                                                            @PageableDefault(size = 8) Pageable pageable) {
-        if (area != null && price != null && landType != null && direction != null && city != null) {
-            Page<PostListViewDto> postList = postService.findAll(area, price, landType, direction, city, pageable);
-            if (postList != null && postList.hasContent()) {
-                return new ResponseEntity<>(postList, HttpStatus.OK);
-            }
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-    /**
      * Create by: NgocLV
      * Date created: 31/01/2023
      * Function: show list or search  Post
@@ -187,7 +166,7 @@ public class PostRestController {
         String districtSearchValue = districtSearch.orElse("");
         String wardsSearchValue = wardsSearch.orElse("");
 
-        if (demandTypeSearchValue != "" || landTypeSearchValue != "" || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue != "" || districtSearchValue != "" || wardsSearchValue != "") {
+        if (demandTypeSearchValue.equals("") || landTypeSearchValue.equals("") || minPriceSearchValue != 0.0 || maxPriceSearchValue != 99999999999999999.0 || citySearchValue.equals("") || districtSearchValue.equals("") || wardsSearchValue.equals("")) {
             listPostDtos = postService.searchAllPost(demandTypeSearchValue, landTypeSearchValue, minPriceSearchValue, maxPriceSearchValue, citySearchValue, districtSearchValue, wardsSearchValue, pageable);
         } else {
             listPostDtos = postService.findAllPost(pageable);
@@ -210,7 +189,6 @@ public class PostRestController {
     public ResponseEntity<Post> deletePost(@PathVariable("id") Long id) {
         Post currentPost = postService.findPost(id);
         if (currentPost == null) {
-            System.out.println("Post with id " + id + " not found");
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
         }
         postService.deletePost(id);

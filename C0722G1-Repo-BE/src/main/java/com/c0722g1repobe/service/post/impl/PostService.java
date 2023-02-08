@@ -154,11 +154,24 @@ public class PostService implements IPostService {
      * Date Created: 31/01/2023
      *
      * @param pageable
-     * @return page post customer from post repository
+     * @return page post customer from post repository with role admin
+     */
+
+    @Override
+    public Page<Post> getAllAndSearchWithRoleAdmin(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
+        return postRepository.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
+    }
+
+    /**
+     * Created by: UyDD
+     * Date Created: 31/01/2023
+     *
+     * @param pageable
+     * @return page post customer from post repository with role customer
      */
     @Override
-    public Page<Post> getAllAndSearch(String nameDemandTypeSearch, String idCustomer, Pageable pageable) {
-        return postRepository.getAllAndSearch(nameDemandTypeSearch, idCustomer, pageable);
+    public Page<Post> getAllAndSearchWithRoleCustomer(String nameDemandTypeSearch, String idAccount, Pageable pageable) {
+        return postRepository.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
     }
 
     /**
@@ -177,10 +190,13 @@ public class PostService implements IPostService {
     @Override
     public Page<PostListViewDto> findAll(String area, String price, String landType, String direction, String
             city, Pageable pageable) {
-        if (area.equals("") && price.equals("")) {
+        boolean areaIsEmpty = area.equals("");
+        boolean priceIsEmpty = price.equals("");
+        if (areaIsEmpty && priceIsEmpty) {
             return postRepository.findAllWithDemandTypeDirectionCity(landType, direction, city, pageable);
         }
-        if (!area.equals("") && price.equals("")) {
+
+        if (priceIsEmpty) {
             String[] arr = area.split("-");
             if (arr.length == 2) {
                 try {
@@ -192,7 +208,7 @@ public class PostService implements IPostService {
                 }
             }
         }
-        if (area.equals("") && !price.equals("")) {
+        if (areaIsEmpty) {
             String[] arr = price.split("-");
             if (arr.length == 2) {
                 try {
@@ -204,23 +220,21 @@ public class PostService implements IPostService {
                 }
             }
         }
-        if (!area.equals("") && !price.equals("")) {
-            String[] arrOfArea = area.split("-");
-            String[] arrOfPrice = price.split("-");
-            if (arrOfArea.length == 2 && arrOfPrice.length == 2) {
-                try {
-                    Double areaMin = Double.parseDouble(arrOfArea[0]);
-                    Double areaMax = Double.parseDouble(arrOfArea[1]);
-                    Double priceMin = Double.parseDouble(arrOfPrice[0]);
-                    Double priceMax = Double.parseDouble(arrOfPrice[1]);
-                    return postRepository.findAllWithDemandTypeDirectionCityAreaPrice(landType, direction, city, areaMin, areaMax, priceMin, priceMax, pageable);
-                } catch (Exception e) {
-                    return null;
-                }
+        String[] arrOfArea = area.split("-");
+        String[] arrOfPrice = price.split("-");
+        if (arrOfArea.length == 2 && arrOfPrice.length == 2) {
+            try {
+                Double areaMin = Double.parseDouble(arrOfArea[0]);
+                Double areaMax = Double.parseDouble(arrOfArea[1]);
+                Double priceMin = Double.parseDouble(arrOfPrice[0]);
+                Double priceMax = Double.parseDouble(arrOfPrice[1]);
+                return postRepository.findAllWithDemandTypeDirectionCityAreaPrice(landType, direction, city, areaMin, areaMax, priceMin, priceMax, pageable);
+            } catch (NumberFormatException e) {
+                return null;
             }
+        } else {
+            return null;
         }
-        postRepository.findAll();
-        return null;
     }
 
     /**
@@ -324,6 +338,153 @@ public class PostService implements IPostService {
     @Override
     public void succeedConfirm(Long id) {
         postRepository.succeedConfirm(id);
+    }
+
+    @Override
+    public Page<PostListViewDto> findAllSell(String area, String price, String landType, String direction, String city, Pageable pageable) {
+        boolean areaIsEmpty = area.equals("");
+        boolean priceIsEmpty = price.equals("");
+        if (areaIsEmpty && priceIsEmpty) {
+            return postRepository.findAllWithDemandTypeDirectionCitySell(landType, direction, city, pageable);
+        }
+
+        if (priceIsEmpty) {
+            String[] arr = area.split("-");
+            if (arr.length == 2) {
+                try {
+                    Double areaMin = Double.parseDouble(arr[0]);
+                    Double areaMax = Double.parseDouble(arr[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityAreaSell(landType, direction, city, areaMin, areaMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+        if (areaIsEmpty) {
+            String[] arr = price.split("-");
+            if (arr.length == 2) {
+                try {
+                    Double priceMin = Double.parseDouble(arr[0]);
+                    Double priceMax = Double.parseDouble(arr[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityPriceSell(landType, direction, city, priceMin, priceMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+        String[] arrOfArea = area.split("-");
+        String[] arrOfPrice = price.split("-");
+        if (arrOfArea.length == 2 && arrOfPrice.length == 2) {
+            try {
+                Double areaMin = Double.parseDouble(arrOfArea[0]);
+                Double areaMax = Double.parseDouble(arrOfArea[1]);
+                Double priceMin = Double.parseDouble(arrOfPrice[0]);
+                Double priceMax = Double.parseDouble(arrOfPrice[1]);
+                return postRepository.findAllWithDemandTypeDirectionCityAreaPriceSell(landType, direction, city, areaMin, areaMax, priceMin, priceMax, pageable);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Page<PostListViewDto> findAllBuy(String area, String price, String landType, String direction, String city, Pageable pageable) {
+        boolean areaIsEmpty = area.equals("");
+        boolean priceIsEmpty = price.equals("");
+        if (areaIsEmpty && priceIsEmpty) {
+            return postRepository.findAllWithDemandTypeDirectionCityBuy(landType, direction, city, pageable);
+        }
+
+        if (priceIsEmpty) {
+            String[] arr = area.split("-");
+            if (arr.length == 2) {
+                try {
+                    Double areaMin = Double.parseDouble(arr[0]);
+                    Double areaMax = Double.parseDouble(arr[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityAreaBuy(landType, direction, city, areaMin, areaMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+        if (areaIsEmpty) {
+            String[] arr = price.split("-");
+            if (arr.length == 2) {
+                try {
+                    Double priceMin = Double.parseDouble(arr[0]);
+                    Double priceMax = Double.parseDouble(arr[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityPriceBuy(landType, direction, city, priceMin, priceMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+        String[] arrOfArea = area.split("-");
+        String[] arrOfPrice = price.split("-");
+        if (arrOfArea.length == 2 && arrOfPrice.length == 2) {
+            try {
+                Double areaMin = Double.parseDouble(arrOfArea[0]);
+                Double areaMax = Double.parseDouble(arrOfArea[1]);
+                Double priceMin = Double.parseDouble(arrOfPrice[0]);
+                Double priceMax = Double.parseDouble(arrOfPrice[1]);
+                return postRepository.findAllWithDemandTypeDirectionCityAreaPriceBuy(landType, direction, city, areaMin, areaMax, priceMin, priceMax, pageable);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Page<PostListViewDto> findAllRent(String area, String price, String landType, String direction, String city, Pageable pageable) {
+        boolean areaIsEmpty = area.equals("");
+        boolean priceIsEmpty = price.equals("");
+        if (areaIsEmpty && priceIsEmpty) {
+            return postRepository.findAllWithDemandTypeDirectionCityRent(landType, direction, city, pageable);
+        }
+
+        if (priceIsEmpty) {
+            String[] arr = area.split("-");
+            if (arr.length == 2) {
+                try {
+                    Double areaMin = Double.parseDouble(arr[0]);
+                    Double areaMax = Double.parseDouble(arr[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityAreaRent(landType, direction, city, areaMin, areaMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+        if (areaIsEmpty) {
+            String[] arr = price.split("-");
+            if (arr.length == 2) {
+                try {
+                    Double priceMin = Double.parseDouble(arr[0]);
+                    Double priceMax = Double.parseDouble(arr[1]);
+                    return postRepository.findAllWithDemandTypeDirectionCityPriceRent(landType, direction, city, priceMin, priceMax, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+        }
+        String[] arrOfArea = area.split("-");
+        String[] arrOfPrice = price.split("-");
+        if (arrOfArea.length == 2 && arrOfPrice.length == 2) {
+            try {
+                Double areaMin = Double.parseDouble(arrOfArea[0]);
+                Double areaMax = Double.parseDouble(arrOfArea[1]);
+                Double priceMin = Double.parseDouble(arrOfPrice[0]);
+                Double priceMax = Double.parseDouble(arrOfPrice[1]);
+                return postRepository.findAllWithDemandTypeDirectionCityAreaPriceRent(landType, direction, city, areaMin, areaMax, priceMin, priceMax, pageable);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 }
 

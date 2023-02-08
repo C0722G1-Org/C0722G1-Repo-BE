@@ -4,8 +4,7 @@ import com.c0722g1repobe.entity.account.Account;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class CustomerDtoMD implements Validator {
-
+public class CustomerDtoMd implements Validator {
     private Long idCustomer;
 
     private String nameCustomer;
@@ -47,10 +46,10 @@ public class CustomerDtoMD implements Validator {
 
     }
 
-    public CustomerDtoMD() {
+    public CustomerDtoMd() {
     }
 
-    public CustomerDtoMD(Long idCustomer, String nameCustomer, String phoneCustomer1, String dateOfBirth, String phoneCustomer2, String emailCustomer, String addressCustomer, String idCardCustomer, String codeCustomer, Integer genderCustomer, boolean flagDelete, int approvalCustomer, String usernameAccount, String encryptPassword, String nameAccount, Account account) {
+    public CustomerDtoMd(Long idCustomer, String nameCustomer, String phoneCustomer1, String dateOfBirth, String phoneCustomer2, String emailCustomer, String addressCustomer, String idCardCustomer, String codeCustomer, Integer genderCustomer, boolean flagDelete, int approvalCustomer, String usernameAccount, String encryptPassword, String nameAccount, Account account) {
         this.idCustomer = idCustomer;
         this.nameCustomer = nameCustomer;
         this.phoneCustomer1 = phoneCustomer1;
@@ -196,4 +195,5 @@ public class CustomerDtoMD implements Validator {
     public void setAccount(Account account) {
         this.account = account;
     }
+
 }

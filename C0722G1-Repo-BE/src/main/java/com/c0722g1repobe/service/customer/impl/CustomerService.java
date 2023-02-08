@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.customer.impl;
 
+import com.c0722g1repobe.dto.customer.ICustomerDtoMailAndUserName;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.repository.account.IAccountRepository;
 import com.c0722g1repobe.service.account.IAccountService;
@@ -118,8 +119,8 @@ public class CustomerService implements ICustomerService {
     @Override
     public String ramdomCodeCustomer() {
         Random generator = new Random();
-        Integer codeCustomer = generator.nextInt((9999 - 0) + 1) + 0;
-        String codeCustomerString = "MKH" + codeCustomer.toString();
+        Integer codeCustomer = generator.nextInt((999 - 0) + 1) + 0;
+        String codeCustomerString = "MKH-" + codeCustomer.toString();
         return codeCustomerString;
     }
 
@@ -139,8 +140,8 @@ public class CustomerService implements ICustomerService {
      * method of using save customer
      */
     @Override
-    public List<Customer> findAllCheckMailCustomerAnhNameAccount() {
-        return customerRepository.findAll();
+    public List<ICustomerDtoMailAndUserName> findAllCheckMailCustomerAnhNameAccount() {
+        return customerRepository.findAllCheckMailCustomerAnhNameAccount();
     }
 
 }
