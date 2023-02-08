@@ -225,6 +225,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -249,6 +251,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -289,6 +293,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -312,6 +318,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -353,6 +361,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -376,6 +386,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -418,6 +430,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -444,6 +458,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -643,6 +659,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -668,6 +686,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -709,6 +729,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -734,6 +756,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -777,6 +801,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -802,6 +828,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -846,6 +874,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -873,6 +903,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -919,6 +951,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -944,6 +978,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -985,6 +1021,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -1010,6 +1048,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -1053,6 +1093,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -1078,6 +1120,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -1122,6 +1166,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -1149,6 +1195,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -1193,6 +1241,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -1218,6 +1268,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -1259,6 +1311,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -1284,6 +1338,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -1327,6 +1383,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -1352,6 +1410,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
@@ -1396,6 +1456,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
+            "       lt.name_land_type as nameLandType,\n" +
+            "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
             "       c2.name_city     as city,\n" +
             "       p.date_creation as dateCreation\n" +
@@ -1423,6 +1485,8 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
+                    "       lt.name_land_type as nameLandType,\n" +
+                    "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
                     "       c2.name_city     as city,\n" +
                     "       p.date_creation as dateCreation\n" +
