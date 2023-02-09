@@ -14,7 +14,7 @@ public interface ICityRepository extends JpaRepository<City, Long> {
      *
      */
 
-    @Query(value = "select * from city",
+    @Query(value = "select * from sprint_1.city",
             nativeQuery = true)
     List<City> listCity();
 }
