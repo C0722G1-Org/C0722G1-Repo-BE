@@ -1,5 +1,6 @@
 package com.c0722g1repobe.entity.post;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idImage;
     private String url;
+    @JsonBackReference
     @ManyToOne
     private Post post;
 }
