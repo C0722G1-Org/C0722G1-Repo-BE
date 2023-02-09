@@ -38,7 +38,7 @@ public class PostRestController {
      */
 
     @GetMapping("search-page-admin")
-    public ResponseEntity<?> getAllAndSearchWithRoleAdmin(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer) {
+    public ResponseEntity<?> getAllAndSearchWithRoleAdmin( @RequestParam String nameDemandTypeSearch, @RequestParam String idCustomer, @PageableDefault(value = 4) Pageable pageable) {
         Page<Post> postList = postService.getAllAndSearchWithRoleAdmin(nameDemandTypeSearch, idCustomer, pageable);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -47,7 +47,7 @@ public class PostRestController {
     }
 
     @GetMapping("search-page-customer")
-    public ResponseEntity<?> getAllAndSearchWithRoleCustomer(@PageableDefault(value = 8) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
+    public ResponseEntity<?> getAllAndSearchWithRoleCustomer(@PageableDefault(value = 4) Pageable pageable, @RequestParam String nameDemandTypeSearch, @RequestParam String idAccount) {
         Page<Post> postList = postService.getAllAndSearchWithRoleCustomer(nameDemandTypeSearch, idAccount, pageable);
         if (postList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
