@@ -14,4 +14,5 @@ public interface PostListViewDto {
     String getDateCreation();
     String getNameLandType();
     String getNameDirection();
+    String getIdDemandType();
 }
