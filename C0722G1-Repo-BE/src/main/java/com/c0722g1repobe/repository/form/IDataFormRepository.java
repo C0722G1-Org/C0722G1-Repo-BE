@@ -16,8 +16,8 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
      * Parameter: contentDataForm,pageable
      * Author: KhanhLB
      * */
-    @Query(value="select * from data_form where data_form.flag_delete=false and data_form.content_data_form like %:contentDataForm%",
-    countQuery ="select * from data_form where data_form.flag_delete=false and data_form.content_data_form like %:contentDataForm%",
+    @Query(value="select * from data_form where data_form.flag_delete=false and data_form.content_data_form like %:contentDataForm% order by data_form.id_data_form desc",
+    countQuery ="select * from data_form where data_form.flag_delete=false and data_form.content_data_form like %:contentDataForm% order by data_form.id_data_form desc",
     nativeQuery = true)
     Page<DataForm>searchByContent(@Param("contentDataForm")String contentDataForm, Pageable pageable);
     /**
