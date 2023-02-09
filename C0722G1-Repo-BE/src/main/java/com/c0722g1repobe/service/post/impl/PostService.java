@@ -75,7 +75,7 @@ public class PostService implements IPostService {
      */
     private Post addDefaultValue(CreatePostDto createPostDto) {
 
-        Long defaultIdStatus = 1L;
+        Long defaultIdStatus = 2L;
 
         addressRepository.saveAddress(createPostDto.getNumberAddress(), createPostDto.getIdWards());
         Long idAddress = addressRepository.findIdByNumberAddressAndIdWardsNativeQuery(createPostDto.getNumberAddress(), createPostDto.getIdWards());
