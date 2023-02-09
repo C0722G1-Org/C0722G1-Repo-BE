@@ -101,6 +101,7 @@ public class CustomerController {
         BeanUtils.copyProperties(customerDto, account);
 
         customerDto.setEmailCustomer(customerDto.getEmailCustomer());
+        customerDto.setCodeCustomer(customerService.ramdomCodeCustomer());
         account.setEncryptPassword(passwordEncoder.encode(customerDto.getEncryptPassword()));
         account.setUsernameAccount((customerDto.getEmailCustomer()));
         account.setEmail(customerDto.getEmailCustomer());

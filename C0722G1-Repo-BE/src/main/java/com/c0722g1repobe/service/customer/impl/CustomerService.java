@@ -125,8 +125,8 @@ public class CustomerService implements ICustomerService {
     @Override
     public String ramdomCodeCustomer() {
         Random generator = new Random();
-        Integer codeCustomer = generator.nextInt((9999 - 0) + 1) + 0;
-        String codeCustomerString = "MKH" + codeCustomer.toString();
+        Integer codeCustomer = generator.nextInt((999 - 0) + 1) + 0;
+        String codeCustomerString = "KH-" + codeCustomer.toString();
         return codeCustomerString;
     }
 
