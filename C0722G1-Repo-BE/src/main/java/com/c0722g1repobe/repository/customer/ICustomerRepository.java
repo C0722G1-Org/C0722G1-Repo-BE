@@ -1,6 +1,7 @@
 package com.c0722g1repobe.repository.customer;
 
 import com.c0722g1repobe.dto.customer.ICustomerDto;
+import com.c0722g1repobe.dto.customer.ICustomerDtoMailAndUserName;
 import com.c0722g1repobe.entity.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      *
      * @param idCustomer
      */
-    @Query(value = "select * from customer where id_customer = :idCustomer ", nativeQuery = true)
+    @Query(value = "select * from customer where id_customer = :idCustomer and flag_delete = false ", nativeQuery = true)
     Customer findCustomer(@Param("idCustomer") Long idCustomer);
 
     /**
@@ -110,7 +111,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      * @return List customer have paging and search.
      */
 
-    @Query(value = "select * from customer where  name_customer like concat('%', :allSearch ,'%')  or address_customer like concat('%', :allSearch ,'%')  or code_customer  like concat('%', :allSearch ,'%')  and flag_delete = true ",
+    @Query(value = " select * from customer where ( name_customer like %:allSearch%  or address_customer like %:allSearch%) and flag_delete = false order by approval_customer asc ",
             nativeQuery = true)
     Page<ICustomerDto> searchCustomer(@Param("allSearch") String allSearch,
                                       Pageable pageable);
@@ -126,6 +127,11 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "update customer set approval_customer = 1 where id_customer = :id", nativeQuery = true)
     @Transactional
     void confirmCustomer(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = " update customer set flag_delete = true where id_customer = :id ", nativeQuery = true)
+    @Transactional
+    void deleteCustomer(@Param("id") Long id);
 
 
     /**
@@ -161,12 +167,13 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      * method of using save customer
      */
 
-    @Query(value = "SELECT\n" +
-            " a.email,\n" +
-            " a.username_account\n" +
-            "FROM \n" +
-            "account as a where a.flag_delete=false", nativeQuery = true)
-    List<String> findAllCheckMailCustomerAnhNameAccount();
-
+    @Query(value = "select\n" +
+            "email,\n" +
+            "username_account as usernameAccount\n" +
+            "from\n" +
+            "account\n" +
+            "where\n" +
+            "flag_delete = 0", nativeQuery = true)
+    List<ICustomerDtoMailAndUserName> findAllCheckMailCustomerAnhNameAccount();
 
 }
