@@ -225,7 +225,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -252,7 +252,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -295,7 +295,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -321,7 +321,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -365,7 +365,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -391,7 +391,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -436,7 +436,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -465,7 +465,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -667,7 +667,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -695,7 +695,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -739,7 +739,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -767,7 +767,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -813,7 +813,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -841,7 +841,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -888,7 +888,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -918,7 +918,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -967,7 +967,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -995,7 +995,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -1039,7 +1039,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -1067,7 +1067,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -1113,7 +1113,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -1141,7 +1141,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -1188,7 +1188,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -1218,7 +1218,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -1265,7 +1265,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -1293,7 +1293,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -1337,7 +1337,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -1365,7 +1365,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -1411,7 +1411,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -1439,7 +1439,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
@@ -1486,7 +1486,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "       p.name_post as namePost,\n" +
             "       p.price,\n" +
             "       p.area,\n" +
-            "       p.demand_type_id_demand_type,\n" +
+            "       p.demand_type_id_demand_type as idDemandType,\n" +
             "       lt.name_land_type as nameLandType,\n" +
             "       d.name_direction as nameDirection,\n" +
             "       d2.name_district as district,\n" +
@@ -1516,7 +1516,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "       p.name_post as namePost,\n" +
                     "       p.price,\n" +
                     "       p.area,\n" +
-                    "       p.demand_type_id_demand_type,\n" +
+                    "       p.demand_type_id_demand_type as idDemandType,\n" +
                     "       lt.name_land_type as nameLandType,\n" +
                     "       d.name_direction as nameDirection,\n" +
                     "       d2.name_district as district,\n" +
