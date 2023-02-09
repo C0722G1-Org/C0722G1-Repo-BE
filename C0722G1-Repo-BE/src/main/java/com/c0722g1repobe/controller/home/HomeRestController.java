@@ -222,7 +222,7 @@ public class HomeRestController {
 
         PostDetailDto postDetailDto = postService.findPostById(id);
         if (postDetailDto == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(postDetailDto, HttpStatus.OK);
     }
