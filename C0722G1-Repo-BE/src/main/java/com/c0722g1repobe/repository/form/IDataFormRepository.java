@@ -16,8 +16,8 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
      * Parameter: contentDataForm,pageable
      * Author: KhanhLB
      * */
-    @Query(value="select * from data_form where data_form.flag_delete=false and data_form.content_data_form like %:contentDataForm%",
-    countQuery ="select * from data_form where data_form.flag_delete=false and data_form.content_data_form like %:contentDataForm%",
+    @Query(value="select * from data_form where data_form.flag_delete=false and data_form.content_data_form like %:contentDataForm% order by data_form.id_data_form desc",
+    countQuery ="select * from data_form where data_form.flag_delete=false and data_form.content_data_form like %:contentDataForm% order by data_form.id_data_form desc",
     nativeQuery = true)
     Page<DataForm>searchByContent(@Param("contentDataForm")String contentDataForm, Pageable pageable);
     /**
@@ -50,7 +50,7 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
      * funcion: findByIdDataForm()
      * @param 'id'
      */
-    @Query(value = "SELECT * FROM data_form where id_data_form= :id",countQuery = "SELECT * FROM data_form where id_data_form= :id",nativeQuery = true)
+    @Query(value = "SELECT * FROM data_form where id_data_form= :id and flag_delete = false ",countQuery = "SELECT * FROM data_form where id_data_form= :id and flag_delete = false",nativeQuery = true)
     DataForm findByIdDataForm(@Param("id") long id);
 
 
@@ -64,6 +64,6 @@ public interface IDataFormRepository extends JpaRepository<DataForm,Long> {
      */
     @Transactional
     @Modifying
-    @Query(value = "update data_form  set content_data_form = ':contentDataForm', url_data_form = ':urlDataForm' where id_data_form= :id",countQuery = "update data_form  set content_data_form = ':contentDataForm', url_data_form = ':urlDataForm' where id_data_form= :id",nativeQuery = true)
+    @Query(value = "update data_form  set content_data_form = :contentDataForm, url_data_form = :urlDataForm where id_data_form= :id",countQuery = "update data_form  set content_data_form = :contentDataForm, url_data_form = :urlDataForm where id_data_form= :id",nativeQuery = true)
     void updateDataForm(@Param("contentDataForm")String contentDataForm, @Param("urlDataForm")String urlDataForm, @Param("id") long id);
 }

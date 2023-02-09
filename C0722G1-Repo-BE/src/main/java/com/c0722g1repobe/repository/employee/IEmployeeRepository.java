@@ -39,7 +39,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " FROM employee as e " +
             " JOIN division as d " +
             " ON e.division_id_division = d.id_division " +
-            " WHERE e.flag_deleted = false",
+            " WHERE e.flag_deleted = false ORDER BY e.id_employee DESC",
             countQuery = "SELECT * FROM " +
                     " (SELECT e.id_employee as idEmployee," +
                     " e.code_employee as codeEmployee," +
@@ -52,10 +52,10 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
                     " FROM employee as e " +
                     " JOIN division as d " +
                     " ON e.division_id_division = d.id_division " +
-                    " WHERE e.flag_deleted = false) " +
+                    " WHERE e.flag_deleted = false ORDER BY e.id_employee DESC) " +
                     " as count_employee",
             nativeQuery = true)
-    Page<EmployeeInfo> getAllEmployee(Pageable pageable);
+            Page<EmployeeInfo> getAllEmployee(Pageable pageable);
 
     /**
      * Create by: NhanUQ
@@ -85,7 +85,8 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " AND (e.code_employee LIKE CONCAT('%', :codeSearch, '%') " +
             " AND e.name_employee LIKE CONCAT('%', :nameSearch, '%') " +
             " AND e.email_employee LIKE CONCAT('%', :emailSearch, '%') " +
-            " AND d.name_division LIKE CONCAT('%', :nameDivisionSearch, '%'))",
+            " AND d.name_division LIKE CONCAT('%', :nameDivisionSearch, '%'))" +
+            " ORDER BY e.id_employee DESC",
             countQuery = "SELECT * FROM " +
                     " (SELECT " +
                     " e.id_employee as idEmployee," +
@@ -103,10 +104,11 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
                     " AND (e.code_employee LIKE CONCAT('%', :codeSearch, '%') " +
                     " AND e.name_employee LIKE CONCAT('%', :nameSearch, '%') " +
                     " AND e.email_employee LIKE CONCAT('%', :emailSearch, '%') " +
-                    " AND d.name_division LIKE CONCAT('%', :nameDivisionSearch, '%'))) " +
+                    " AND d.name_division LIKE CONCAT('%', :nameDivisionSearch, '%'))" +
+                    " ORDER BY e.id_employee DESC) " +
                     " as count_employee",
             nativeQuery = true)
-    Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(
+            Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(
             @Param("codeSearch") String codeSearch,
             @Param("nameSearch") String nameSearch,
             @Param("emailSearch") String emailSearch,
@@ -133,14 +135,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * Crated date: 31/01/2023
      * Function: create to employee
      *
-     * @param codeEmployee
-     * @param nameEmployee
-     * @param emailEmployee
-     * @param genderEmployee
-     * @param phoneEmployee
-     * @param addressEmployee
-     * @param division
-     * @param account
+     * @param employee
      */
     @Transactional
     @Modifying
@@ -154,27 +149,19 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " address_employee," +
             " account_id_account," +
             " division_id_division) " +
-            "VALUES" +
-            " (:codeEmployee," +
-            " :nameEmployee," +
-            " :emailEmployee," +
-            " :dateOfBirth" +
-            " :genderEmployee," +
-            " :phoneEmployee," +
-            " :addressEmployee," +
-            " :idAccount," +
-            " :idDivision)",
+            "VALUES " +
+            " (:#{#employee.codeEmployee}," +
+            " :#{#employee.nameEmployee}," +
+            " :#{#employee.emailEmployee}," +
+            " :#{#employee.dateOfBirth}" +
+            " :#{#employee.genderEmployee}," +
+            " :#{#employee.phoneEmployee}," +
+            " :#{#employee.addressEmployee}," +
+            " :#{#employee.account.idAccount}," +
+            " :#{#employee.division.idDivision})",
             nativeQuery = true)
     void saveEmployee(
-            @Param("codeEmployee") String codeEmployee,
-            @Param("nameEmployee") String nameEmployee,
-            @Param("emailEmployee") String emailEmployee,
-            @Param("dateOfBirth") String dateOfBirth,
-            @Param("genderEmployee") boolean genderEmployee,
-            @Param("phoneEmployee") String phoneEmployee,
-            @Param("addressEmployee") String addressEmployee,
-            @Param("idAccount") Account account,
-            @Param("idDivision") Division division
+            @Param("employee") Employee employee
     );
 
     /**
@@ -183,35 +170,24 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      * Function: update to employee
      *
      * @param id
-     * @param nameEmployee
-     * @param emailEmployee
-     * @param genderEmployee
-     * @param phoneEmployee
-     * @param addressEmployee
-     * @param division
+     * @param employee
      */
     @Transactional
     @Modifying
     @Query(value = "UPDATE employee" +
             " SET " +
-            " name_employee = :nameEmployee," +
-            " email_employee = :emailEmployee," +
-            " gender_employee = :genderEmployee," +
-            " phone_employee = :phoneEmployee," +
-            " address_employee = :addressEmployee, " +
-            " date_of_birth = :dateOfBirth," +
-            " division_id_division = :idDivision" +
+            " name_employee = :#{#employee.nameEmployee}," +
+            " email_employee = :#{#employee.emailEmployee}," +
+            " gender_employee = :#{#employee.genderEmployee}," +
+            " phone_employee = :#{#employee.phoneEmployee}," +
+            " address_employee = :#{#employee.addressEmployee}, " +
+            " date_of_birth = :#{#employee.dateOfBirth}," +
+            " division_id_division = :#{#employee.division.idDivision}" +
             " WHERE id_employee= :id",
             nativeQuery = true)
     void updateEmployee(
             @Param("id") Long id,
-            @Param("nameEmployee") String nameEmployee,
-            @Param("emailEmployee") String emailEmployee,
-            @Param("genderEmployee") boolean genderEmployee,
-            @Param("phoneEmployee") String phoneEmployee,
-            @Param("addressEmployee") String addressEmployee,
-            @Param("dateOfBirth") String dateOfBirth,
-            @Param("idDivision") Division division
+            @Param("employee") Employee employee
     );
 
     /**
@@ -223,7 +199,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
      */
     @Query(value = "SELECT * " +
             " FROM employee" +
-            " WHERE id_employee = :id",
+            " WHERE flag_deleted = false and id_employee = :id",
             nativeQuery = true)
     Optional<Employee> getByIdEmployee(@Param("id") Long id);
 

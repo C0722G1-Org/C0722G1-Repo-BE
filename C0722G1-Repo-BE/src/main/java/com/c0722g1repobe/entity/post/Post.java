@@ -51,6 +51,6 @@ public class Post {
     @ManyToOne
     private LandType landType;
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference
     private Customer customer;
 }

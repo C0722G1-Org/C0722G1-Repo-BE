@@ -310,7 +310,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND p.status_post_id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
@@ -336,7 +336,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND p.status_post_id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
@@ -380,7 +380,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND p.status_post_id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
@@ -406,7 +406,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND p.status_post_id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
@@ -453,7 +453,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND sp.id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
             "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
@@ -482,7 +482,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND sp.id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
                     "  AND d.name_direction LIKE CONCAT('%', :direction, '%')\n" +
@@ -755,7 +755,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 2\n" +
             "  AND p.status_post_id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -783,7 +783,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 2\n" +
                     "  AND p.status_post_id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -829,7 +829,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 2\n" +
             "  AND p.status_post_id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -857,7 +857,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 2\n" +
                     "  AND p.status_post_id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -905,7 +905,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 2\n" +
             "  AND sp.id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -935,7 +935,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 2\n" +
                     "  AND sp.id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1055,7 +1055,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 1\n" +
             "  AND p.status_post_id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1083,7 +1083,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 1\n" +
                     "  AND p.status_post_id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1129,7 +1129,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 1\n" +
             "  AND p.status_post_id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1157,7 +1157,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 1\n" +
                     "  AND p.status_post_id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1205,7 +1205,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 1\n" +
             "  AND sp.id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1235,7 +1235,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 1\n" +
                     "  AND sp.id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1353,7 +1353,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 3\n" +
             "  AND p.status_post_id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1381,7 +1381,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 3\n" +
                     "  AND p.status_post_id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1427,7 +1427,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 3\n" +
             "  AND p.status_post_id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1455,7 +1455,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 3\n" +
                     "  AND p.status_post_id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1503,7 +1503,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
             "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
             "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
             "WHERE p.flag_deleted = false\n" +
-            "  AND p.approval = 1\n" +
+            "  AND p.approval = true\n" +
             "  AND dt.id_demand_type = 3\n" +
             "  AND sp.id_status_post = 2\n" +
             "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
@@ -1533,7 +1533,7 @@ public interface IPostRepository extends JpaRepository<Post, Long> {
                     "         JOIN district d2 on d2.id_district = w.district_id_district\n" +
                     "         JOIN city c2 on c2.id_city = d2.city_id_city\n" +
                     "WHERE p.flag_deleted = false\n" +
-                    "  AND p.approval = 1\n" +
+                    "  AND p.approval = true\n" +
                     "  AND dt.id_demand_type = 3\n" +
                     "  AND sp.id_status_post = 2\n" +
                     "  AND lt.name_land_type LIKE CONCAT('%', :landType, '%')\n" +
