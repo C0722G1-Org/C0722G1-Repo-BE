@@ -2,6 +2,7 @@ package com.c0722g1repobe.entity.customer;
 
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.post.Post;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +43,7 @@ public class Customer {
     private String phoneCustomer2;
     @OneToOne
     private Account account;
+    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private Set<Post> postSet;
 }

@@ -1,19 +1,17 @@
 package com.c0722g1repobe.dto.form;
-
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-public class DataFormDto implements Validator {
+public class DataFormDto {
     @NotBlank
+    @Size(max = 200)
+    @Size(min = 5)
     private String contentDataForm;
     @NotBlank
     private String urlDataForm;
 
     public DataFormDto() {
     }
-
     public String getContentDataForm() {
         return contentDataForm;
     }
@@ -30,13 +28,4 @@ public class DataFormDto implements Validator {
         this.urlDataForm = urlDataForm;
     }
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return false;
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-
-    }
 }

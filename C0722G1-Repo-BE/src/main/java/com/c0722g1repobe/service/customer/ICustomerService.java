@@ -1,5 +1,6 @@
 package com.c0722g1repobe.service.customer;
 
+import com.c0722g1repobe.dto.customer.ICustomerDtoMailAndUserName;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.dto.customer.ICustomerDto;
 import com.c0722g1repobe.entity.customer.Customer;
@@ -63,6 +64,15 @@ public interface ICustomerService {
     void confirmCustomer(Long id);
 
     /**
+     * Create by: HocHH
+     * Date created: 31/01/2023
+     * Function: delete customer.
+     *
+     * @param id
+     */
+    void deleteCustomer(Long id);
+
+    /**
      * Create by: VanNTC
      * Date created: 31/01/2023
      * Function: find customer by id
@@ -80,6 +90,7 @@ public interface ICustomerService {
      */
     void updateCustomer(Customer customer);
 
+
     /**
      * creator: Trịnh Minh Đức
      * date:31/01/2023
@@ -88,7 +99,7 @@ public interface ICustomerService {
     String ramdomCodeCustomer();
     void saveCustomer(Customer customer);
 
-    List<String> findAllCheckMailCustomerAnhNameAccount();
+    List<ICustomerDtoMailAndUserName> findAllCheckMailCustomerAnhNameAccount();
 
 
 }

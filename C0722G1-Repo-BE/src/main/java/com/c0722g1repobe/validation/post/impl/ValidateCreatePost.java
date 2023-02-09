@@ -22,7 +22,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private final IAddressRepository addressRepository;
 
 
-    private static final String REGEX_VIETNAMESE = "[^aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0-9/ ]";
+    private static final String REGEX_VIETNAMESE = "[a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ/ ]*";
 
 
     public ValidateCreatePost(BaseResponseCreatePost baseResponseCreatePost, CustomerRepository customerRepository, IDemandTypeRepository demandTypeRepository, ILandTypeRepository landTypeRepository, IWardsRepository wardsRepository, IDirectionRepository directionRepository, IAddressRepository addressRepository) {
@@ -109,9 +109,8 @@ public class ValidateCreatePost implements IValidateCreatePost {
     private BaseResponseCreatePost validateIdCustomer() {
         try {
             Long idCustomer = baseResponseCreatePost.getCreatePostDto().getIdCustomer();
-
             boolean idCustomerIsNull = idCustomer == null;
-            boolean idCustomerIsEmpty = !idCustomerIsNull && idCustomer == Long.parseLong("");
+            boolean idCustomerIsEmpty = !idCustomerIsNull && idCustomer == -1L;
             boolean idCustomerNotExist = customerRepository.findIdByIdNativeQuery(idCustomer) == null;
             boolean idCustomerInvalidMin = !idCustomerIsNull && idCustomer < 1;
             boolean idCustomerInvalidMax = !idCustomerIsNull && idCustomer > 9000000000L;
@@ -156,7 +155,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
             Long idDemandType = baseResponseCreatePost.getCreatePostDto().getIdDemand();
 
             boolean idDemandTypeIsNull = idDemandType == null;
-            boolean idDemandTypeIsEmpty = !idDemandTypeIsNull && idDemandType == Long.parseLong("");
+            boolean idDemandTypeIsEmpty = !idDemandTypeIsNull && idDemandType == -1;
             boolean idDemandTypeNotExist = demandTypeRepository.findByIdNativeQuery(idDemandType) == null;
             boolean idDemandTypeInvalidMin = !idDemandTypeIsNull && idDemandType < 1;
             boolean idDemandTypeInvalidMax = !idDemandTypeIsNull && idDemandType > 9000000000L;
@@ -201,7 +200,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
             Long idLandType = baseResponseCreatePost.getCreatePostDto().getIdLandType();
 
             boolean idLandTypeIsNull = idLandType == null;
-            boolean idLandTypeIsEmpty = !idLandTypeIsNull && idLandType == Long.parseLong("");
+            boolean idLandTypeIsEmpty = !idLandTypeIsNull && idLandType == -1;
             boolean idLandTypeNotExist = landTypeRepository.findByIdNativeQuery(idLandType) == null;
             boolean idLandTypeInvalidMin = !idLandTypeIsNull && idLandType < 1;
             boolean idLandTypeInvalidMax = !idLandTypeIsNull && idLandType > 9000000000L;
@@ -246,7 +245,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
             Long idWards = baseResponseCreatePost.getCreatePostDto().getIdWards();
 
             boolean idWardsIsNull = idWards == null;
-            boolean idWardsIsEmpty = !idWardsIsNull && idWards == Long.parseLong("");
+            boolean idWardsIsEmpty = !idWardsIsNull && idWards == -1;
             boolean idWardsNotExist = wardsRepository.findNameByIdNativeQuery(idWards) == null;
             boolean idWardsInvalidMin = !idWardsIsNull && idWards < 1;
             boolean idWardsInvalidMax = !idWardsIsNull && idWards > 9000000000L;
@@ -291,7 +290,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
             Long idDirection = baseResponseCreatePost.getCreatePostDto().getIdDirection();
 
             boolean idDirectionIsNull = idDirection == null;
-            boolean idDirectionIsEmpty = !idDirectionIsNull && idDirection == Long.parseLong("");
+            boolean idDirectionIsEmpty = !idDirectionIsNull && idDirection == -1;
             boolean idDirectionNotExist = directionRepository.findByIdNativeQuery(idDirection) == null;
             boolean idDirectionInvalidMin = !idDirectionIsNull && idDirection < 1;
             boolean idDirectionInvalidMax = !idDirectionIsNull && idDirection > 9000000000L;
@@ -336,13 +335,10 @@ public class ValidateCreatePost implements IValidateCreatePost {
 
         boolean numberAddressIsNull = numberAddress == null;
         boolean numberAddressIsEmptyOrBlank = !numberAddressIsNull && (numberAddress.isEmpty() || numberAddress.trim().isEmpty());
-        boolean numberAddressInvalidMin = !numberAddressIsNull && numberAddress.length() < 10;
+        boolean numberAddressInvalidMin = !numberAddressIsNull && numberAddress.length() < 5;
         boolean numberAddressInvalidMax = !numberAddressIsNull && numberAddress.length() > 50;
 
-        Pattern pattern = Pattern.compile(REGEX_VIETNAMESE);
-
-        Matcher matcher = pattern.matcher(numberAddress);
-        boolean numberAddressInvalidCharacters = matcher.find();
+        boolean numberAddressInvalidCharacters = !numberAddressIsNull && !numberAddress.matches(REGEX_VIETNAMESE);
 
         if (numberAddressIsNull) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận địa chỉ - địa chỉ cụ thể (null)");
@@ -380,7 +376,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
 
             boolean priceIsNull = price == null;
             boolean invalidPriceMinMax = !priceIsNull && (price < 1000000 || price > 100000000000d);
-            boolean priceIsEmpty = !priceIsNull && price == Double.parseDouble("");
+            boolean priceIsEmpty = !priceIsNull && price == 0;
 
 
             if (priceIsNull) {
@@ -418,7 +414,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
 
             boolean areaIsNull = area == null;
             boolean invalidAreaMinMax = !areaIsNull && (area < 10 || area > 10000);
-            boolean areaIsEmpty = !areaIsNull && area == Double.parseDouble("");
+            boolean areaIsEmpty = !areaIsNull && area == 0;
 
 
             if (areaIsNull) {
@@ -454,12 +450,9 @@ public class ValidateCreatePost implements IValidateCreatePost {
         String note = baseResponseCreatePost.getCreatePostDto().getNote();
 
         boolean noteIsNull = note == null;
-        boolean noteInvalidMax = !noteIsNull && note.length() > 500;
+        boolean noteInvalidMax = !noteIsNull && note.length() > 255;
 
-        Pattern pattern = Pattern.compile(REGEX_VIETNAMESE);
-
-        Matcher matcher = pattern.matcher(note);
-        boolean noteInvalidCharacters = matcher.find();
+        boolean noteInvalidCharacters = !noteIsNull && !note.matches(REGEX_VIETNAMESE);
 
         if (noteIsNull) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận mô tả chi tiết (null)");
@@ -467,7 +460,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
         }
 
         if (noteInvalidMax) {
-            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mô tả chi tiết không hợp lệ (Tối đa 500 kí tự)");
+            setBaseResponseCreatePostWhenInvalidWithCustomMessage("Mô tả chi tiết không hợp lệ (Tối đa 255 kí tự)");
             return baseResponseCreatePost;
         }
 
@@ -562,10 +555,7 @@ public class ValidateCreatePost implements IValidateCreatePost {
         boolean namePostInvalidMin = !namePostIsNull && namePost.length() < 10;
         boolean namePostInvalidMax = !namePostIsNull && namePost.length() > 50;
 
-        Pattern pattern = Pattern.compile(REGEX_VIETNAMESE);
-
-        Matcher matcher = pattern.matcher(namePost);
-        boolean namePostInvalidCharacters = matcher.find();
+        boolean namePostInvalidCharacters = !namePostIsNull && !namePost.matches(REGEX_VIETNAMESE);
 
         if (namePostIsNull) {
             setBaseResponseCreatePostWhenInvalidWithCustomMessage("Lỗi tiếp nhận tên bài đăng (null)");
