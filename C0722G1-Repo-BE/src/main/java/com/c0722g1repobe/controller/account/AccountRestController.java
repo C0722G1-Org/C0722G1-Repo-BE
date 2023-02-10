@@ -96,11 +96,12 @@ public class AccountRestController {
                 if (matches) {
                     account.setEncryptPassword(passwordEncoder.encode(accountDto.getNewPassword()));
                     accountService.updatePassword(account);
+                    return new ResponseEntity<>( HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<>("Vui lòng nhập lại!", HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>( HttpStatus.NOT_IMPLEMENTED);
                 }
             }
-            return new ResponseEntity<>("Cập nhật thành công!", HttpStatus.OK);
+            return new ResponseEntity<>("Cập nhật thành công!", HttpStatus.BAD_REQUEST);
         } catch (UsernameNotFoundException exception) {
             return new ResponseEntity<>("Cập nhật thất bại!", HttpStatus.BAD_REQUEST);
         }
