@@ -111,7 +111,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
      * @return List customer have paging and search.
      */
 
-    @Query(value = " select * from customer where ( name_customer like %:allSearch%  or address_customer like %:allSearch%) and flag_delete = false order by approval_customer asc ",
+    @Query(value = " select * from customer where ( name_customer like %:allSearch%  or address_customer like %:allSearch%) and flag_delete = false order by approval_customer asc , id_customer desc",
             nativeQuery = true)
     Page<ICustomerDto> searchCustomer(@Param("allSearch") String allSearch,
                                       Pageable pageable);
