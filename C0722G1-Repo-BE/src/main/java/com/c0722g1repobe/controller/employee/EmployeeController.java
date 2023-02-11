@@ -6,6 +6,7 @@ import com.c0722g1repobe.dto.employee.EmployeeInfo;
 import com.c0722g1repobe.entity.account.Account;
 import com.c0722g1repobe.entity.account.Role;
 import com.c0722g1repobe.entity.account.RoleName;
+import com.c0722g1repobe.service.account.impl.AccountService;
 import com.c0722g1repobe.service.account.impl.RoleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,9 @@ public class EmployeeController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private AccountService accountService;
 
     /**
      * Create by: NhanUQ
@@ -114,16 +118,18 @@ public class EmployeeController {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
         Account account = new Account();
-        account.setName(employee.getNameEmployee());
-        account.setUsernameAccount(employee.getAccount().getUsernameAccount());
-        account.setEncryptPassword(passwordEncoder.encode(employee.getAccount().getEncryptPassword()));
-        account.setEmail(employee.getEmailEmployee());
+        BeanUtils.copyProperties(employeeDto, account);
+        account.setEmail(employeeDto.getEmailEmployee());
+        account.setEncryptPassword(passwordEncoder.encode(employeeDto.getAccount().getEncryptPassword()));
+        account.setUsernameAccount(employeeDto.getAccount().getUsernameAccount());
+        account.setName(employeeDto.getNameEmployee());
         Set<Role> roles = new HashSet<>();
         Role employeeRole = roleService.findByNameAccount(RoleName.EMPLOYEE).orElseThrow(() -> new RuntimeException("Role not found"));
         roles.add(employeeRole);
         account.setRoles(roles);
-        employeeService.saveAccount(account);
-        employee.setAccount(account);
+        Account account1 = accountService.createAccount(account);
+        BeanUtils.copyProperties(employeeDto, employee);
+        employee.setAccount(account1);
         employeeService.saveEmployee(employee);
         return new ResponseEntity<>(HttpStatus.OK);
     }

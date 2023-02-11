@@ -39,7 +39,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " FROM employee as e " +
             " JOIN division as d " +
             " ON e.division_id_division = d.id_division " +
-            " WHERE e.flag_deleted = false ORDER BY e.code_employee",
+            " WHERE e.flag_deleted = false ORDER BY e.id_employee DESC",
             countQuery = "SELECT * FROM " +
                     " (SELECT e.id_employee as idEmployee," +
                     " e.code_employee as codeEmployee," +
@@ -52,10 +52,10 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
                     " FROM employee as e " +
                     " JOIN division as d " +
                     " ON e.division_id_division = d.id_division " +
-                    " WHERE e.flag_deleted = false ORDER BY e.code_employee) " +
+                    " WHERE e.flag_deleted = false ORDER BY e.id_employee DESC) " +
                     " as count_employee",
             nativeQuery = true)
-    Page<EmployeeInfo> getAllEmployee(Pageable pageable);
+            Page<EmployeeInfo> getAllEmployee(Pageable pageable);
 
     /**
      * Create by: NhanUQ
@@ -86,7 +86,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " AND e.name_employee LIKE CONCAT('%', :nameSearch, '%') " +
             " AND e.email_employee LIKE CONCAT('%', :emailSearch, '%') " +
             " AND d.name_division LIKE CONCAT('%', :nameDivisionSearch, '%'))" +
-            " ORDER BY e.code_employee",
+            " ORDER BY e.id_employee DESC",
             countQuery = "SELECT * FROM " +
                     " (SELECT " +
                     " e.id_employee as idEmployee," +
@@ -105,10 +105,10 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
                     " AND e.name_employee LIKE CONCAT('%', :nameSearch, '%') " +
                     " AND e.email_employee LIKE CONCAT('%', :emailSearch, '%') " +
                     " AND d.name_division LIKE CONCAT('%', :nameDivisionSearch, '%'))" +
-                    " ORDER BY e.code_employee) " +
+                    " ORDER BY e.id_employee DESC) " +
                     " as count_employee",
             nativeQuery = true)
-    Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(
+            Page<EmployeeInfo> searchEmployeeByCodeByNameByEmailByNameDivision(
             @Param("codeSearch") String codeSearch,
             @Param("nameSearch") String nameSearch,
             @Param("emailSearch") String emailSearch,
@@ -149,6 +149,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
             " address_employee," +
             " account_id_account," +
             " division_id_division) " +
+            "VALUES " +
             " (:#{#employee.codeEmployee}," +
             " :#{#employee.nameEmployee}," +
             " :#{#employee.emailEmployee}," +

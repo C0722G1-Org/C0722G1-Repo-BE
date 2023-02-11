@@ -12,5 +12,7 @@ public interface PostListViewDto {
     String getCity();
     List<String> url();
     String getDateCreation();
-
+    String getNameLandType();
+    String getNameDirection();
+    String getIdDemandType();
 }

@@ -1,20 +1,27 @@
 package com.c0722g1repobe.service.post;
 
-import com.c0722g1repobe.dto.post.PostDetailDto;
-import com.c0722g1repobe.dto.post.PostDtoViewList;
+import com.c0722g1repobe.dto.post.*;
 
 import java.util.List;
 
 import com.c0722g1repobe.dto.post.create_post.BaseResponseCreatePost;
 import com.c0722g1repobe.dto.post.create_post.CreatePostDto;
 import org.springframework.data.repository.query.Param;
-import com.c0722g1repobe.dto.post.PostDto;
-import com.c0722g1repobe.dto.post.PostListViewDto;
 import com.c0722g1repobe.entity.post.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IPostService {
+
+    /**
+     * Created by: BaoDP
+     * Date Created: 03/022023
+     *
+     * @param idAccount
+     * @return page post customer
+     */
+    CustomerGetIdAndCodCustomer getIdCustomerAndCodeCustomer(@Param("idAccount") Long idAccount);
+
     /**
      * Created by: UyDD
      * Date Created: 31/01/2023
@@ -122,7 +129,7 @@ public interface IPostService {
      * @return json list posts
      */
     Page<PostDto> searchAllPost(String demandTypeSearch, String lendTypeSearch, Double minPriceSearch, Double maxPriceSearch,
-                                String citySearch, String districtSearch, String wardsSearch, Pageable pageable);
+                                String citySearch, String districtSearch, String wardsSearch, Double minAreSearch, Double maxAreSearch, Pageable pageable);
 
     /**
      * Create by: NgocLV
@@ -154,4 +161,58 @@ public interface IPostService {
      * @return HttpStatus
      */
     void succeedConfirm(@Param("id") Long id);
+
+    /**
+     * Method uses:
+     * find all list posts for sell of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllSell(String area, String price, String landType, String direction, String city, Pageable pageable);
+    /**
+     * Method uses:
+     * find all list posts for buy of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllBuy(String area, String price, String landType, String direction, String city, Pageable pageable);
+    /**
+     * Method uses:
+     * find all list posts for rent of homepage
+     * Created by: SangNP
+     * Created date: 31/01/2023
+     *
+     * @param area
+     * @param price
+     * @param landType
+     * @param direction
+     * @param city
+     * @param pageable
+     * @return Page<PostListViewDto> and null if not found
+     */
+    Page<PostListViewDto> findAllRent(String area, String price, String landType, String direction, String city, Pageable pageable);
+
+    /**
+     * created by HuyDN
+     *
+     * @param id: Long
+     * @return
+     */
+    Long getIdAccountByIdCustomer(@Param("id") Long id);
 }

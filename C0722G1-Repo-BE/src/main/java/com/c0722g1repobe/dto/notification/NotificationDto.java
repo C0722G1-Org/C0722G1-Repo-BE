@@ -81,18 +81,10 @@ public class NotificationDto implements Validator {
 
         if (notificationDto.getTitle().equals("")) {
             errors.rejectValue("title", "title", "Tiêu đề không được bỏ trống");
-        } else {
-            if (!notificationDto.getTitle().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{2,30}$")) {
-                errors.rejectValue("title", "title", "Tiêu đề không đúng định dạng !");
-            }
         }
 
         if (notificationDto.getContent().equals("")) {
             errors.rejectValue("content", "content", "Nội dung không được bỏ trống");
-        } else {
-            if (!notificationDto.getContent().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{2,30}$")) {
-                errors.rejectValue("content", "content", "Tiêu đề không đúng định dạng !");
-            }
         }
 
     }

@@ -2,6 +2,7 @@ package com.c0722g1repobe.entity.post;
 
 
 import com.c0722g1repobe.entity.customer.Customer;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -33,8 +34,8 @@ public class Post {
     private Double area;
     private String note;
     private Double price;
+    @JsonManagedReference
     @OneToMany(mappedBy = "post")
-    @JsonBackReference
     private Set<Image> imageSet;
     private boolean flagDeleted = false;
     private boolean approval;

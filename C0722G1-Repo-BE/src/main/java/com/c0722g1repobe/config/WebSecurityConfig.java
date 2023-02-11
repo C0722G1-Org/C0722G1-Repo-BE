@@ -60,13 +60,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/api/employees/**").hasAnyRole("EMPLOYEE","ADMIN")
                 .anyRequest()
                 .authenticated()
-//                .and()
-//                .exceptionHandling()
-//                .authenticationEntryPoint(jwtEntryPoint)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-//        httpSecurity.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

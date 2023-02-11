@@ -22,17 +22,16 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(accountPrinciple.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + jwtExpiration))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setExpiration(new Date(new Date().getTime() + jwtExpiration * 1000))
+                .signWith(SignatureAlgorithm.HS384, jwtSecret)
                 .compact();
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token) { // kiểm tra còn sống hay không
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
-            return true;
-        } catch (ExpiredJwtException e) {
-            logger.error("Expired JWT token -> Message: {}", e);
+            if (Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().equals("letahaphuong@gmail.com")) {
+                return true;
+            }
         } catch (UnsupportedJwtException e) {
             logger.error("Unsupported JWT token -> Message: {}", e);
         } catch (MalformedJwtException e) {
@@ -43,6 +42,8 @@ public class JwtProvider {
 
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty -> Message: {}", e);
+        } catch (ExpiredJwtException e) {
+            logger.error("Expired JWT token -> Message: {thời gian sống}", e);
         }
         return false;
     }
